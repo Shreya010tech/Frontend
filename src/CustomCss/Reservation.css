@@ -1,0 +1,40 @@
+@import url("https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+i {
+  font-size: 30px;
+}
+
+.w-70 {
+  width: 70px;
+}
+
+.bg-skyblue {
+  background-color: #d8f4f5;
+}
+
+table {
+  border: none;
+  border-collapse: collapse;
+}
+
+table thead {
+  border-bottom: 1px solid #a59d9d;
+}
+
+table td {
+  border-left: 1px solid #a59d9d;
+}
+
+table td:first-child {
+  border-left: none;
+}
+
+.bxs-check-circle {
+  font-size: 120px;
+}
