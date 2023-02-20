@@ -1,5 +1,6 @@
 import React from "react";
 import homeimg from "../img/homeimg.png";
+import "../CustomCss/home3css.css";
 const Home3 = () => {
   return (
    <div className="container" id="fixheight">
