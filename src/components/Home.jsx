@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import homeimg from "../img/homeimg.png";
 const Home = () => {
   return (
@@ -44,9 +45,11 @@ const Home = () => {
               />
             </div>
             <center>
-              <button type="submit" className="btn btn-primary">
-                Sign In
-              </button>
+              <NavLink to="/Home3">
+                <button type="submit" className="btn btn-primary">
+                  Sign In
+                </button>
+              </NavLink>
             </center>
           </form>
         </div>

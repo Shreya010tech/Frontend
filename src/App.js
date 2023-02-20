@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import AllReservations from "./components/AllReservations";
 import Home from "./components/Home";
+import Home3 from "./components/home3";
 import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
@@ -12,6 +13,7 @@ const App = () => {
       {/* Routes Setup */}
       <Routes>
         <Route exact path="/Home" element={<Home />} />
+        <Route exact path="/Home3" element={<Home3 />} />
         <Route exact path="/AllReservations" element={<AllReservations />} />
         <Route exact path="/Reservation" element={<Reservation />} />
         <Route
