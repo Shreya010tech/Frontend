@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import AllReservations from "./components/AllReservations";
 import Home from "./components/Home";
+import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
 
@@ -18,6 +19,7 @@ const App = () => {
           path="/ReservationConfirmation"
           element={<ReservationConfirmation />}
         />
+        <Route exact path="/Profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>
