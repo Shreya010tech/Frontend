@@ -7,10 +7,10 @@
 }
 
 i {
-  font-size: 30px;
+  font-size: 25px;
 }
 
-.w-70 {
+.w-70{
   width: 70px;
 }
 
@@ -18,23 +18,32 @@ i {
   background-color: #d8f4f5;
 }
 
-table {
-  border: none;
-  border-collapse: collapse;
+table { 
+  border: none; 
+  border-collapse: collapse; 
 }
 
-table thead {
-  border-bottom: 1px solid #a59d9d;
+table thead { 
+  border-bottom: 1px solid #a59d9d; 
 }
 
-table td {
-  border-left: 1px solid #a59d9d;
+table td { 
+  border-left: 1px solid #a59d9d; 
 }
 
-table td:first-child {
-  border-left: none;
+table td:first-child { 
+  border-left: none; 
 }
 
 .bxs-check-circle {
   font-size: 120px;
+}
+
+.button-padding-5{padding: 5px;}
+
+.height-30{height: 30px;}
+
+.rev-margin-gap{
+  margin-top: 1px !important;
+  margin-bottom: 1px !important;
 }
