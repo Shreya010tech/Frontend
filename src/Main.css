@@ -21,6 +21,10 @@ body
   background: rgba(236, 245, 255, 1);
   width: 100%;
   min-height: 80vh;
+  padding: 30px;
+  margin-top: 30px;
+  border-radius: 10px;
+  color: rgba(71, 99, 253, 1);
 }
 .formcss
 {
