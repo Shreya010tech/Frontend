@@ -1,10 +1,16 @@
 import React from "react";
-
+import homeimg from "../img/homeimg.png";
 const Home = () => {
   return (
-    <div>
-      <h1>Example Home Component</h1>
-      <h3>Welcome To SIT HMCT!</h3>
+    <div className="container" id="HomeCss">
+      <div className="row">
+        <div className="col-sm" id="homeimgcss">
+          <img src={homeimg} className="imgfix" />
+        </div>
+        <div className="col-sm">
+          <h1>Home</h1>
+        </div>
+      </div>
     </div>
   );
 };

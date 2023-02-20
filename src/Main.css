@@ -2,3 +2,12 @@ body
 {
   font-family: Georgia;
 }
+.homeimgcss
+{
+  background: rgba(178, 226, 246, 0.23);
+}
+.imgfix
+{
+  width: 100%;
+  height: auto;
+}
