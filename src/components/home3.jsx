@@ -4,7 +4,7 @@ import "../CustomCss/home3css.css";
 import { NavLink } from "react-router-dom";
 const Home3 = () => {
   return (
-    <div className="container" id="fixheight">
+    <div className="containerhome3" id="fixheight">
       <div className="left">
         <div>
           <h1>
