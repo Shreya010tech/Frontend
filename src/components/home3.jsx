@@ -32,6 +32,9 @@ const Home3 = () => {
           <NavLink to="/Application">
           <button className="btn btn-primary">Application</button>
           </NavLink>&nbsp;
+          <NavLink to="/Notice">
+          <button className="btn btn-primary">Notice</button>
+          </NavLink>&nbsp;
         </div>
       </div>
       <div className="right">

@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import AllReservations from "./components/AllReservations";
 import Application from "./components/Application";
+import Notice from "./components/Notice";
 import Home from "./components/Home";
 import Home3 from "./components/home3";
 import Profile from "./components/Profile";
@@ -26,6 +27,7 @@ const App = () => {
         <Route exact path="/Profile" element={<Profile />} />
         <Route exact path="/RoomAvailability" element={<RoomAvailability />} />
         <Route exact path="/Application" element={<Application />} />
+        <Route exact path="/Notice" element={<Notice />} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>
