@@ -16,11 +16,20 @@ body
   font-size: 10rem!important;
   color: rgba(71, 99, 253, 1)!important;
 }
+.profile-details
+{
+  margin-left: 4px;
+}
+.profile-details p
+{
+  color: #4763FD;
+}
 .profile-box
 {
   background: rgba(236, 245, 255, 1);
   width: 100%;
-  min-height: 80vh;
+  /* max-width: 600px; */
+  /* min-height: 80vh; */
   padding: 30px;
   margin-top: 30px;
   border-radius: 10px;
