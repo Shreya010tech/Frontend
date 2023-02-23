@@ -6,6 +6,7 @@ import Home3 from "./components/home3";
 import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
+import RoomAvailability from "./components/RoomAvailability";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           element={<ReservationConfirmation />}
         />
         <Route exact path="/Profile" element={<Profile />} />
+        <Route exact path="/RoomAvailability" element={<RoomAvailability />} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>

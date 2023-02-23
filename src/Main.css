@@ -60,6 +60,47 @@ body
   width: 100%;
   height: auto;
 }
+.image-slider
+{
+  background: #EDF8FD;
+  padding: 30px;
+  border-radius: 15px;
+}
+.imgfix-rooms
+{
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+.roomcirclered
+{
+  width: 60px;
+  height: 45px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.5);
+  padding: 8px;
+}
+.roomcircleyellow
+{
+  width: 60px;
+  height: 45px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 0, 0.5);
+  padding: 8px;
+}
+.roomcirclegreen
+{
+  width: 60px;
+  height: 45px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: rgba(0, 255, 0, 0.5);
+  padding: 8px;
+}
 .imgformfix
 {
   width: 100%;

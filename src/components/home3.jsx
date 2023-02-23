@@ -23,6 +23,12 @@ const Home3 = () => {
           <NavLink to="/ReservationConfirmation">
           <button className="btn btn-primary">Reservation Confirmation</button>
           </NavLink>&nbsp;
+          <NavLink to="/Profile">
+          <button className="btn btn-primary">Profile</button>
+          </NavLink>&nbsp;
+          <NavLink to="/RoomAvailability">
+          <button className="btn btn-primary">Room Availability</button>
+          </NavLink>&nbsp;
         </div>
       </div>
       <div className="right">
