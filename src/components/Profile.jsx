@@ -9,7 +9,7 @@ const Profile = () => {
             <a className="text-primary" href="/#">
               <i className="bx bx-chevrons-left"></i>
             </a>
-            <h5 className="text-primary">Home</h5>
+            <h5 className="text-primary">Profile</h5>
           </div>
         </div>
       </nav>
