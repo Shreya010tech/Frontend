@@ -29,6 +29,9 @@ const Home3 = () => {
           <NavLink to="/RoomAvailability">
           <button className="btn btn-primary">Room Availability</button>
           </NavLink>&nbsp;
+          <NavLink to="/Application">
+          <button className="btn btn-primary">Application</button>
+          </NavLink>&nbsp;
         </div>
       </div>
       <div className="right">
