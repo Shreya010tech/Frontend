@@ -1,8 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { useState } from "react";
 import "../CustomCss/Reservation.css";
 
 const ReservationConfirmation = () => {
+  const [amountPaid, setAmountPaid] = useState("");
+
+  const handleInputChange = (e) => {
+    if(e.target.name == "amountpaid"){ setAmountPaid(e.target.value) }
+  }
+
   return (
     <div>
       <div className="bg-light vh-100">
@@ -75,16 +82,17 @@ const ReservationConfirmation = () => {
                 </div>
                 <div className="col-md-6 d-flex align-items-center">
                   <label
-                    htmlFor="amountPaid"
+                    htmlFor="amountpaid"
                     className="col-sm-3 col-form-label fw-bold"
                   >
                     Amount Paid
                   </label>
                   <div className="col-sm-7">
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="inputAmount"
+                      name="amountpaid" value={amountPaid} onChange={handleInputChange}
                     />
                   </div>
                 </div>
