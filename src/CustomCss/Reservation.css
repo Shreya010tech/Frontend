@@ -18,6 +18,8 @@ i {
 
 .width-280{width: 280px !important;}
 
+.width-50percent{width: 50%;}
+
 .bg-skyblue {
   background-color: #d8f4f5 !important;
 }
@@ -74,6 +76,12 @@ table td:first-child {
 
 @media screen and (max-width:1100px) {
   .margin-left-180{margin-left: 150px;}
+
+  .large-button-width-40{width: 40px;}
+
+  .large-button-width-60{width: 60px;}
+
+  .large-button-font-size-12{font-size: 12px !important;}
 }
 
 @media screen and (max-width:767px) {
@@ -101,6 +109,8 @@ table td:first-child {
   .margin-left-180{margin-left: 50px;}
 
   .small-width-180{width: 180px;}
+
+  .small-width-100percent{width: 100%;}
 
   .small-margin-left-right-10{
     margin-left: 10px;

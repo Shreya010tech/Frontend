@@ -22,44 +22,44 @@ const ReservationConfirmation = () => {
               <div className="d-flex align-items-center column-gap-5 mb-3">
                 <i className="bx bxs-check-circle text-primary"></i>
                 <div className="d-flex align-items-center justify-content-center">
-                  <h3 className="pt-2 text-primary">
+                  <h3 className="pt-2 text-primary small-font-size-20">
                     Booking has been done Successfully
                   </h3>
                 </div>
               </div>
-              <div className="d-flex mb-3">
-                <div className="col-md-6 d-flex">
-                  <label for="bookingId" className="col-sm-3 fs-5 text-primary">
+              <div className="d-flex medium-flex-column mb-3">
+                <div className="width-50percent medium-width-full d-flex">
+                  <label htmlFor="bookingId" className="fs-5 text-primary padding-right-20 medium-padding-right-50 extra-small-padding-right-35">
                     Booking Id
                   </label>
-                  <div className="col-sm-7">
+                  <div>
                     <h5 className="pt-1">#wb15238pl</h5>
                   </div>
                 </div>
-                <div className="col-md-6 d-flex">
-                  <label for="guestName" className="col-sm-3 fs-5 text-primary">
+                <div className="width-50percent medium-width-full d-flex">
+                  <label htmlFor="guestName" className="fs-5 text-primary padding-right-20 medium-padding-right-40 extra-small-padding-right-35">
                     Guest Name
                   </label>
-                  <div className="col-sm-7">
+                  <div>
                     <h5 className="pt-1">Mr. Anirban Sen</h5>
                   </div>
                 </div>
               </div>
-              <div className="d-flex mb-3">
-                <div className="col-md-6 d-flex">
-                  <label for="checkIn" className="col-sm-3 fs-5 text-primary">
+              <div className="d-flex medium-flex-column mb-3">
+                <div className="width-50percent medium-width-full d-flex">
+                  <label htmlFor="checkIn" className="fs-5 text-primary padding-right-36 medium-padding-right-70">
                     Check In
                   </label>
-                  <div className="col-sm-7">
+                  <div>
                     <h5 className="pt-1">09-08-2023</h5>
                     <h5>11:04 A.M onwards</h5>
                   </div>
                 </div>
-                <div className="col-md-6 d-flex">
-                  <label for="checkout" className="col-sm-3 fs-5 text-primary">
+                <div className="width-50percent medium-width-full d-flex">
+                  <label htmlFor="checkout" className="fs-5 text-primary padding-right-36 medium-padding-right-55">
                     Check Out
                   </label>
-                  <div className="col-sm-7">
+                  <div>
                     <h5 className="pt-1">12-08-2023</h5>
                     <h5>With in 11:00 A.M</h5>
                   </div>
@@ -75,7 +75,7 @@ const ReservationConfirmation = () => {
                 </div>
                 <div className="col-md-6 d-flex align-items-center">
                   <label
-                    for="amountPaid"
+                    htmlFor="amountPaid"
                     className="col-sm-3 col-form-label fw-bold"
                   >
                     Amount Paid

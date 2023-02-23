@@ -39,7 +39,7 @@ const Reservation = () => {
           </div>
           <form className="row g-3 bg-skyblue d-flex align-items-center justify-content-center mt-0 p-1">
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="name" className="col-sm-3 col-form-label">
+              <label htmlFor="name" className="col-sm-3 col-form-label">
                 Guest Name
               </label>
               <div className="col-sm-7 d-flex column-gap-1">
@@ -56,7 +56,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="Phone Number" className="col-sm-3 col-form-label">
+              <label htmlFor="Phone Number" className="col-sm-3 col-form-label">
                 Phone No{" "}
               </label>
               <div className="col-sm-7">
@@ -64,7 +64,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="address" className="col-sm-3 col-form-label">
+              <label htmlFor="address" className="col-sm-3 col-form-label">
                 Address{" "}
               </label>
               <div className="col-sm-7">
@@ -72,7 +72,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="company" className="col-sm-3 col-form-label">
+              <label htmlFor="company" className="col-sm-3 col-form-label">
                 Company{" "}
               </label>
               <div className="col-sm-7">
@@ -80,7 +80,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="arrivalDate" className="col-sm-3 col-form-label">
+              <label htmlFor="arrivalDate" className="col-sm-3 col-form-label">
                 Arrival Date{" "}
               </label>
               <div className="col-sm-7">
@@ -93,7 +93,7 @@ const Reservation = () => {
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center">
-                <label for="designation" className="col-sm-6 col-form-label">
+                <label htmlFor="designation" className="col-sm-6 col-form-label">
                   Designation{" "}
                 </label>
                 <div className="col-sm-5">
@@ -105,7 +105,7 @@ const Reservation = () => {
                 </div>
               </div>
               <div className="col-md-6 d-flex align-items-center">
-                <label for="travelAgent" className="col-sm-4 col-form-label">
+                <label htmlFor="travelAgent" className="col-sm-4 col-form-label">
                   Travel Agent{" "}
                 </label>
                 <div className="col-sm-4">
@@ -118,7 +118,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="depDate" className="col-sm-3 col-form-label">
+              <label htmlFor="depDate" className="col-sm-3 col-form-label">
                 Departure Date{" "}
               </label>
               <div className="col-sm-7">
@@ -130,7 +130,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="arrivalTime" className="col-sm-3 col-form-label">
+              <label htmlFor="arrivalTime" className="col-sm-3 col-form-label">
                 Arrival Time{" "}
               </label>
               <div className="col-sm-7">
@@ -142,32 +142,32 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="arrivalTime" className="col-sm-3 col-form-label">
+              <label htmlFor="arrivalTime" className="col-sm-3 col-form-label">
                 Type of Room{" "}
               </label>
               <div className="col-sm-7 d-flex justify-content-between">
                 <button
                   type="button"
-                  className="d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 height-30"
+                  className="d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 height-30 large-button-width-60 large-button-font-size-12"
                 >
                   Standard
                 </button>
                 <button
                   type="button"
-                  className="d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 height-30"
+                  className="d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 height-30 large-button-width-60 large-button-font-size-12"
                 >
                   Delux
                 </button>
                 <button
                   type="button"
-                  className="d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 height-30"
+                  className="d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 height-30 large-button-width-60 large-button-font-size-12"
                 >
                   Executive
                 </button>
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="depTime" className="col-sm-3 col-form-label">
+              <label htmlFor="depTime" className="col-sm-3 col-form-label">
                 Departure Time{" "}
               </label>
               <div className="col-sm-7">
@@ -179,7 +179,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="pax" className="col-sm-3 col-form-label">
+              <label htmlFor="pax" className="col-sm-3 col-form-label">
                 No of Pax{" "}
               </label>
               <div className="col-sm-7">
@@ -188,7 +188,7 @@ const Reservation = () => {
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center">
-                <label for="roomNo" className="col-sm-6 col-form-label">
+                <label htmlFor="roomNo" className="col-sm-6 col-form-label">
                   Room No{" "}
                 </label>
                 <div className="col-sm-5">
@@ -200,7 +200,7 @@ const Reservation = () => {
                 </div>
               </div>
               <div className="col-md-6 d-flex align-items-center">
-                <label for="travelAgent" className="col-sm-4 col-form-label">
+                <label htmlFor="travelAgent" className="col-sm-4 col-form-label">
                   No of Room{" "}
                 </label>
                 <div className="col-sm-4">
@@ -213,7 +213,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="modeOfArrival" className="col-sm-3 col-form-label">
+              <label htmlFor="modeOfArrival" className="col-sm-3 col-form-label">
                 Mode of Arrival{" "}
               </label>
               <div className="col-sm-7">
@@ -225,7 +225,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="trainNo" className="col-sm-3 col-form-label">
+              <label htmlFor="trainNo" className="col-sm-3 col-form-label">
                 Train No{" "}
               </label>
               <div className="col-sm-7">
@@ -233,7 +233,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="flightNo" className="col-sm-3 col-form-label">
+              <label htmlFor="flightNo" className="col-sm-3 col-form-label">
                 Flight No{" "}
               </label>
               <div className="col-sm-7">
@@ -245,7 +245,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="roomRate" className="col-sm-3 col-form-label">
+              <label htmlFor="roomRate" className="col-sm-3 col-form-label">
                 Room Rate{" "}
               </label>
               <div className="col-sm-7">
@@ -257,25 +257,25 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="modeOfPayment" className="col-sm-3 col-form-label">
+              <label htmlFor="modeOfPayment" className="col-sm-3 col-form-label">
                 Mode of Payment{" "}
               </label>
               <div className="col-sm-7 d-flex justify-content-between">
                 <button
                   type="button"
-                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5"
+                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5  large-button-width-60 large-button-font-size-12"
                 >
                   Cash
                 </button>
                 <button
                   type="button"
-                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5"
+                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5  large-button-width-60 large-button-font-size-12"
                 >
                   Card
                 </button>
                 <button
                   type="button"
-                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5"
+                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5  large-button-width-60 large-button-font-size-12"
                 >
                   UPI
                 </button>
@@ -283,20 +283,20 @@ const Reservation = () => {
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
                 <div className="col-md-6 d-flex align-items-center">
-                    <label for="roomNo" className="col-sm-6 col-form-label">Discount amount </label>
+                    <label htmlFor="roomNo" className="col-sm-6 col-form-label">Discount amount </label>
                     <div class="col-sm-5">
                         <input type="text" className="form-control height-30" id="inputRoomNo" />
                     </div>
                 </div>
                 <div class="col-md-6 d-flex align-items-center">
-                    <label for="travelAgent" className="col-sm-4 col-form-label">Discount % </label>
+                    <label htmlFor="travelAgent" className="col-sm-4 col-form-label">Discount % </label>
                     <div class="col-sm-4">
                         <input type="text" className="form-control height-30" id="inputNoOfRoom" />
                     </div>
                 </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="cardNo" className="col-sm-3 col-form-label">
+              <label htmlFor="cardNo" className="col-sm-3 col-form-label">
                 Card No{" "}
               </label>
               <div className="col-sm-7">
@@ -304,7 +304,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="upi" className="col-sm-3 col-form-label">
+              <label htmlFor="upi" className="col-sm-3 col-form-label">
                 UPI{" "}
               </label>
               <div className="col-sm-7">
@@ -312,7 +312,7 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="dateOfBooking" className="col-sm-3 col-form-label">
+              <label htmlFor="dateOfBooking" className="col-sm-3 col-form-label">
                 Date of Booking{" "}
               </label>
               <div className="col-sm-7">
@@ -324,38 +324,38 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label for="mealPlan" className="col-sm-3 col-form-label">
+              <label htmlFor="mealPlan" className="col-sm-3 col-form-label">
                 Meal Plan{" "}
               </label>
               <div className="col-sm-7 d-flex justify-content-between">
                 <button
                   type="button"
-                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5"
+                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 large-button-width-40 large-button-font-size-12"
                 >
                   TP
                 </button>
                 <button
                   type="button"
-                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5"
+                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 large-button-width-40 large-button-font-size-12"
                 >
                   CP
                 </button>
                 <button
                   type="button"
-                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5"
+                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 large-button-width-40 large-button-font-size-12"
                 >
                   AP
                 </button>
                 <button
                   type="button"
-                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5"
+                  className="w-70 height-30 d-flex align-items-center justify-content-center text-light btn btn-primary button-padding-5 large-button-width-40 large-button-font-size-12"
                 >
                   MAP
                 </button>
               </div>
             </div>
             <div className="col-md-6 d-flex rev-margin-gap">
-              <label for="request" className="col-sm-3 col-form-label">
+              <label htmlFor="request" className="col-sm-3 col-form-label">
                 Special Request{" "}
               </label>
               <div className="col-sm-7">
@@ -369,7 +369,7 @@ const Reservation = () => {
             <div className="col-md-6 d-flex flex-column rev-margin-rev-margin-gap">
               <div className="col-12 d-flex align-items-center">
                 <label
-                  for="reservationAssistant"
+                  htmlFor="reservationAssistant"
                   className="col-sm-3 col-form-label"
                 >
                   Reservation Assistant Name{" "}
