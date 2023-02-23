@@ -35,6 +35,9 @@ const Home3 = () => {
           <NavLink to="/Notice">
           <button className="btn btn-primary">Notice</button>
           </NavLink>&nbsp;
+          <NavLink to="/CheckIn">
+          <button className="btn btn-primary">Check-In</button>
+          </NavLink>&nbsp;
         </div>
       </div>
       <div className="right">
