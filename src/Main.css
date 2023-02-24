@@ -1,5 +1,6 @@
 body {
   font-family: Georgia !important;
+  overflow-y: scroll!important;
 }
 
 #HomeCss {
@@ -119,6 +120,7 @@ body {
   border-radius: 50%;
   background: rgba(255, 0, 0, 0.5);
   padding: 8px;
+  cursor:pointer;
 }
 
 .roomcircleyellow {
@@ -128,6 +130,7 @@ body {
   border-radius: 50%;
   background: rgba(255, 255, 0, 0.5);
   padding: 8px;
+  cursor:pointer;
 }
 
 .roomcirclegreen {
@@ -137,6 +140,7 @@ body {
   border-radius: 50%;
   background: rgba(0, 255, 0, 0.5);
   padding: 8px;
+  cursor:pointer;
 }
 
 .imgformfix {

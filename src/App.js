@@ -9,8 +9,8 @@ import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
 import RoomAvailability from "./components/RoomAvailability";
-import CheckIn from "./components/checkin";
-
+import CheckedIn from "./components/CheckedIn";
+import CheckIn from "./components/CheckIn";
 const App = () => {
   return (
     <>
@@ -30,6 +30,7 @@ const App = () => {
         <Route exact path="/Application" element={<Application />} />
         <Route exact path="/Notice" element={<Notice />} />
         <Route exact path="/CheckIn" element={<CheckIn />} />
+        <Route exact path="/CheckedIn" element={<CheckedIn />} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>
