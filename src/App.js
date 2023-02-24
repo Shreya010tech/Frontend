@@ -29,7 +29,7 @@ const App = () => {
         <Route exact path="/RoomAvailability" element={<RoomAvailability />} />
         <Route exact path="/Application" element={<Application />} />
         <Route exact path="/Notice" element={<Notice />} />
-        <Route exact path="/CheckIn" element={<CheckIn/>}/>
+        <Route exact path="/CheckIn" element={<CheckIn />} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>
