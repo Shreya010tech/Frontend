@@ -11,6 +11,8 @@ import ReservationConfirmation from "./components/ReservationConfirmation";
 import RoomAvailability from "./components/RoomAvailability";
 import CheckedIn from "./components/CheckedIn";
 import CheckIn from "./components/CheckIn";
+import GuestHistory from "./components/GuestHistory";
+import HistoryReports from "./components/HistoryReports";
 const App = () => {
   return (
     <>
@@ -29,6 +31,8 @@ const App = () => {
         <Route exact path="/RoomAvailability" element={<RoomAvailability />} />
         <Route exact path="/Application" element={<Application />} />
         <Route exact path="/Notice" element={<Notice />} />
+        <Route exact path="/GuestHistory" element={<GuestHistory />} />
+        <Route exact path="/HistoryReports" element={<HistoryReports />} />
         <Route exact path="/CheckIn" element={<CheckIn />} />
         <Route exact path="/CheckedIn" element={<CheckedIn />} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
