@@ -1,5 +1,10 @@
 import React from "react";
 
+// function hoverimg1
+// {
+
+// }
+
 const RoomAvailability = () => {
   return (
     <div className="container">
@@ -109,32 +114,56 @@ const RoomAvailability = () => {
         </div> */}
         <div className="row">
           <div className="col-sm">
-            <img
-              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              className="imgfix-rooms"
-              alt="..."
-            />
+            <div id="imgcontainer">
+              <img
+                src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                className="imgfix-rooms"
+                id="roomimage"
+                alt="..."
+              />
+              <div id="roomimgoverlay">
+                <div className="textofroom">Room 100</div>
+              </div>
+            </div>
           </div>
           <div className="col-sm">
-            <img
-              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              className="imgfix-rooms"
-              alt="..."
-            />
+            <div id="imgcontainer">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                className="imgfix-rooms"
+                id="roomimage"
+                alt="..."
+              />
+              <div id="roomimgoverlay">
+                <div className="textofroom">Room 200</div>
+              </div>
+            </div>
           </div>
           <div className="col-sm">
-            <img
-              src="https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-              className="imgfix-rooms"
-              alt="..."
-            />
+            <div id="imgcontainer">
+              <img
+                src="https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                className="imgfix-rooms"
+                id="roomimage"
+                alt="..."
+              />
+              <div id="roomimgoverlay">
+                <div className="textofroom">Room 300</div>
+              </div>
+            </div>
           </div>
           <div className="col-sm">
-            <img
-              src="https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-              className="imgfix-rooms"
-              alt="..."
-            />
+            <div id="imgcontainer">
+              <img
+                src="https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=600"
+                className="imgfix-rooms"
+                id="roomimage"
+                alt="..."
+              />
+              <div id="roomimgoverlay">
+                <div className="textofroom">Room 400</div>
+              </div>
+            </div>
           </div>
         </div>
         {/* Rooms icons */}

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@1,500&family=Nunito:ital,wght@0,200!important;0,300!important;0,400!important;0,500!important;0,600!important;0,700!important;0,800!important;0,900!important;1,200!important;1,300!important;1,400!important;1,500!important;1,600!important;1,700!important;1,800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@1,500&family=Nunito:ital,wght@0,200!important;0,300!important;0,400!important;0,500!important;0,600!important;0,700!important;0,800!important;0,900!important;1,200!important;1,300!important;1,400!important;1,500!important;1,600!important;1,700!important;1,800&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 body{
   font-family: 'Nunito', sans-serif!important;
