@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 
 // function hoverimg1
 // {
@@ -6,6 +7,16 @@ import React from "react";
 // }
 
 const RoomAvailability = () => {
+  const [hoverdImg, setHoverdImg] = useState("");
+
+  const handleImgBtnMouseEnter = (whichImg)=>{
+      setHoverdImg(whichImg);
+  }
+
+  const handleImgBtnMouseLeave = ()=>{
+      setHoverdImg("");
+  }
+
   return (
     <div className="container">
       <nav className="navbar sticky-top navbar navbar-expand-lg">
@@ -45,7 +56,7 @@ const RoomAvailability = () => {
             <div id="imgcontainer">
               <img
                 src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                className="imgfix-rooms"
+                className={`imgfix-rooms ${hoverdImg == "100" ? "hover-image-zoom" : ""}`}
                 id="roomimage"
                 alt="..."
               />
@@ -58,7 +69,7 @@ const RoomAvailability = () => {
             <div id="imgcontainer">
               <img
                 src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                className="imgfix-rooms"
+                className={`imgfix-rooms ${hoverdImg == "200" ? "hover-image-zoom" : ""}`}
                 id="roomimage"
                 alt="..."
               />
@@ -71,7 +82,7 @@ const RoomAvailability = () => {
             <div id="imgcontainer">
               <img
                 src="https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                className="imgfix-rooms"
+                className={`imgfix-rooms ${hoverdImg == "300" ? "hover-image-zoom" : ""}`}
                 id="roomimage"
                 alt="..."
               />
@@ -84,7 +95,7 @@ const RoomAvailability = () => {
             <div id="imgcontainer">
               <img
                 src="https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=600"
-                className="imgfix-rooms"
+                className={`imgfix-rooms ${hoverdImg == "400" ? "hover-image-zoom" : ""}`}
                 id="roomimage"
                 alt="..."
               />
@@ -97,22 +108,22 @@ const RoomAvailability = () => {
         {/* Rooms icons */}
         <div className="row">
           <div className="col-sm">
-            <div className="roomcirclered">200</div>
+            <div className="roomcirclered" onMouseEnter={()=>{handleImgBtnMouseEnter("100")}} onMouseLeave={handleImgBtnMouseLeave}>100</div>
           </div>
           <div className="col-sm">
-            <div className="roomcircleyellow">300</div>
+            <div className="roomcircleyellow" onMouseEnter={()=>{handleImgBtnMouseEnter("200")}} onMouseLeave={handleImgBtnMouseLeave}>200</div>
           </div>
           <div className="col-sm">
-            <div className="roomcirclegreen">400</div>
+            <div className="roomcirclegreen" onMouseEnter={()=>{handleImgBtnMouseEnter("300")}} onMouseLeave={handleImgBtnMouseLeave}>300</div>
           </div>
           <div className="col-sm">
-            <div className="roomcirclered">200</div>
+            <div className="roomcirclered" onMouseEnter={()=>{handleImgBtnMouseEnter("400")}} onMouseLeave={handleImgBtnMouseLeave}>400</div>
           </div>
           <div className="col-sm">
-            <div className="roomcircleyellow">300</div>
+            <div className="roomcircleyellow" onMouseEnter={()=>{handleImgBtnMouseEnter("100")}} onMouseLeave={handleImgBtnMouseLeave}>100</div>
           </div>
           <div className="col-sm">
-            <div className="roomcirclegreen">400</div>
+            <div className="roomcirclegreen" onMouseEnter={()=>{handleImgBtnMouseEnter("200")}} onMouseLeave={handleImgBtnMouseLeave}>200</div>
           </div>
         </div>
         <div className="row">
