@@ -37,8 +37,8 @@ const AllReservations = () => {
               <i className="bx bxs-x-circle"></i>Cancel
             </button>
           </div>
-          <div className="table-responsive">
-            <table className="table table-borderless text-primary bg-skyblue mt-4">
+          <div className="table-responsive height-500 bg-skyblue mt-4">
+            <table className="table table-borderless text-primary">
               <thead>
                 <tr>
                   <th scope="col">Sl</th>

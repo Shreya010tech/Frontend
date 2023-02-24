@@ -689,13 +689,13 @@ const Reservation = () => {
                 <button
                   type="button"
                   className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
-                    mealTypeBtnColor === "TP" ? "btn-success" : "btn-primary"
+                    mealTypeBtnColor === "EP" ? "btn-success" : "btn-primary"
                   }`}
                   onClick={() => {
-                    changeMealBtnColor("TP");
+                    changeMealBtnColor("EP");
                   }}
                 >
-                  TP
+                  EP
                 </button>
                 <button
                   type="button"
