@@ -1,22 +1,39 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import "../CustomCss/Reservation.css";
 import Localbase from "localbase";
 let db = new Localbase("hmctdb");
 db.config.debug = false;
 
 const AllReservations = () => {
-
+  const [bookingData, setBookingData] = useState([])
+  const location = useLocation();
 
   useEffect(() => {
-    async function fetchInitialData() {
-      let reservationResData = await getAllReservationData();
-      // let reservationResData = await getReservationData('Ok','o','99999');
-      console.log(reservationResData);
+    const query = new URLSearchParams(location.search);
+    const firstname = query.get('firstname');
+    const lastname = query.get('lastname');
+    const phoneno = query.get('phoneno');
+
+    if(!firstname && !lastname && !phoneno){
+      async function fetchInitialData() {
+        let reservationResData = await getAllReservationData();
+        if(reservationResData.success){ setBookingData(reservationResData.data) }
+      }
+      fetchInitialData();
+    }else{
+      async function fetchInitialUserData() {
+        let reservationResData = await getReservationData(firstname,lastname,phoneno);
+        if(reservationResData.success){ setBookingData(reservationResData.data) }
+      }
+      fetchInitialUserData();
     }
-    fetchInitialData();
-  }, [])
-  
+  }, [location])
+
+
+
+
 
   // GetAll : Get all reservation data (orderBy: recent booking first)
   // params : none 
@@ -102,30 +119,16 @@ const AllReservations = () => {
                 </tr>
               </thead>
               <tbody className="table-group-divider">
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry the Bird</td>
-                  <td>fat</td>
-                  <td>@twitter</td>
-                  <td>@mdo</td>
-                  <td>@mdo</td>
-                </tr>
+                {bookingData && bookingData.map((item,index)=>{
+                  return <tr key={item?.bookingid}>
+                    <th scope="row">{index+1}</th>
+                    <td>{item?.bookingdate}</td>
+                    <td>{item?.bookingid}</td>
+                    <td>{`${item?.name?.title} ${item?.name?.firstname} ${item?.name?.middlename} ${item?.name?.lastname}`}</td>
+                    <td>{item?.arrivaldate}</td>
+                    <td>{item?.departuredate}</td>
+                  </tr>
+                })}
               </tbody>
             </table>
           </div>

@@ -135,7 +135,7 @@ const ReservationConfirmation = () => {
               </div>
               <div className="d-flex flex-column">
                 <div className="col-md-6">
-                  <h5>{bookingData?.noofrooms} {bookingData?.typeofroom} x {bookingData?.mealplan} Plan</h5>
+                  <h5>{bookingData?.noofrooms} {bookingData?.typeofroom} Room x {bookingData?.mealplan} Plan</h5>
                 </div>
                 <div className="col-md-6 d-flex align-items-center">
                   <label
