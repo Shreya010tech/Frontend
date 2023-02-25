@@ -36,7 +36,8 @@ const AllReservations = () => {
   // Get : Get all reservation data based on a particular guest (orderBy: recent booking first)
   // params : guestfirstname, guestlastname, guestphoneno
   // return : 1. {success: true, data: [<Array of all reservation data>{},{}]}        IF ALL OK
-  //          2. {success: false, msg: 'Something Went Wrong'}                        IF INTERNAL SERVER ERROR
+  //          2. {success: false, msg: 'No Reservations Found!'}                      IF DATA NOT FOUND
+  //          3. {success: false, msg: 'Something Went Wrong'}                        IF INTERNAL SERVER ERROR
   const getReservationData = async(guestfirstname, guestlastname, guestphoneno) =>{
     try{
       let reservationData = await db.collection('reservation').orderBy('bookingdate', 'desc').get();
@@ -45,6 +46,7 @@ const AllReservations = () => {
         return reservation.name.firstname == guestfirstname && reservation.name.lastname == guestlastname && reservation.phoneno == guestphoneno;
       });
 
+      if(!filteredData.length) return {success:false, msg: 'No Reservations Found!'}
       return {success: true, data: filteredData}
     }catch(e){
       console.log("AllReservationPageError (getReservationData) : ",e);
