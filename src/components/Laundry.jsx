@@ -7,7 +7,7 @@ const Laundry = () => {
       <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
         <div className="container-fluid">
           <div className="navbar-brand d-flex align-items-center">
-            <a className="text-primary" href="/#">
+            <a className="text-primary" href="/Home3">
               <i className="bx bx-chevrons-left"></i>
             </a>
             <h5 className="text-primary">
