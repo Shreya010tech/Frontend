@@ -8,16 +8,18 @@
     left: 34.67px;
     top: 240.97px;
 }
-
 .launh2 {
     font-weight: 300;
     font-size: 35px;
     line-height: 52px;
     color: #2545F8;
 }
-
+#customgap span
+{
+    margin-left: 25px;
+}
 .col1 {
-    width: 15%;
+    width: 25%;
     overflow: scroll;
     background: #EDF8FD;
 }
