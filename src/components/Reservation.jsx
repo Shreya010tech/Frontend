@@ -177,13 +177,13 @@ const Reservation = () => {
             onSubmit={onSubmitAction}
           >
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="name" className="col-sm-3 col-form-label">
+              <label htmlFor="name" className="col-sm-3 col-form-label font-size-14">
                 Guest Name
               </label>
               <div className="col-sm-7 d-flex column-gap-1">
                 <select
                   id="designation"
-                  className="form-select w-50 height-30"
+                  className="form-select w-50 height-30 font-size-14"
                   name="title"
                   value={guestName.title}
                   onChange={handleInputChange}
@@ -197,7 +197,7 @@ const Reservation = () => {
                 </select>
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputName"
                   name="firstname"
                   value={guestName.firstname}
@@ -206,7 +206,7 @@ const Reservation = () => {
                 />
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputName"
                   name="middlename"
                   value={guestName.middlename}
@@ -214,7 +214,7 @@ const Reservation = () => {
                 />
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputName"
                   name="lastname"
                   value={guestName.lastname}
@@ -226,14 +226,14 @@ const Reservation = () => {
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label
                 htmlFor="guestphonenumber"
-                className="col-sm-3 col-form-label"
+                className="col-sm-3 col-form-label font-size-14"
               >
                 Phone No{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="number"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputNumber"
                   name="guestphonenumber"
                   value={guestPhoneNumber}
@@ -243,13 +243,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="address" className="col-sm-3 col-form-label">
+              <label htmlFor="address" className="col-sm-3 col-form-label font-size-14">
                 Address{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputAddress"
                   name="address"
                   value={address.ad1}
@@ -258,14 +258,14 @@ const Reservation = () => {
                 />
               </div>
             </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+            <div className="col-md-6 d-flex align-items-center font-size-14 rev-margin-gap">
               <label htmlFor="companyname" className="col-sm-3 col-form-label">
                 Company{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputCompany"
                   name="companyname"
                   value={companyName}
@@ -274,13 +274,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="arrivaldate" className="col-sm-3 col-form-label">
+              <label htmlFor="arrivaldate" className="col-sm-3 col-form-label font-size-14">
                 Arrival Date{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="date"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputArrivalDate"
                   name="arrivaldate"
                   value={arrivalDate}
@@ -289,18 +289,18 @@ const Reservation = () => {
                 />
               </div>
             </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+            <div className="col-md-6 d-flex align-items-center font-size-14 rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center">
                 <label
                   htmlFor="designation"
-                  className="col-sm-6 col-form-label"
+                  className="col-sm-6 col-form-label font-size-14"
                 >
                   Designation{" "}
                 </label>
                 <div className="col-sm-5">
                   <input
                     type="text"
-                    className="form-control height-30"
+                    className="form-control height-30 font-size-14"
                     id="inputDesignation"
                     name="designation"
                     value={designation}
@@ -311,14 +311,14 @@ const Reservation = () => {
               <div className="col-md-6 d-flex align-items-center">
                 <label
                   htmlFor="travelagentname"
-                  className="col-sm-4 col-form-label"
+                  className="col-sm-4 col-form-label font-size-14"
                 >
                   Travel Agent{" "}
                 </label>
                 <div className="col-sm-4">
                   <input
                     type="text"
-                    className="form-control height-30"
+                    className="form-control height-30 font-size-14"
                     id="inputTravelAgent"
                     name="travelagentname"
                     value={travelAgentName}
@@ -330,14 +330,14 @@ const Reservation = () => {
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label
                 htmlFor="departuredate"
-                className="col-sm-3 col-form-label"
+                className="col-sm-3 col-form-label font-size-14"
               >
                 Departure Date{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="date"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputDepartureDate"
                   name="departuredate"
                   value={departureDate}
@@ -347,13 +347,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="arrivaltime" className="col-sm-3 col-form-label">
+              <label htmlFor="arrivaltime" className="col-sm-3 col-form-label font-size-14">
                 Arrival Time{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="time"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputArrivalTime"
                   name="arrivaltime"
                   value={arrivalTime}
@@ -363,13 +363,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="roomtype" className="col-sm-3 col-form-label">
+              <label htmlFor="roomtype" className="col-sm-3 col-form-label font-size-14">
                 Type of Room{" "}
               </label>
               <div className="col-sm-7 d-flex justify-content-between">
                 <button
                   type="button"
-                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
+                  className={`d-flex align-items-center justify-content-center text-light font-size-14 btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
                     roomTypeBtnColor === "Standard"
                       ? "btn-success"
                       : "btn-primary"
@@ -382,7 +382,7 @@ const Reservation = () => {
                 </button>
                 <button
                   type="button"
-                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
+                  className={`d-flex align-items-center justify-content-center text-light font-size-14 btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
                     roomTypeBtnColor === "Delux" ? "btn-success" : "btn-primary"
                   }`}
                   onClick={() => {
@@ -393,7 +393,7 @@ const Reservation = () => {
                 </button>
                 <button
                   type="button"
-                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
+                  className={`d-flex align-items-center justify-content-center text-light font-size-14 btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
                     roomTypeBtnColor === "Executive"
                       ? "btn-success"
                       : "btn-primary"
@@ -409,14 +409,14 @@ const Reservation = () => {
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label
                 htmlFor="departuretime"
-                className="col-sm-3 col-form-label"
+                className="col-sm-3 col-form-label font-size-14"
               >
                 Departure Time{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="time"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputDepartureTime"
                   name="departuretime"
                   value={departureTime}
@@ -426,13 +426,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="noofpax" className="col-sm-3 col-form-label">
+              <label htmlFor="noofpax" className="col-sm-3 col-form-label font-size-14">
                 No of Pax{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputPax"
                   name="noofpax"
                   value={noOfPax}
@@ -442,13 +442,13 @@ const Reservation = () => {
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center">
-                <label htmlFor="roomnumber" className="col-sm-6 col-form-label">
+                <label htmlFor="roomnumber" className="col-sm-6 col-form-label font-size-14">
                   Room No{" "}
                 </label>
                 <div className="col-sm-5">
                   <input
                     type="text"
-                    className="form-control height-30"
+                    className="form-control height-30 font-size-14"
                     id="inputRoomNo"
                     name="roomnumber"
                     value={roomNumber}
@@ -457,13 +457,13 @@ const Reservation = () => {
                 </div>
               </div>
               <div className="col-md-6 d-flex align-items-center">
-                <label htmlFor="noofrooms" className="col-sm-4 col-form-label">
+                <label htmlFor="noofrooms" className="col-sm-4 col-form-label font-size-14">
                   No of Room{" "}
                 </label>
                 <div className="col-sm-4">
                   <input
                     type="number"
-                    className="form-control height-30"
+                    className="form-control height-30 font-size-14"
                     id="inputNoOfRoom"
                     name="noofrooms"
                     value={noOfRooms}
@@ -475,14 +475,14 @@ const Reservation = () => {
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label
                 htmlFor="modeofarrival"
-                className="col-sm-3 col-form-label"
+                className="col-sm-3 col-form-label font-size-14"
               >
                 Mode of Arrival{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputModeofArrival"
                   name="modeofarrival"
                   value={modeOfArrival}
@@ -491,13 +491,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="trainno" className="col-sm-3 col-form-label">
+              <label htmlFor="trainno" className="col-sm-3 col-form-label font-size-14">
                 Train No{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputTrainNo"
                   name="trainno"
                   value={trainNo}
@@ -506,13 +506,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="flightno" className="col-sm-3 col-form-label">
+              <label htmlFor="flightno" className="col-sm-3 col-form-label font-size-14">
                 Flight No{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputFlightNo"
                   name="flightno"
                   value={flightNo}
@@ -521,13 +521,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="roomrate" className="col-sm-3 col-form-label">
+              <label htmlFor="roomrate" className="col-sm-3 col-form-label font-size-14">
                 Room Rate{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="number"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputRoomRate"
                   name="roomrate"
                   value={roomRate}
@@ -539,14 +539,14 @@ const Reservation = () => {
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label
                 htmlFor="modeofpayment"
-                className="col-sm-3 col-form-label"
+                className="col-sm-3 col-form-label font-size-14"
               >
                 Mode of Payment{" "}
               </label>
               <div className="col-sm-7 d-flex justify-content-between">
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
                     paymentTypeBtnColor === "Cash"
                       ? "btn-success"
                       : "btn-primary"
@@ -559,7 +559,7 @@ const Reservation = () => {
                 </button>
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
                     paymentTypeBtnColor === "Card"
                       ? "btn-success"
                       : "btn-primary"
@@ -572,7 +572,7 @@ const Reservation = () => {
                 </button>
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
                     paymentTypeBtnColor === "UPI"
                       ? "btn-success"
                       : "btn-primary"
@@ -589,14 +589,14 @@ const Reservation = () => {
               <div className="col-md-6 d-flex align-items-center">
                 <label
                   htmlFor="discountamount"
-                  className="col-sm-6 col-form-label"
+                  className="col-sm-6 col-form-label font-size-14"
                 >
                   Discount amount{" "}
                 </label>
                 <div className="col-sm-5">
                   <input
                     type="number"
-                    className="form-control height-30"
+                    className="form-control height-30 font-size-14"
                     id="inputRoomNo"
                     name="discountamount"
                     value={discountAmount}
@@ -607,14 +607,14 @@ const Reservation = () => {
               <div className="col-md-6 d-flex align-items-center">
                 <label
                   htmlFor="discountpercentage"
-                  className="col-sm-4 col-form-label"
+                  className="col-sm-4 col-form-label font-size-14"
                 >
                   Discount %{" "}
                 </label>
                 <div className="col-sm-4">
                   <input
                     type="number"
-                    className="form-control height-30"
+                    className="form-control height-30 font-size-14"
                     id="inputNoOfRoom"
                     name="discountpercentage"
                     value={discountPercentage}
@@ -624,13 +624,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="cardno" className="col-sm-3 col-form-label">
+              <label htmlFor="cardno" className="col-sm-3 col-form-label font-size-14">
                 Card No{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="number"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputCardNo"
                   name="cardno"
                   value={cardNo}
@@ -639,13 +639,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="upi" className="col-sm-3 col-form-label">
+              <label htmlFor="upi" className="col-sm-3 col-form-label font-size-14">
                 UPI{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="text"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputupi"
                   name="upi"
                   value={upi}
@@ -654,13 +654,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="bookingdate" className="col-sm-3 col-form-label">
+              <label htmlFor="bookingdate" className="col-sm-3 col-form-label font-size-14">
                 Date of Booking{" "}
               </label>
               <div className="col-sm-7">
                 <input
                   type="date"
-                  className="form-control height-30"
+                  className="form-control height-30 font-size-14"
                   id="inputBookingDate"
                   name="bookingdate"
                   value={bookingDate}
@@ -669,13 +669,13 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="mealplan" className="col-sm-3 col-form-label">
+              <label htmlFor="mealplan" className="col-sm-3 col-form-label font-size-14">
                 Meal Plan{" "}
               </label>
               <div className="col-sm-7 d-flex justify-content-between">
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
                     mealTypeBtnColor === "EP" ? "btn-success" : "btn-primary"
                   }`}
                   onClick={() => {
@@ -686,7 +686,7 @@ const Reservation = () => {
                 </button>
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
                     mealTypeBtnColor === "CP" ? "btn-success" : "btn-primary"
                   }`}
                   onClick={() => {
@@ -697,7 +697,7 @@ const Reservation = () => {
                 </button>
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
                     mealTypeBtnColor === "AP" ? "btn-success" : "btn-primary"
                   }`}
                   onClick={() => {
@@ -708,7 +708,7 @@ const Reservation = () => {
                 </button>
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
                     mealTypeBtnColor === "MAP" ? "btn-success" : "btn-primary"
                   }`}
                   onClick={() => {
@@ -720,12 +720,12 @@ const Reservation = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex rev-margin-gap">
-              <label htmlFor="specialreq" className="col-sm-3 col-form-label">
+              <label htmlFor="specialreq" className="col-sm-3 col-form-label font-size-14">
                 Special Request{" "}
               </label>
               <div className="col-sm-7">
                 <textarea
-                  className="form-control"
+                  className="form-control font-size-14"
                   id="inputRequest"
                   rows="2"
                   name="specialreq"
@@ -738,14 +738,14 @@ const Reservation = () => {
               <div className="col-12 d-flex align-items-center">
                 <label
                   htmlFor="resassisname"
-                  className="col-sm-3 col-form-label"
+                  className="col-sm-3 col-form-label font-size-14"
                 >
                   Reservation Assistant Name{" "}
                 </label>
                 <div className="col-sm-7">
                   <input
                     type="text"
-                    className="form-control height-30"
+                    className="form-control height-30 font-size-14"
                     id="inputReservationAssistantName"
                     name="resassisname"
                     value={resAssisName}
@@ -757,7 +757,7 @@ const Reservation = () => {
               <div className="col-12 d-flex align-items-center justify-content-center">
                 <button
                   type="submit"
-                  className="d-flex align-items-center justify-content-center text-light btn btn-primary height-30 button-padding-5"
+                  className="d-flex align-items-center justify-content-center font-size-14 text-light btn btn-primary height-30 button-padding-5"
                 >
                   Submit
                 </button>

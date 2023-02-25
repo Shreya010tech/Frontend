@@ -230,7 +230,7 @@ table td:first-child {
 
 .margin-right-50{margin-right: 50px;}
 
-.font-size-14{font-size: 14px;}
+.font-size-14{font-size: 14px !important;}
 
 .search-bar{
   position: absolute;
@@ -285,6 +285,6 @@ table td:first-child {
 
 .padding-left-40{padding-left: 40px;}
 
-.font-size-11{font-size: 11px;}
+.font-size-11{font-size: 11px !important;}
 
 .overflow-y-axis-auto{overflow-y: auto;}
