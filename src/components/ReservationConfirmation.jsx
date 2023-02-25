@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useLocation } from 'react-router-dom';
 import "../CustomCss/Reservation.css";
 import Localbase from "localbase";
 let db = new Localbase("hmctdb");
@@ -8,16 +9,31 @@ db.config.debug = false;
 
 const ReservationConfirmation = () => {
   const [amountPaid, setAmountPaid] = useState("");
-
+  const [bookingData, setBookingData] = useState({})
+  const [nights, setNights] = useState(0);
+  const location = useLocation();
 
   useEffect(() => {
-    async function fetchInitialData() {
-      let reservationResData = await getReservationData('M0CVG2zNKhaYsd');
-      console.log(reservationResData);
-    }
-    fetchInitialData();
-  }, [])
-  
+    const query = new URLSearchParams(location.search);
+    const bookingid = query.get('bookingid');
+
+    if(bookingid){
+      async function fetchInitialData() {
+        let reservationResData = await getReservationData(bookingid);
+
+        if(reservationResData.success){
+          setBookingData(reservationResData.data);
+        }
+      }
+      fetchInitialData();
+    }  
+  }, [location])
+
+
+  useEffect(() => { calculateNights(); }, [bookingData])
+
+
+
 
   // Get : Get particular reservation data based on bookingid
   // params : bookingid
@@ -37,6 +53,15 @@ const ReservationConfirmation = () => {
   }
 
 
+
+  const calculateNights = ()=>{
+    const date1 = new Date(bookingData?.departuredate);
+    const date2 = new Date(bookingData?.arrivaldate);
+
+    const diffTime = Math.abs(date2.getTime() - date1.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    setNights(diffDays);
+  }
 
   const handleInputChange = (e) => {
     if(e.target.name == "amountpaid"){ setAmountPaid(e.target.value) }
@@ -72,7 +97,7 @@ const ReservationConfirmation = () => {
                     Booking Id
                   </label>
                   <div>
-                    <h5 className="pt-1">#wb15238pl</h5>
+                    <h5 className="pt-1">#{bookingData?.bookingid}</h5>
                   </div>
                 </div>
                 <div className="width-50percent medium-width-full d-flex">
@@ -80,7 +105,7 @@ const ReservationConfirmation = () => {
                     Guest Name
                   </label>
                   <div>
-                    <h5 className="pt-1">Mr. Anirban Sen</h5>
+                    <h5 className="pt-1">{`${bookingData?.name?.title} ${bookingData?.name?.firstname} ${bookingData?.name?.middlename} ${bookingData?.name?.lastname}`}</h5>
                   </div>
                 </div>
               </div>
@@ -90,8 +115,8 @@ const ReservationConfirmation = () => {
                     Check In
                   </label>
                   <div>
-                    <h5 className="pt-1">09-08-2023</h5>
-                    <h5>11:04 A.M onwards</h5>
+                    <h5 className="pt-1">{bookingData?.arrivaldate}</h5>
+                    <h5>{bookingData?.arrivaltime} onwards</h5>
                   </div>
                 </div>
                 <div className="width-50percent medium-width-full d-flex">
@@ -99,18 +124,18 @@ const ReservationConfirmation = () => {
                     Check Out
                   </label>
                   <div>
-                    <h5 className="pt-1">12-08-2023</h5>
-                    <h5>With in 11:00 A.M</h5>
+                    <h5 className="pt-1">{bookingData?.departuredate}</h5>
+                    <h5>With in {bookingData?.departuretime}</h5>
                   </div>
                 </div>
               </div>
               <div className="d-flex align-items-center justify-content-center column-gap-1 mb-5">
                 <i className="bx bxs-moon text-primary"></i>
-                <h5 className="pt-1">3 Nights</h5>
+                <h5 className="pt-1">{nights} Nights</h5>
               </div>
               <div className="d-flex flex-column">
                 <div className="col-md-6">
-                  <h5>1 Standard Room x EP Plan</h5>
+                  <h5>{bookingData?.noofrooms} {bookingData?.typeofroom} x {bookingData?.mealplan} Plan</h5>
                 </div>
                 <div className="col-md-6 d-flex align-items-center">
                   <label
