@@ -1,5 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body {
-  font-family: Georgia !important;
+  font-family: 'Poppins', sans-serif!important;
   overflow-y: scroll!important;
 }
 

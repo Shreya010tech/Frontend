@@ -9,10 +9,10 @@ import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
 import RoomAvailability from "./components/RoomAvailability";
-import CheckedIn from "./components/CheckedIn";
 import CheckIn from "./components/CheckIn";
 import GuestHistory from "./components/GuestHistory";
 import HistoryReports from "./components/HistoryReports";
+import Laundry from "./components/Laundry";
 const App = () => {
   return (
     <>
@@ -33,8 +33,8 @@ const App = () => {
         <Route exact path="/Notice" element={<Notice />} />
         <Route exact path="/GuestHistory" element={<GuestHistory />} />
         <Route exact path="/HistoryReports" element={<HistoryReports />} />
+        <Route exact path="/Laundry" element={<Laundry />} />
         <Route exact path="/CheckIn" element={<CheckIn />} />
-        <Route exact path="/CheckedIn" element={<CheckedIn />} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>
