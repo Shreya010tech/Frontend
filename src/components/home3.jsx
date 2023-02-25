@@ -60,6 +60,10 @@ const Home3 = () => {
             <button className="btn btn-primary">Laundry</button>
           </NavLink>
           &nbsp;
+          <NavLink to="/Checkout">
+            <button className="btn btn-primary">Check-Out</button>
+          </NavLink>
+          &nbsp;
         </div>
       </div>
       <div className="right">

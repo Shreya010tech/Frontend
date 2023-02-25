@@ -12,7 +12,9 @@ import RoomAvailability from "./components/RoomAvailability";
 import CheckIn from "./components/CheckIn";
 import GuestHistory from "./components/GuestHistory";
 import HistoryReports from "./components/HistoryReports";
+import CheckOut from "./components/CheckOut";
 import Laundry from "./components/Laundry";
+
 const App = () => {
   return (
     <>
@@ -35,6 +37,7 @@ const App = () => {
         <Route exact path="/HistoryReports" element={<HistoryReports />} />
         <Route exact path="/Laundry" element={<Laundry />} />
         <Route exact path="/CheckIn" element={<CheckIn />} />
+        <Route exact path="/Checkout" element={<CheckOut />} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>
