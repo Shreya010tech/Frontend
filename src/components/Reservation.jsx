@@ -43,11 +43,10 @@ const Reservation = () => {
 
   const addReservationData = async()=>{
     try{
-      let uid = new ShortUniqueId({ length: 20 });   let udbid = uid();
-      let ubid = new ShortUniqueId({ length: 12 });  let ubookingid = ubid();
+      let ubid = new ShortUniqueId({ length: 14 });  let ubookingid = ubid();
       
       db.collection('reservation').add({
-          id: udbid,  bookingid: ubookingid,  name: guestName,  address: address, icno: "", 
+          bookingid: ubookingid,  name: guestName,  address: address, icno: "", 
           phoneno: guestPhoneNumber,  telno: "",  companyname: companyName, designation: designation,
 
           checkcountry: "", aadhaarno: "",  passportno: "", visano: "", passportdateofissue: "",  
