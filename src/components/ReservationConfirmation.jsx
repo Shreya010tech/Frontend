@@ -1,10 +1,42 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "../CustomCss/Reservation.css";
+import Localbase from "localbase";
+let db = new Localbase("hmctdb");
+db.config.debug = false;
 
 const ReservationConfirmation = () => {
   const [amountPaid, setAmountPaid] = useState("");
+
+
+  useEffect(() => {
+    async function fetchInitialData() {
+      let reservationResData = await getReservationData('M0CVG2zNKhaYsd');
+      console.log(reservationResData);
+    }
+    fetchInitialData();
+  }, [])
+  
+
+  // Get : Get particular reservation data based on bookingid
+  // params : bookingid
+  // return : 1. {success: true, data: {<reservation_data_obj>} }                     IF ALL OK
+  //          2. {success: false, msg: 'Reservation Not Found!'}                      IF BOOKINGID NOT PRESENT
+  //          3. {success: false, msg: 'Something Went Wrong'}                        IF INTERNAL SERVER ERROR
+  const getReservationData = async(bookingid) =>{
+    try{
+      let reservationData = await db.collection('reservation').doc({ bookingid: bookingid }).get()
+
+      if(!reservationData) return {success:false, msg: "Reservation Not Found!"}
+      return {success: true, data: reservationData}
+    }catch(e){
+      console.log("ReservationConfirmation (getReservationData) : ",e);
+      return {success:false, msg: "Something Went Wrong"}
+    }
+  }
+
+
 
   const handleInputChange = (e) => {
     if(e.target.name == "amountpaid"){ setAmountPaid(e.target.value) }
