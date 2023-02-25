@@ -2,24 +2,18 @@
 import React from "react";
 import { useState } from "react";
 import "../CustomCss/Reservation.css";
+import ShortUniqueId from "short-unique-id";
+import Localbase from "localbase";
+let db = new Localbase("hmctdb");
+db.config.debug = false;
 
 const Reservation = () => {
   const [roomTypeBtnColor, setRoomTypeBtnColor] = useState("");
   const [paymentTypeBtnColor, setPaymentTypeBtnColor] = useState("");
   const [mealTypeBtnColor, setMealTypeBtnColor] = useState("");
 
-  const [guestName, setGuestName] = useState({
-    title: "",
-    firstname: "",
-    middlename: "",
-    lastname: "",
-  });
-  const [address, setAddress] = useState({
-    ad1: "",
-    city: "",
-    state: "",
-    zip: "",
-  });
+  const [guestName, setGuestName] = useState({ title: "", firstname: "", middlename: "", lastname: "", });
+  const [address, setAddress] = useState({ ad1: "", city: "", state: "", zip: "", });
   const [guestPhoneNumber, setGuestPhoneNumber] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [designation, setDesignation] = useState("");
@@ -46,6 +40,49 @@ const Reservation = () => {
   const [resAssisName, setResAssisName] = useState("");
   const [specialReq, setSpecialReq] = useState("");
 
+
+  const addReservationData = async()=>{
+    try{
+      let uid = new ShortUniqueId({ length: 20 });   let udbid = uid();
+      let ubid = new ShortUniqueId({ length: 12 });  let ubookingid = ubid();
+      
+      db.collection('reservation').add({
+          id: udbid,  bookingid: ubookingid,  name: guestName,  address: address, icno: "", 
+          phoneno: guestPhoneNumber,  telno: "",  companyname: companyName, designation: designation,
+
+          checkcountry: "", aadhaarno: "",  passportno: "", visano: "", passportdateofissue: "",  
+          arrivedfrom: "",  placeofissue: "", purdurofstayinhotel: "",
+
+          cityledgetacct: "", groupid: "",
+
+          adultno: "",  childno: "",
+
+          bookingdate: bookingDate, arrivaldate: arrivalDate, arrivaltime: arrivalTime, 
+          departuredate: departureDate, departuretime: departureTime,
+
+          typeofroom: roomType, roomno: roomNumber, noofrooms: noOfRooms,
+
+          noofpax: noOfPax, modeofarrival: modeOfArrival, trainno: trainNo, flightno: flightNo,
+
+          roomrate: roomRate, discountamount: discountAmount, discountpercentage: discountPercentage,
+          totalamountpaid: "",  finalamount: "",  gst: "",  modeofpayment: modeOfPayment, cardno: cardNo, upi: upi,
+
+          mealplan: mealPlan, extrabedtype: "",
+
+          travelagentname: travelAgentName, travelagentno: "",
+
+          billingno: "",  regno: "",
+
+          resassisname: resAssisName, specialreq: specialReq
+      })
+
+      return {success: true}     
+    }catch(e){
+      return {success: false, msg: e}
+    }
+  }
+
+
   const changeRoomBtnColor = (whichRoom) => {
     setRoomTypeBtnColor(whichRoom);
     setRoomType(whichRoom);
@@ -62,93 +99,43 @@ const Reservation = () => {
   };
 
   const handleInputChange = (e) => {
-    if (e.target.name == "title") {
-      setGuestName({ ...guestName, title: e.target.value });
-    } else if (e.target.name == "firstname") {
-      setGuestName({ ...guestName, firstname: e.target.value });
-    } else if (e.target.name == "middlename") {
-      setGuestName({ ...guestName, middlename: e.target.value });
-    } else if (e.target.name == "lastname") {
-      setGuestName({ ...guestName, lastname: e.target.value });
-    } else if (e.target.name == "address") {
-      setAddress({ ...address, ad1: e.target.value });
-    } else if (e.target.name == "guestphonenumber") {
-      setGuestPhoneNumber(e.target.value);
-    } else if (e.target.name == "companyname") {
-      setCompanyName(e.target.value);
-    } else if (e.target.name == "designation") {
-      setDesignation(e.target.value);
-    } else if (e.target.name == "bookingdate") {
-      setBookingDate(e.target.value);
-    } else if (e.target.name == "arrivaldate") {
-      setArrivalDate(e.target.value);
-    } else if (e.target.name == "arrivaltime") {
-      setArrivalTime(e.target.value);
-    } else if (e.target.name == "departuredate") {
-      setdepartureDate(e.target.value);
-    } else if (e.target.name == "departuretime") {
-      setDepartureTime(e.target.value);
-    } else if (e.target.name == "roomnumber") {
-      setRoomNumber(e.target.value);
-    } else if (e.target.name == "noofrooms") {
-      setNoOfRooms(e.target.value);
-    } else if (e.target.name == "noofpax") {
-      setNoOfPax(e.target.value);
-    } else if (e.target.name == "modeofarrival") {
-      setModeOfArrival(e.target.value);
-    } else if (e.target.name == "trainno") {
-      setTrainNo(e.target.value);
-    } else if (e.target.name == "flightno") {
-      setFlightNo(e.target.value);
-    } else if (e.target.name == "roomrate") {
-      setRoomRate(e.target.value);
-    } else if (e.target.name == "discountamount") {
-      setDiscountAmount(e.target.value);
-    } else if (e.target.name == "discountpercentage") {
-      setDiscountPercentage(e.target.value);
-    } else if (e.target.name == "cardno") {
-      setCardNo(e.target.value);
-    } else if (e.target.name == "upi") {
-      setUpi(e.target.value);
-    } else if (e.target.name == "travelagentname") {
-      setTravelAgentName(e.target.value);
-    } else if (e.target.name == "resassisname") {
-      setResAssisName(e.target.value);
-    } else if (e.target.name == "specialreq") {
-      setSpecialReq(e.target.value);
-    }
+    if (e.target.name == "title") {  setGuestName({ ...guestName, title: e.target.value }); }
+    else if (e.target.name == "firstname") {  setGuestName({ ...guestName, firstname: e.target.value }); }
+    else if (e.target.name == "middlename") {  setGuestName({ ...guestName, middlename: e.target.value }); }
+    else if (e.target.name == "lastname") {  setGuestName({ ...guestName, lastname: e.target.value }); }
+    else if (e.target.name == "address") {  setAddress({ ...address, ad1: e.target.value }); }
+    else if (e.target.name == "guestphonenumber") {  setGuestPhoneNumber(e.target.value); }
+    else if (e.target.name == "companyname") {  setCompanyName(e.target.value); }
+    else if (e.target.name == "designation") {  setDesignation(e.target.value); }
+    else if (e.target.name == "bookingdate") {  setBookingDate(e.target.value); }
+    else if (e.target.name == "arrivaldate") {  setArrivalDate(e.target.value); }
+    else if (e.target.name == "arrivaltime") {  setArrivalTime(e.target.value); }
+    else if (e.target.name == "departuredate") {  setdepartureDate(e.target.value); }
+    else if (e.target.name == "departuretime") {  setDepartureTime(e.target.value); }
+    else if (e.target.name == "roomnumber") {  setRoomNumber(e.target.value); }
+    else if (e.target.name == "noofrooms") {  setNoOfRooms(e.target.value); }
+    else if (e.target.name == "noofpax") {  setNoOfPax(e.target.value); }
+    else if (e.target.name == "modeofarrival") {  setModeOfArrival(e.target.value); }
+    else if (e.target.name == "trainno") {  setTrainNo(e.target.value); }
+    else if (e.target.name == "flightno") {  setFlightNo(e.target.value); }
+    else if (e.target.name == "roomrate") {  setRoomRate(e.target.value); }
+    else if (e.target.name == "discountamount") {  setDiscountAmount(e.target.value); }
+    else if (e.target.name == "discountpercentage") {  setDiscountPercentage(e.target.value); }
+    else if (e.target.name == "cardno") {  setCardNo(e.target.value); }
+    else if (e.target.name == "upi") {  setUpi(e.target.value); }
+    else if (e.target.name == "travelagentname") {  setTravelAgentName(e.target.value); }
+    else if (e.target.name == "resassisname") {  setResAssisName(e.target.value); }
+    else if (e.target.name == "specialreq") {  setSpecialReq(e.target.value); }
   };
 
   const onSubmitAction = async (e) => {
     e.preventDefault();
-    alert("Your form submitted!");
-    console.log(guestName);
-    console.log(address);
-    console.log(guestPhoneNumber);
-    console.log(companyName);
-    console.log(designation);
-    console.log(bookingDate);
-    console.log(arrivalDate);
-    console.log(arrivalTime);
-    console.log(departureDate);
-    console.log(departureTime);
-    console.log(roomType);
-    console.log(roomNumber);
-    console.log(noOfRooms);
-    console.log(noOfPax);
-    console.log(modeOfArrival);
-    console.log(trainNo);
-    console.log(flightNo);
-    console.log(roomRate);
-    console.log(discountAmount);
-    console.log(discountPercentage);
-    console.log(modeOfPayment);
-    console.log(cardNo);
-    console.log(upi);
-    console.log(mealPlan);
-    console.log(travelAgentName);
-    console.log(resAssisName);
-    console.log(specialReq);
+    let res = await addReservationData();
+    if(res.success){
+      alert("Your form submitted!");
+    }else{
+      alert(res.msg);
+    }
   };
 
   return (
