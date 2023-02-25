@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import "../CustomCss/Reservation.css";
 
-const Reservation = () => {
+const CheckIn = () => {
   const [roomTypeBtnColor, setRoomTypeBtnColor] = useState("");
   const [paymentTypeBtnColor, setPaymentTypeBtnColor] = useState("");
   const [mealTypeBtnColor, setMealTypeBtnColor] = useState("");
@@ -849,4 +849,4 @@ const Reservation = () => {
   );
 };
 
-export default Reservation;
+export default CheckIn;
