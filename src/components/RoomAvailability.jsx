@@ -31,7 +31,7 @@ const RoomAvailability = () => {
     let collectionExist = await db.collection("roomavailability").get();
 
     if (!collectionExist.length) {
-      db.collection("roomavailability").add({
+      await db.collection("roomavailability").add({
         standard: {
           101: "0",
           102: "1",
