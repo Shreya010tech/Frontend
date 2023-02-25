@@ -94,10 +94,10 @@ const AllReservations = () => {
               <thead>
                 <tr>
                   <th scope="col">Sl</th>
-                  <th scope="col">Date</th>
+                  <th scope="col">Booking Date</th>
                   <th scope="col">Booking ID</th>
                   <th scope="col">Guest Name</th>
-                  <th scope="col">Booked Date</th>
+                  <th scope="col">Arrival Date</th>
                   <th scope="col">Departure Date</th>
                 </tr>
               </thead>

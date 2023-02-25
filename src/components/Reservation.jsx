@@ -669,6 +669,7 @@ const Reservation = () => {
                   name="bookingdate"
                   value={bookingDate}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
