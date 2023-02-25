@@ -41,6 +41,10 @@ const Reservation = () => {
   const [specialReq, setSpecialReq] = useState("");
 
 
+  // Add :  Add reservation details 
+  // params : none     (directly get data from useState)
+  // return :   1.  {success:true}                                    IF ADDED SUCCESSFULLY
+  //            2.  {success:false, msg: 'Something Went Wrong'}      IF ADD FAILED
   const addReservationData = async()=>{
     try{
       let ubid = new ShortUniqueId({ length: 14 });  let ubookingid = ubid();
@@ -77,7 +81,8 @@ const Reservation = () => {
 
       return {success: true}     
     }catch(e){
-      return {success: false, msg: e}
+      console.log("ReservationPageError (addReservationData) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
     }
   }
 

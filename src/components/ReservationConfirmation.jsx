@@ -31,7 +31,7 @@ const ReservationConfirmation = () => {
       if(!reservationData) return {success:false, msg: "Reservation Not Found!"}
       return {success: true, data: reservationData}
     }catch(e){
-      console.log("ReservationConfirmation (getReservationData) : ",e);
+      console.log("ReservationConfirmationPageError (getReservationData) : ",e);
       return {success:false, msg: "Something Went Wrong"}
     }
   }
