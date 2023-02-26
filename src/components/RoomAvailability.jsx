@@ -204,6 +204,8 @@ const RoomAvailability = () => {
               </div>
             </div>
           </div>
+          </div>
+          <div className="row">
           <div className="col-sm">
             <div id="imgcontainer">
               <img

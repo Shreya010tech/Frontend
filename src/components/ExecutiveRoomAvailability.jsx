@@ -203,7 +203,7 @@ const ExecutiveRoomAvailability = () => {
                 <div className="textofroom">Room 200</div>
               </div>
             </div>
-          </div>
+          </div></div><div className="row">
           <div className="col-sm">
             <div id="imgcontainer">
               <img
