@@ -12,18 +12,28 @@ db.config.debug = false;
 
 const DuluxeRoomAvailability = () => {
   const [hoverdImg, setHoverdImg] = useState("");
+  const [roomData, setRoomData] = useState({});
+  const [roomDataPart1, setRoomDataPart1] = useState({});
+  const [roomDataPart2, setRoomDataPart2] = useState({});
+  const [roomDataPart3, setRoomDataPart3] = useState({});
 
   useEffect(() => {
-    initializeDatabase(); // Note :  Must present before using any backend query
+    initializeDatabase();                                       // Note :  Must present before using any backend query
 
     async function fetchInitialData() {
-      let roomResData = await getRoomsData("standard");
-      console.log(roomResData);
+      let roomResData = await getRoomsData("delux");
+      if(roomResData.success){
+        setRoomData(roomResData.data);
+      }
     }
     setTimeout(() => {
       fetchInitialData();
     }, 3000);
   }, []);
+
+  useEffect(() => { divideDataAccordingToRow(); }, [roomData])
+
+
 
   // Dependency : If roomavailability collection doesn't exist create one
   // 0 == "Occupied"(yellow)    ---     1 == "Available"(green)     ---      2 == "Dirty"(red)
@@ -33,73 +43,16 @@ const DuluxeRoomAvailability = () => {
 
     if (!collectionExist.length) {
       await db.collection("roomavailability").add({
-        standard: {
-          101: "0",
-          102: "1",
-          103: "2",
-          104: "1",
-          105: "2",
-          106: "0",
-          107: "0",
-          108: "2",
-          109: "1",
-          110: "0",
-          111: "1",
-          112: "2",
-          113: "1",
-          114: "2",
-          115: "0",
-          116: "0",
-          117: "2",
-          118: "1",
-        },
-        delux: {
-          201: "0",
-          202: "1",
-          203: "2",
-          204: "1",
-          205: "2",
-          206: "0",
-          207: "0",
-          208: "2",
-          209: "1",
-          210: "0",
-          211: "1",
-          212: "2",
-          213: "1",
-          214: "2",
-          215: "0",
-          216: "0",
-          217: "2",
-          218: "1",
-        },
-        executive: {
-          301: "0",
-          302: "1",
-          303: "2",
-          304: "1",
-          305: "2",
-          306: "0",
-          307: "0",
-          308: "2",
-          309: "1",
-          310: "0",
-          311: "1",
-          312: "2",
-          313: "1",
-          314: "2",
-          106: "0",
-          316: "0",
-          317: "2",
-          318: "1",
-        },
+        standard: { 101: "0", 102: "1", 103: "1", 104: "1", 105: "0", 106: "1", 107: "1", 108: "2", 109: "1", 110: "0", 111: "1", 112: "1", 113: "1", 114: "1", 115: "1", 116: "0", 117: "1", 118: "1", },
+        delux: {  201: "1", 202: "1",  203: "2", 204: "1",  205: "1", 206: "0",  207: "0", 208: "1",  209: "1", 210: "1",  211: "1", 212: "1",  213: "1", 214: "1",  215: "1", 216: "2",  217: "1", 218: "0", },
+        executive: {  301: "1", 302: "1",  303: "2", 304: "1",  305: "1", 306: "1",  307: "1", 308: "1",  309: "1", 310: "1",  311: "1", 312: "1",  313: "1", 314: "1",  315: "0", 316: "1",  317: "2", 318: "1", },
       });
     }
   };
 
   // Get : Get room no and their availability status
   // params : roomType ->  ('standard', 'delux', 'executive') only
-  // return : 1. {success: true, data: {101: '00', 102: '01', 103: '02'}}        IF ALL OK
+  // return : 1. {success: true, data: {101: '0', 102: '1', 103: '2'}}           IF ALL OK
   //          2. {success: false, msg: 'Invalid Input'}                          IF INVALID INPUT
   //          3. {success: false, msg: 'Something went wrong'}                   IF INTERNAL SERVER ERROR
   const getRoomsData = async (roomType) => {
@@ -129,6 +82,30 @@ const DuluxeRoomAvailability = () => {
     }
     await initializeDatabase();
   };
+
+
+  const divideDataAccordingToRow = ()=>{
+    const objectKeys = Object.keys(roomData);
+    const objectValues = Object.values(roomData);
+
+    const divIndex = Math.ceil(objectKeys.length / 3);
+
+    const keys1 = objectKeys.slice(0, divIndex);
+    const keys2 = objectKeys.slice(divIndex, divIndex * 2);
+    const keys3 = objectKeys.slice(divIndex * 2);
+
+    const values1 = objectValues.slice(0, divIndex);
+    const values2 = objectValues.slice(divIndex, divIndex * 2);
+    const values3 = objectValues.slice(divIndex * 2);
+
+    const part1Obj = keys1.reduce(  (acc, curr, index) => ({ ...acc, [curr]: values1[index] }), {}  );
+    const part2Obj = keys2.reduce(  (acc, curr, index) => ({ ...acc, [curr]: values2[index] }), {}  );
+    const part3Obj = keys3.reduce(  (acc, curr, index) => ({ ...acc, [curr]: values3[index] }), {}  );
+
+    setRoomDataPart1(part1Obj);
+    setRoomDataPart2(part2Obj);
+    setRoomDataPart3(part3Obj);
+  }
 
   const handleImgBtnMouseEnter = (whichImg) => {
     setHoverdImg(whichImg);
@@ -239,112 +216,31 @@ const DuluxeRoomAvailability = () => {
         </div>
         {/* Rooms icons */}
         <div className="row">
-          <div className="col-sm">
-            <div
-              className="roomcirclered"
-              onMouseEnter={() => {
-                handleImgBtnMouseEnter("100");
-              }}
-              onMouseLeave={handleImgBtnMouseLeave}
-            >
-              100
+          {roomDataPart1 && Object.entries(roomDataPart1).map(([roomno, roomav]) => {
+            return <div key={roomno} className="col-sm">
+              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} onMouseEnter={() => { handleImgBtnMouseEnter(roomno); }} onMouseLeave={handleImgBtnMouseLeave} >
+                {roomno}
+              </div>
             </div>
-          </div>
-          <div className="col-sm">
-            <div
-              className="roomcircleyellow"
-              onMouseEnter={() => {
-                handleImgBtnMouseEnter("200");
-              }}
-              onMouseLeave={handleImgBtnMouseLeave}
-            >
-              200
-            </div>
-          </div>
-          <div className="col-sm">
-            <div
-              className="roomcirclegreen"
-              onMouseEnter={() => {
-                handleImgBtnMouseEnter("300");
-              }}
-              onMouseLeave={handleImgBtnMouseLeave}
-            >
-              300
-            </div>
-          </div>
-          <div className="col-sm">
-            <div
-              className="roomcirclered"
-              onMouseEnter={() => {
-                handleImgBtnMouseEnter("400");
-              }}
-              onMouseLeave={handleImgBtnMouseLeave}
-            >
-              400
-            </div>
-          </div>
-          <div className="col-sm">
-            <div
-              className="roomcircleyellow"
-              onMouseEnter={() => {
-                handleImgBtnMouseEnter("100");
-              }}
-              onMouseLeave={handleImgBtnMouseLeave}
-            >
-              100
-            </div>
-          </div>
-          <div className="col-sm">
-            <div
-              className="roomcirclegreen"
-              onMouseEnter={() => {
-                handleImgBtnMouseEnter("200");
-              }}
-              onMouseLeave={handleImgBtnMouseLeave}
-            >
-              200
-            </div>
-          </div>
+          })}
         </div>
         <div className="row">
-          <div className="col-sm">
-            <div className="roomcirclered">200</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcircleyellow">300</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcirclegreen">400</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcirclered">200</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcircleyellow">300</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcirclegreen">400</div>
-          </div>
+          {roomDataPart2 && Object.entries(roomDataPart2).map(([roomno, roomav]) => {
+            return <div key={roomno} className="col-sm">
+              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} onMouseEnter={() => { handleImgBtnMouseEnter(roomno); }} onMouseLeave={handleImgBtnMouseLeave} >
+                {roomno}
+              </div>
+            </div>
+          })}
         </div>
         <div className="row">
-          <div className="col-sm">
-            <div className="roomcirclered">200</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcircleyellow">300</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcirclegreen">400</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcirclered">200</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcircleyellow">300</div>
-          </div>
-          <div className="col-sm">
-            <div className="roomcirclegreen">400</div>
-          </div>
+          {roomDataPart3 && Object.entries(roomDataPart3).map(([roomno, roomav]) => {
+            return <div key={roomno} className="col-sm">
+              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} onMouseEnter={() => { handleImgBtnMouseEnter(roomno); }} onMouseLeave={handleImgBtnMouseLeave} >
+                {roomno}
+              </div>
+            </div>
+          })}
         </div>
       </div>
       <br />
