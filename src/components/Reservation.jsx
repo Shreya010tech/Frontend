@@ -144,7 +144,7 @@ const Reservation = () => {
 
   return (
     <div>
-      <div className="bg-light h-100">
+      <div className="bg-light vh-100">
         <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
