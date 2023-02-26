@@ -1,4 +1,4 @@
-body{
+.containerhome3 body{
     overflow-x: hidden!important;
 }
 .containerhome3{
@@ -6,7 +6,7 @@ body{
     flex-direction: row;
 }
 
-h1{
+.left h1{
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 font-style: normal;
 font-weight: 500;
@@ -16,7 +16,7 @@ line-height: 52px;
 color: #2545F8;
 }
 
-h3{
+.left h3{
     font-family: 'Poppins';
 font-style: normal;
 font-weight: 500;
