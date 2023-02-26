@@ -11,7 +11,6 @@ db.config.debug = false;
 // }
 
 const DuluxeRoomAvailability = () => {
-  const [hoverdImg, setHoverdImg] = useState("");
   const [roomData, setRoomData] = useState({});
   const [roomDataPart1, setRoomDataPart1] = useState({});
   const [roomDataPart2, setRoomDataPart2] = useState({});
@@ -107,13 +106,6 @@ const DuluxeRoomAvailability = () => {
     setRoomDataPart3(part3Obj);
   }
 
-  const handleImgBtnMouseEnter = (whichImg) => {
-    setHoverdImg(whichImg);
-  };
-
-  const handleImgBtnMouseLeave = () => {
-    setHoverdImg("");
-  };
 
   return (
     <>
@@ -155,9 +147,7 @@ const DuluxeRoomAvailability = () => {
             <div id="imgcontainer">
               <img
                 src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                className={`imgfix-rooms ${
-                  hoverdImg == "100" ? "hover-image-zoom" : ""
-                }`}
+                className={"imgfix-rooms"}
                 id="roomimage"
                 alt="..."
               />
@@ -170,9 +160,7 @@ const DuluxeRoomAvailability = () => {
             <div id="imgcontainer">
               <img
                 src="https://images.unsplash.com/photo-1568495248636-6432b97bd949?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                className={`imgfix-rooms ${
-                  hoverdImg == "200" ? "hover-image-zoom" : ""
-                }`}
+                className={"imgfix-rooms"}
                 id="roomimage"
                 alt="..."
               />
@@ -187,9 +175,7 @@ const DuluxeRoomAvailability = () => {
             <div id="imgcontainer">
               <img
                 src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                className={`imgfix-rooms ${
-                  hoverdImg == "300" ? "hover-image-zoom" : ""
-                }`}
+                className={"imgfix-rooms"}
                 id="roomimage"
                 alt="..."
               />
@@ -202,9 +188,7 @@ const DuluxeRoomAvailability = () => {
             <div id="imgcontainer">
               <img
                 src="https://images.unsplash.com/photo-1609766857041-ed402ea8069a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                className={`imgfix-rooms ${
-                  hoverdImg == "400" ? "hover-image-zoom" : ""
-                }`}
+                className={"imgfix-rooms"}
                 id="roomimage"
                 alt="..."
               />
@@ -218,7 +202,7 @@ const DuluxeRoomAvailability = () => {
         <div className="row">
           {roomDataPart1 && Object.entries(roomDataPart1).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} onMouseEnter={() => { handleImgBtnMouseEnter(roomno); }} onMouseLeave={handleImgBtnMouseLeave} >
+              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>
@@ -227,7 +211,7 @@ const DuluxeRoomAvailability = () => {
         <div className="row">
           {roomDataPart2 && Object.entries(roomDataPart2).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} onMouseEnter={() => { handleImgBtnMouseEnter(roomno); }} onMouseLeave={handleImgBtnMouseLeave} >
+              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>
@@ -236,7 +220,7 @@ const DuluxeRoomAvailability = () => {
         <div className="row">
           {roomDataPart3 && Object.entries(roomDataPart3).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} onMouseEnter={() => { handleImgBtnMouseEnter(roomno); }} onMouseLeave={handleImgBtnMouseLeave} >
+              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>
