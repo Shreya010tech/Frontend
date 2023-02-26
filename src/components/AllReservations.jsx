@@ -79,7 +79,7 @@ const AllReservations = () => {
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
               <a className="text-primary" href="/#">
-                <i className="bx bx-chevrons-left"></i>
+                <i className="bx bx-chevrons-left font-size-25"></i>
               </a>
               <h5 className="text-primary">Reservation</h5>
             </div>
@@ -91,24 +91,24 @@ const AllReservations = () => {
               type="button"
               className="d-flex align-items-center text-primary btn btn-light"
             >
-              <i className="bx bxs-building"></i>Reservation
+              <i className="bx bxs-building font-size-25"></i>Reservation
             </button>
             <button
               type="button"
               className="d-flex align-items-center text-primary btn btn-light"
             >
-              <i className="bx bxs-plus-square"></i>Add
+              <i className="bx bxs-plus-square font-size-25"></i>Add
             </button>
             <button
               type="button"
               className="d-flex align-items-center text-primary btn btn-light"
             >
-              <i className="bx bxs-x-circle"></i>Cancel
+              <i className="bx bxs-x-circle font-size-25"></i>Cancel
             </button>
           </div>
           <div className="table-responsive height-500 bg-skyblue mt-4">
-            <table className="table table-borderless text-primary">
-              <thead>
+            <table className="table table-borderless table-border-collapse text-primary">
+              <thead className="table-head">
                 <tr>
                   <th scope="col">Sl</th>
                   <th scope="col">Booking Date</th>
@@ -122,11 +122,11 @@ const AllReservations = () => {
                 {bookingData && bookingData.map((item,index)=>{
                   return <tr key={item?.bookingid}>
                     <th scope="row">{index+1}</th>
-                    <td>{item?.bookingdate}</td>
-                    <td>{item?.bookingid}</td>
-                    <td>{`${item?.name?.title} ${item?.name?.firstname} ${item?.name?.middlename} ${item?.name?.lastname}`}</td>
-                    <td>{item?.arrivaldate}</td>
-                    <td>{item?.departuredate}</td>
+                    <td className="table-tdata">{item?.bookingdate}</td>
+                    <td className="table-tdata">{item?.bookingid}</td>
+                    <td className="table-tdata">{`${item?.name?.title} ${item?.name?.firstname} ${item?.name?.middlename} ${item?.name?.lastname}`}</td>
+                    <td className="table-tdata">{item?.arrivaldate}</td>
+                    <td className="table-tdata">{item?.departuredate}</td>
                   </tr>
                 })}
               </tbody>

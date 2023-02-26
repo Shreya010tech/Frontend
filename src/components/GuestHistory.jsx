@@ -9,7 +9,7 @@ const GuestHistory = () => {
                     <div className="container-fluid">
                         <div className="navbar-brand d-flex align-items-center">
                             <a className="text-primary" href="/#">
-                                <i className="bx bx-chevrons-left"></i>
+                                <i className="bx bx-chevrons-left font-size-25"></i>
                             </a>
                             <h5 className="text-primary">Guest History</h5>
                         </div>
@@ -62,12 +62,12 @@ const GuestHistory = () => {
                     </div>
                     <div className="container flex-column">
                         <div className="d-flex width-280 height-30 background-gray search-bar">
-                            <input type="search" className="search-input width-280 padding-left-35" placeholder="Search" required />
-                            <button type="search" className="search-icon width-35 height-30 text-align-center d-flex align-items-center justify-content-center"><i className='bx bx-search-alt text-primary'></i></button>
+                            <input type="search" className="search-input width-280 padding-left-35" placeholder="Search" />
+                            <button type="search" className="search-icon width-35 height-30 text-align-center d-flex align-items-center justify-content-center"><i className='bx bx-search-alt search-boxicon text-primary'></i></button>
                         </div>
-                        <div className="table-responsive height-500 bg-skyblue mt-5">
-                            <table className="table table-borderless text-primary">
-                                <thead>
+                        <div className="table-responsive height-450 bg-skyblue mt-5">
+                            <table className="table table-borderless table-border-collapse text-primary">
+                                <thead className="table-head">
                                     <tr>
                                         <th scope="col">Sl</th>
                                         <th scope="col">Name</th>
@@ -81,84 +81,84 @@ const GuestHistory = () => {
                                 <tbody className="table-group-divider">
                                     <tr>
                                         <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Mark</td>
+                                        <td className="table-tdata">Otto</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Jacob</td>
+                                        <td className="table-tdata">Thornton</td>
+                                        <td className="table-tdata">@fat</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
-                                        <td>Larry the Bird</td>
-                                        <td>fat</td>
-                                        <td>@twitter</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Larry the Bird</td>
+                                        <td className="table-tdata">fat</td>
+                                        <td className="table-tdata">@twitter</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
-                                        <td>Larry the Bird</td>
-                                        <td>fat</td>
-                                        <td>@twitter</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Larry the Bird</td>
+                                        <td className="table-tdata">fat</td>
+                                        <td className="table-tdata">@twitter</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
-                                        <td>Larry the Bird</td>
-                                        <td>fat</td>
-                                        <td>@twitter</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Larry the Bird</td>
+                                        <td className="table-tdata">fat</td>
+                                        <td className="table-tdata">@twitter</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
-                                        <td>Larry the Bird</td>
-                                        <td>fat</td>
-                                        <td>@twitter</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Larry the Bird</td>
+                                        <td className="table-tdata">fat</td>
+                                        <td className="table-tdata">@twitter</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
-                                        <td>Larry the Bird</td>
-                                        <td>fat</td>
-                                        <td>@twitter</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Larry the Bird</td>
+                                        <td className="table-tdata">fat</td>
+                                        <td className="table-tdata">@twitter</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
-                                        <td>Larry the Bird</td>
-                                        <td>fat</td>
-                                        <td>@twitter</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Larry the Bird</td>
+                                        <td className="table-tdata">fat</td>
+                                        <td className="table-tdata">@twitter</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
-                                        <td>Larry the Bird</td>
-                                        <td>fat</td>
-                                        <td>@twitter</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td><button className="font-size-14 btn btn-primary">Check History</button></td>
+                                        <td className="table-tdata">Larry the Bird</td>
+                                        <td className="table-tdata">fat</td>
+                                        <td className="table-tdata">@twitter</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata">@mdo</td>
+                                        <td className="table-tdata"><button className="font-size-14 btn btn-primary">Check History</button></td>
                                     </tr>
                                 </tbody>
                             </table>

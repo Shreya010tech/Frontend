@@ -149,7 +149,7 @@ const Reservation = () => {
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
               <a className="text-primary" href="/#">
-                <i className="bx bx-chevrons-left"></i>
+                <i className="bx bx-chevrons-left font-size-25"></i>
               </a>
               <h5 className="text-primary">Reservation</h5>
             </div>
@@ -161,19 +161,19 @@ const Reservation = () => {
               type="button"
               className="d-flex align-items-center text-primary btn btn-light button-padding-5"
             >
-              <i className="bx bxs-building"></i>Reservation
+              <i className="bx bxs-building font-size-25"></i>Reservation
             </button>
             <button
               type="button"
               className="d-flex align-items-center text-primary btn btn-light button-padding-5"
             >
-              <i className="bx bxs-plus-square"></i>Add
+              <i className="bx bxs-plus-square font-size-25"></i>Add
             </button>
             <button
               type="button"
               className="d-flex align-items-center text-primary btn btn-light button-padding-5"
             >
-              <i className="bx bxs-x-circle"></i>Cancel
+              <i className="bx bxs-x-circle font-size-25"></i>Cancel
             </button>
           </div>
           <form

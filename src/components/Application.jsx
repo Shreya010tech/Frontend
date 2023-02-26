@@ -20,7 +20,7 @@ const Application = () => {
                     <div className="container-fluid">
                         <div className="navbar-brand d-flex align-items-center">
                             <a className="text-primary" href="/#">
-                                <i className="bx bx-chevrons-left"></i>
+                                <i className="bx bx-chevrons-left font-size-25"></i>
                             </a>
                             <h5 className="text-primary">Application</h5>
                         </div>

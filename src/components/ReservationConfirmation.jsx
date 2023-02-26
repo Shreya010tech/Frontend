@@ -74,7 +74,7 @@ const ReservationConfirmation = () => {
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
               <a className="text-primary" href="/#">
-                <i className="bx bx-chevrons-left"></i>
+                <i className="bx bx-chevrons-left font-size-25"></i>
               </a>
               <h5 className="text-primary">Reservation</h5>
             </div>
@@ -84,7 +84,7 @@ const ReservationConfirmation = () => {
           <div className="card">
             <div className="card-body  bg-skyblue">
               <div className="d-flex align-items-center column-gap-5 mb-3">
-                <i className="bx bxs-check-circle text-primary"></i>
+                <i className="bx bxs-check-circle text-primary font-size-120"></i>
                 <div className="d-flex align-items-center justify-content-center">
                   <h3 className="pt-2 text-primary small-font-size-20">
                     Booking has been done Successfully
@@ -130,7 +130,7 @@ const ReservationConfirmation = () => {
                 </div>
               </div>
               <div className="d-flex align-items-center justify-content-center column-gap-1 mb-5">
-                <i className="bx bxs-moon text-primary"></i>
+                <i className="bx bxs-moon text-primary font-size-25"></i>
                 <h5 className="pt-1">{nights} Nights</h5>
               </div>
               <div className="d-flex flex-column">
