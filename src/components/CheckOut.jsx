@@ -95,7 +95,7 @@ const CheckOut = () => {
         </div>
         <br />
         <div className="row2A">
-          <table className="table">
+          <table className="tableA">
             <tr bgcolor="#EDF8FD" align="center">
               <th width="100">Date</th>
               <th width="100">Description</th>
