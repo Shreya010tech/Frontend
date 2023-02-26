@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 body {
-  font-family: 'Poppins', sans-serif!important;
-  overflow-y: scroll!important;
+  font-family: 'Poppins', sans-serif !important;
+  overflow-y: scroll !important;
 }
 
 #HomeCss {
@@ -23,7 +24,7 @@ body {
 }
 
 .profile-details p {
-  color: #4763FD;
+  color: #4763fd;
 }
 
 .profile-box {
@@ -63,12 +64,36 @@ body {
 }
 
 .image-slider {
-  background: #EDF8FD;
+  background: #edf8fd;
   padding: 30px;
   border-radius: 15px;
 }
 
-.hover-image-zoom{
+.image-slider-duluxe {
+  background-image: radial-gradient(
+    circle 691px at 23.3% 17.5%,
+    rgba(241, 122, 59, 0.91) 0%,
+    rgba(249, 224, 196, 1) 72.3%
+  );
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.image-slider-executive {
+  background-image: linear-gradient(
+    89.9deg,
+    rgba(178, 253, 238, 0.96) -8.1%,
+    rgba(207, 244, 254, 1) 26.3%,
+    rgba(207, 244, 254, 0.48) 47.5%,
+    rgba(254, 219, 243, 0.63) 61.5%,
+    rgba(254, 219, 243, 1) 78.7%,
+    rgba(254, 207, 210, 1) 109.2%
+  );
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.hover-image-zoom {
   transform: scale(1.2);
   transition: 0.5s transform ease-in-out;
 }
@@ -90,7 +115,7 @@ body {
   height: auto;
   width: 100%;
   opacity: 0;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
 #imgcontainer:hover #roomimgoverlay {
@@ -131,7 +156,7 @@ body {
   outline: none;
   background: rgba(255, 0, 0, 0.5);
   padding: 8px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .roomcircleyellow {
@@ -146,7 +171,7 @@ body {
   outline: none;
   background: rgba(255, 255, 0, 0.5);
   padding: 8px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .roomcirclegreen {
@@ -161,7 +186,7 @@ body {
   outline: none;
   background: rgba(0, 255, 0, 0.5);
   padding: 8px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .imgformfix {

@@ -10,7 +10,7 @@ db.config.debug = false;
 
 // }
 
-const RoomAvailability = () => {
+const ExecutiveRoomAvailability = () => {
   const [hoverdImg, setHoverdImg] = useState("");
 
   useEffect(() => {
@@ -159,24 +159,24 @@ const RoomAvailability = () => {
                 aria-current="page"
                 to="/RoomAvailability"
               >
-                <u>Standard</u>
+                Standard
               </NavLink>
               <NavLink className="nav-link text-primary" to="/Duluxe">
                 Duluxe
               </NavLink>
               <NavLink className="nav-link text-primary" to="/Executive">
-                Executive
+                <u>Executive</u>
               </NavLink>
             </div>
           </center>
         </div>
       </nav>
-      <div className="image-slider">
+      <div className="image-slider-executive">
         <div className="row">
           <div className="col-sm">
             <div id="imgcontainer">
               <img
-                src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                src="https://plus.unsplash.com/premium_photo-1661874901387-7d272fa36c43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGFsYWNlJTIwcm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
                 className={`imgfix-rooms ${
                   hoverdImg == "100" ? "hover-image-zoom" : ""
                 }`}
@@ -191,7 +191,7 @@ const RoomAvailability = () => {
           <div className="col-sm">
             <div id="imgcontainer">
               <img
-                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                src="https://images.unsplash.com/photo-1532119663789-58252470755c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHBhbGFjZSUyMHJvb218ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
                 className={`imgfix-rooms ${
                   hoverdImg == "200" ? "hover-image-zoom" : ""
                 }`}
@@ -206,7 +206,7 @@ const RoomAvailability = () => {
           <div className="col-sm">
             <div id="imgcontainer">
               <img
-                src="https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8aG90ZWwlMjByb29tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+                src="https://images.unsplash.com/photo-1563396984259-c296a53e3c24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fHBhbGFjZSUyMHJvb218ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
                 className={`imgfix-rooms ${
                   hoverdImg == "300" ? "hover-image-zoom" : ""
                 }`}
@@ -221,7 +221,7 @@ const RoomAvailability = () => {
           <div className="col-sm">
             <div id="imgcontainer">
               <img
-                src="https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGhvdGVsJTIwcm9vbXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=600"
+                src="https://images.unsplash.com/photo-1598902572700-ce5972e68deb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fHBhbGFjZSUyMHJvb218ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
                 className={`imgfix-rooms ${
                   hoverdImg == "400" ? "hover-image-zoom" : ""
                 }`}
@@ -365,4 +365,4 @@ const RoomAvailability = () => {
   );
 };
 
-export default RoomAvailability;
+export default ExecutiveRoomAvailability;
