@@ -139,8 +139,8 @@ const ExecutiveRoomAvailability = () => {
   };
 
   return (
-    <div className="container">
-      <nav className="navbar sticky-top navbar navbar-expand-lg">
+    <>
+    <nav className="navbar sticky-top navbar navbar-expand-lg">
         <div className="container-fluid">
           <div className="navbar-brand d-flex align-items-center">
             <NavLink className="text-primary" to="/#">
@@ -150,6 +150,7 @@ const ExecutiveRoomAvailability = () => {
           </div>
         </div>
       </nav>
+    <div className="container">
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <center>
@@ -362,6 +363,7 @@ const ExecutiveRoomAvailability = () => {
         </div>
       </center>
     </div>
+    </>
   );
 };
 
