@@ -70,12 +70,12 @@ const Home3 = () => {
                 &nbsp; Room Availability
               </NavLink>
               <br />
-              <NavLink to="/HouseKeeping" className="NavLinks">
+              <NavLink to="/Laundry" className="NavLinks">
                 <i id="iconcolor" class="fa fa-user" aria-hidden="true"></i>
                 &nbsp; House Keeping
               </NavLink>
               <br />
-              <NavLink to="/FBService" className="NavLinks">
+              <NavLink to="/FandB" className="NavLinks">
                 <i id="iconcolor" class="fa fa-cutlery" aria-hidden="true"></i>
                 &nbsp; F & B Service
               </NavLink>

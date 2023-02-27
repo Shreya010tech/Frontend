@@ -16,6 +16,7 @@ import CheckOut from "./components/CheckOut";
 import Laundry from "./components/Laundry";
 import DuluxeRoomAvailability from "./components/DuluxeRoomAvailablility";
 import ExecutiveRoomAvailability from "./components/ExecutiveRoomAvailability";
+import FandB from "./components/FandB";
 
 const App = () => {
   return (
@@ -40,8 +41,13 @@ const App = () => {
         <Route exact path="/Laundry" element={<Laundry />} />
         <Route exact path="/CheckIn" element={<CheckIn />} />
         <Route exact path="/Checkout" element={<CheckOut />} />
+        <Route exact path="/FandB" element={<FandB />} />
         <Route exact path="/Duluxe" element={<DuluxeRoomAvailability />} />
-        <Route exact path="/Executive" element={<ExecutiveRoomAvailability />} />
+        <Route
+          exact
+          path="/Executive"
+          element={<ExecutiveRoomAvailability />}
+        />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>

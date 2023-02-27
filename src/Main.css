@@ -107,8 +107,21 @@ body {
   padding: 30px;
   border-radius: 15px;
 }
-
-
+#iconfb
+{
+  font-size: 35px!important;
+}
+#alignright
+{
+  right: 0!important;
+  display: flex!important;
+  position: absolute!important;
+}
+#fbcontentbox
+{
+  min-height: 80vh;
+  background: #E6F6FE!important;
+}
 /* Overlay of rooms */
 #imgcontainer {
   position: relative;
