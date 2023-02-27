@@ -4,18 +4,19 @@ import AllReservations from "./components/AllReservations";
 import Application from "./components/Application";
 import Notice from "./components/Notice";
 import Home from "./components/Home";
-import Home3 from "./components/home3";
+import Home3 from "./components/Home3";
 import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
 import RoomAvailability from "./components/RoomAvailability";
-import CheckIn from "./components/checkin";
+import CheckIn from "./components/CheckIn";
 import GuestHistory from "./components/GuestHistory";
 import HistoryReports from "./components/HistoryReports";
 import CheckOut from "./components/CheckOut";
 import Laundry from "./components/Laundry";
 import DuluxeRoomAvailability from "./components/DuluxeRoomAvailablility";
 import ExecutiveRoomAvailability from "./components/ExecutiveRoomAvailability";
+import FandB from "./components/FandB";
 
 const App = () => {
   return (
@@ -40,8 +41,13 @@ const App = () => {
         <Route exact path="/Laundry" element={<Laundry />} />
         <Route exact path="/CheckIn" element={<CheckIn />} />
         <Route exact path="/Checkout" element={<CheckOut />} />
+        <Route exact path="/FandB" element={<FandB />} />
         <Route exact path="/Duluxe" element={<DuluxeRoomAvailability />} />
-        <Route exact path="/Executive" element={<ExecutiveRoomAvailability />} />
+        <Route
+          exact
+          path="/Executive"
+          element={<ExecutiveRoomAvailability />}
+        />
         <Route path="*" element={<Navigate to="/Home" replace />} />
       </Routes>
     </>

@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import "../CustomCss/Reservation.css";
 import ShortUniqueId from "short-unique-id";
 import Localbase from "localbase";
@@ -8,6 +10,12 @@ let db = new Localbase("hmctdb");
 db.config.debug = false;
 
 const Reservation = () => {
+  const navigate = useNavigate();
+
+  const [isCardNoDisabled, setIsCardNoDisabled] = useState(false);
+  const [isUpiDisabled, setIsUpiDisabled] = useState(false);
+  const [isDiscountDisabled, setIsDiscountDisabled] = useState(true);
+
   const [roomTypeBtnColor, setRoomTypeBtnColor] = useState("");
   const [paymentTypeBtnColor, setPaymentTypeBtnColor] = useState("");
   const [mealTypeBtnColor, setMealTypeBtnColor] = useState("");
@@ -22,6 +30,7 @@ const Reservation = () => {
   const [arrivalTime, setArrivalTime] = useState("");
   const [departureDate, setdepartureDate] = useState("");
   const [departureTime, setDepartureTime] = useState("");
+  const [nights, setNights] = useState(0);
   const [roomType, setRoomType] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
   const [noOfRooms, setNoOfRooms] = useState("");
@@ -43,7 +52,7 @@ const Reservation = () => {
 
   // Add :  Add reservation details 
   // params : none     (directly get data from useState)
-  // return :   1.  {success:true}                                    IF ADDED SUCCESSFULLY
+  // return :   1.  {success:true, bookingid: 'string'}               IF ADDED SUCCESSFULLY
   //            2.  {success:false, msg: 'Something Went Wrong'}      IF ADD FAILED
   const addReservationData = async()=>{
     try{
@@ -61,7 +70,7 @@ const Reservation = () => {
           adultno: "",  childno: "",
 
           bookingdate: bookingDate, arrivaldate: arrivalDate, arrivaltime: arrivalTime, 
-          departuredate: departureDate, departuretime: departureTime,
+          departuredate: departureDate, departuretime: departureTime, nights: nights,
 
           typeofroom: roomType, roomno: roomNumber, noofrooms: noOfRooms,
 
@@ -79,7 +88,7 @@ const Reservation = () => {
           resassisname: resAssisName, specialreq: specialReq
       })
 
-      return {success: true}     
+      return {success: true, bookingid: ubookingid}     
     }catch(e){
       console.log("ReservationPageError (addReservationData) : ",e);
       return {success: false, msg: 'Something Went Wrong'}
@@ -93,6 +102,9 @@ const Reservation = () => {
   };
 
   const changePaymentBtnColor = (paymentType) => {
+    if(paymentType == 'Cash') { setIsCardNoDisabled(true); setIsUpiDisabled(true); }
+    if(paymentType == 'Card') { setIsCardNoDisabled(false); setIsUpiDisabled(true); }
+    if(paymentType == 'UPI') { setIsCardNoDisabled(true); setIsUpiDisabled(false); }
     setPaymentTypeBtnColor(paymentType);
     setModeOfPayment(paymentType);
   };
@@ -101,6 +113,15 @@ const Reservation = () => {
     setMealTypeBtnColor(mealType);
     setMealPlan(mealType);
   };
+
+  const clearForm = ()=>{
+    setGuestName({ title: "", firstname: "", middlename: "", lastname: "", });
+    setAddress({ ad1: "", city: "", state: "", zip: "", });
+    setGuestPhoneNumber(""); setCompanyName(""); setDesignation(""); setBookingDate(""); setArrivalDate(""); setArrivalTime(""); setdepartureDate("");
+    setDepartureTime(""); setNights(0); setRoomType(""); setRoomNumber(""); setNoOfRooms(""); setNoOfPax(""); setModeOfArrival(""); setTrainNo("");
+    setFlightNo(""); setRoomRate(""); setDiscountAmount(""); setDiscountPercentage(""); setModeOfPayment(""); setCardNo("");
+    setUpi(""); setMealPlan(""); setTravelAgentName(""); setResAssisName(""); setSpecialReq("");
+  }
 
   const handleInputChange = (e) => {
     if (e.target.name == "title") {  setGuestName({ ...guestName, title: e.target.value }); }
@@ -112,9 +133,30 @@ const Reservation = () => {
     else if (e.target.name == "companyname") {  setCompanyName(e.target.value); }
     else if (e.target.name == "designation") {  setDesignation(e.target.value); }
     else if (e.target.name == "bookingdate") {  setBookingDate(e.target.value); }
-    else if (e.target.name == "arrivaldate") {  setArrivalDate(e.target.value); }
+    else if (e.target.name == "arrivaldate") {  
+      setArrivalDate(e.target.value); 
+      if(departureDate && e.target.value) { 
+        const date2 = new Date(departureDate);
+        const date1 = new Date(e.target.value);
+
+        const diffTime = Math.abs(date2.getTime() - date1.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        setNights(diffDays);
+      }
+    }
     else if (e.target.name == "arrivaltime") {  setArrivalTime(e.target.value); }
-    else if (e.target.name == "departuredate") {  setdepartureDate(e.target.value); }
+    else if (e.target.name == "departuredate") {  
+      setdepartureDate(e.target.value); 
+      if(arrivalDate && e.target.value) { 
+        const date1 = new Date(e.target.value);
+        const date2 = new Date(arrivalDate);
+
+        const diffTime = Math.abs(date2.getTime() - date1.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        setNights(diffDays);
+      }
+    }
+    else if (e.target.name == "nights") { setNights(e.target.value); }
     else if (e.target.name == "departuretime") {  setDepartureTime(e.target.value); }
     else if (e.target.name == "roomnumber") {  setRoomNumber(e.target.value); }
     else if (e.target.name == "noofrooms") {  setNoOfRooms(e.target.value); }
@@ -122,9 +164,16 @@ const Reservation = () => {
     else if (e.target.name == "modeofarrival") {  setModeOfArrival(e.target.value); }
     else if (e.target.name == "trainno") {  setTrainNo(e.target.value); }
     else if (e.target.name == "flightno") {  setFlightNo(e.target.value); }
-    else if (e.target.name == "roomrate") {  setRoomRate(e.target.value); }
-    else if (e.target.name == "discountamount") {  setDiscountAmount(e.target.value); }
-    else if (e.target.name == "discountpercentage") {  setDiscountPercentage(e.target.value); }
+    else if (e.target.name == "roomrate") {  
+      setRoomRate(e.target.value); if(e.target.value == ''){ setIsDiscountDisabled(true); }else{ setIsDiscountDisabled(false); }
+      setDiscountAmount(""); setDiscountPercentage("");
+    }
+    else if (e.target.name == "discountamount") { 
+      setDiscountAmount(e.target.value);  let result = (e.target.value / roomRate) * 100; setDiscountPercentage(result);
+    }  
+    else if (e.target.name == "discountpercentage") {  
+      setDiscountPercentage(e.target.value);  let result = (e.target.value * roomRate) / 100; setDiscountAmount(result);
+    }
     else if (e.target.name == "cardno") {  setCardNo(e.target.value); }
     else if (e.target.name == "upi") {  setUpi(e.target.value); }
     else if (e.target.name == "travelagentname") {  setTravelAgentName(e.target.value); }
@@ -134,9 +183,13 @@ const Reservation = () => {
 
   const onSubmitAction = async (e) => {
     e.preventDefault();
+    if(roomType == "") { alert("Select Type of Room"); return; }
+    if(mealPlan == "") { alert("Select Meal Plan"); return; }
+    if(modeOfPayment == "") { alert("Select Mode of Payment"); return; }
+
     let res = await addReservationData();
     if(res.success){
-      alert("Your form submitted!");
+      navigate(`/ReservationConfirmation?bookingid=${res.bookingid}`);
     }else{
       alert(res.msg);
     }
@@ -148,9 +201,9 @@ const Reservation = () => {
         <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
-              <a className="text-primary" href="/#">
+              <NavLink className="text-primary" to="/Home3">
                 <i className="bx bx-chevrons-left font-size-25"></i>
-              </a>
+              </NavLink>
               <h5 className="text-primary">Reservation</h5>
             </div>
           </div>
@@ -159,7 +212,7 @@ const Reservation = () => {
           <div className="d-flex justify-content-end column-gap-3">
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light button-padding-5"
+              className="d-flex align-items-center text-primary btn btn-light button-padding-5" onClick={()=>{navigate('/AllReservations')}}
             >
               <i className="bx bxs-building font-size-25"></i>Reservation
             </button>
@@ -171,7 +224,7 @@ const Reservation = () => {
             </button>
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light button-padding-5"
+              className="d-flex align-items-center text-primary btn btn-light button-padding-5" onClick={clearForm}
             >
               <i className="bx bxs-x-circle font-size-25"></i>Cancel
             </button>
@@ -429,19 +482,42 @@ const Reservation = () => {
                 />
               </div>
             </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="noofpax" className="col-sm-3 col-form-label font-size-14">
-                No of Pax{" "}
-              </label>
-              <div className="col-sm-7">
-                <input
-                  type="text"
-                  className="form-control height-30 font-size-14"
-                  id="inputPax"
-                  name="noofpax"
-                  value={noOfPax}
-                  onChange={handleInputChange}
-                />
+            <div className="col-md-6 d-flex align-items-center font-size-14 rev-margin-gap">
+              <div className="col-md-6 d-flex align-items-center">
+                <label
+                  htmlFor="noofpax"
+                  className="col-sm-6 col-form-label font-size-14"
+                >
+                  No of Pax{" "}
+                </label>
+                <div className="col-sm-5">
+                  <input
+                    type="text"
+                    className="form-control height-30 font-size-14"
+                    id="inputPax"
+                    name="noofpax"
+                    value={noOfPax}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6 d-flex align-items-center">
+                <label
+                  htmlFor="nights"
+                  className="col-sm-3 col-form-label font-size-14"
+                >
+                  Nights
+                </label>
+                <div className="col-sm-5">
+                  <input
+                    type="text"
+                    className="form-control height-30 font-size-14"
+                    id="inputNights"
+                    name="nights"
+                    value={nights}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
@@ -599,6 +675,7 @@ const Reservation = () => {
                 </label>
                 <div className="col-sm-5">
                   <input
+                    disabled={isDiscountDisabled}
                     type="number"
                     className="form-control height-30 font-size-14"
                     id="inputRoomNo"
@@ -617,6 +694,7 @@ const Reservation = () => {
                 </label>
                 <div className="col-sm-4">
                   <input
+                    disabled={isDiscountDisabled}
                     type="number"
                     className="form-control height-30 font-size-14"
                     id="inputNoOfRoom"
@@ -632,7 +710,7 @@ const Reservation = () => {
                 Card No{" "}
               </label>
               <div className="col-sm-7">
-                <input
+                <input disabled={isCardNoDisabled}
                   type="number"
                   className="form-control height-30 font-size-14"
                   id="inputCardNo"
@@ -647,7 +725,7 @@ const Reservation = () => {
                 UPI{" "}
               </label>
               <div className="col-sm-7">
-                <input
+                <input disabled={isUpiDisabled}
                   type="text"
                   className="form-control height-30 font-size-14"
                   id="inputupi"

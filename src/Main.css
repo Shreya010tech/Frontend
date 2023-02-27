@@ -107,8 +107,21 @@ body {
   padding: 30px;
   border-radius: 15px;
 }
-
-
+#iconfb
+{
+  font-size: 35px!important;
+}
+#alignright
+{
+  right: 0!important;
+  display: flex!important;
+  position: absolute!important;
+}
+#fbcontentbox
+{
+  min-height: 80vh;
+  background: #E6F6FE!important;
+}
 /* Overlay of rooms */
 #imgcontainer {
   position: relative;
@@ -171,7 +184,7 @@ body {
   border-radius: 50%;
   border: none;
   outline: none;
-  background: rgba(255, 0, 0, 0.5);
+  background: #FF7373;
   padding: 8px;
   cursor: pointer;
 }
@@ -186,7 +199,7 @@ body {
   border-radius: 50%;
   border: none;
   outline: none;
-  background: rgba(255, 255, 0, 0.5);
+  background: #FDE18D;
   padding: 8px;
   cursor: pointer;
 }
@@ -201,7 +214,7 @@ body {
   border-radius: 50%;
   border: none;
   outline: none;
-  background: rgba(0, 255, 0, 0.5);
+  background: #7AEBB5;
   padding: 8px;
   cursor: pointer;
 }
