@@ -9,7 +9,7 @@ import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
 import RoomAvailability from "./components/RoomAvailability";
-import CheckIn from "./components/CheckIn";
+import CheckIn from "./components/checkin";
 import GuestHistory from "./components/GuestHistory";
 import HistoryReports from "./components/HistoryReports";
 import CheckOut from "./components/CheckOut";
