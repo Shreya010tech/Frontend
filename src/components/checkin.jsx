@@ -165,20 +165,6 @@ const CheckIn = () => {
           </div>
         </nav>
         <div className="container mb-1">
-          <div className="d-flex justify-content-end column-gap-3">
-            <button
-              type="button"
-              className="d-flex align-items-center text-primary btn btn-light button-padding-5"
-            >
-              <i className="bx bxs-plus-square"></i>Add
-            </button>
-            <button
-              type="button"
-              className="d-flex align-items-center text-primary btn btn-light button-padding-5"
-            >
-              <i className="bx bxs-x-circle"></i>Cancel
-            </button>
-          </div>
           <form
             className="row g-3 bg-skyblue d-flex align-items-center justify-content-center mt-0 p-1"
             onSubmit={onSubmitAction}
@@ -226,6 +212,20 @@ const CheckIn = () => {
                   Executive
                 </button>
               </div>
+            </div>
+            <div className="col-md-6 d-flex flex-row-reverse align-items-center rev-margin-gap bg-light">
+            <button
+              type="button"
+              className="d-flex align-items-center text-primary btn btn-light button-padding-5"
+            >
+              <i className="bx bxs-x-circle"></i>Cancel
+            </button>
+            <button
+              type="button"
+              className="d-flex align-items-center text-primary btn btn-light button-padding-5"
+            >
+              <i className="bx bxs-plus-square"></i>Add
+            </button>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label htmlFor="name" className="col-sm-3 col-form-label">
@@ -660,37 +660,6 @@ const CheckIn = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="roomtype" className="col-sm-3 col-form-label">
-                Country{" "}
-              </label>
-              <div className="col-sm-3 d-flex justify-content-between">
-                <button
-                  type="button"
-                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
-                    roomTypeBtnColor === "Standard"
-                      ? "btn-success"
-                      : "btn-primary"
-                  }`}
-                  onClick={() => {
-                    changeRoomBtnColor("Standard");
-                  }}
-                >
-                  India
-                </button>
-                <button
-                  type="button"
-                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
-                    roomTypeBtnColor === "Delux" ? "btn-success" : "btn-primary"
-                  }`}
-                  onClick={() => {
-                    changeRoomBtnColor("Delux");
-                  }}
-                >
-                  Other
-                </button>
-              </div>
-            </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center rev-margin-gap">
                 <label
                   htmlFor="arrivaldate"
@@ -745,112 +714,154 @@ const CheckIn = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="bookingdate" className="col-sm-3 col-form-label">
-                Date of Booking{" "}
+              <label htmlFor="roomrate" className="col-sm-3 col-form-label">
+                Room Rate{" "}
               </label>
               <div className="col-sm-7">
                 <input
-                  type="date"
-                  className="form-control height-30"
-                  id="inputBookingDate"
-                  name="bookingdate"
-                  value={bookingDate}
+                  type="number"
+                  className="form-control height-30 font-size-14"
+                  id="inputRoomRate"
+                  name="roomrate"
+                  value={roomRate}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>
+            <div className="col-md-6 d-flex align-items-center">
+                <label
+                  htmlFor="travelagentname"
+                  className="col-sm-4 col-form-label"
+                >
+                  Travel Agent{" "}
+                </label>
+                <div className="col-sm-4">
+                  <input
+                    type="text"
+                    className="form-control height-30"
+                    id="inputTravelAgent"
+                    name="travelagentname"
+                    value={travelAgentName}
+                    onChange={handleInputChange}
+                  />
+                </div>
+            </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="mealplan" className="col-sm-3 col-form-label">
-                Meal Plan{" "}
+              <div className="col-md-6 d-flex align-items-center">
+                <label
+                  htmlFor="discountamount"
+                  className="col-sm-6 col-form-label"
+                >
+                  Discount amount{" "}
+                </label>
+                <div className="col-sm-5">
+                  <input
+                    type="number"
+                    className="form-control height-30"
+                    id="inputRoomNo"
+                    name="discountamount"
+                    value={discountAmount}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6 d-flex align-items-center">
+                <label
+                  htmlFor="discountpercentage"
+                  className="col-sm-4 col-form-label"
+                >
+                  Discount %{" "}
+                </label>
+                <div className="col-sm-4">
+                  <input
+                    type="number"
+                    className="form-control height-30"
+                    id="inputNoOfRoom"
+                    name="discountpercentage"
+                    value={discountPercentage}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <label htmlFor="roomtype" className="col-sm-3 col-form-label">
+                Country{" "}
+              </label>
+              <div className="col-sm-4 d-flex justify-content-between">
+                <button
+                  type="button"
+                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
+                    roomTypeBtnColor === "Standard"
+                      ? "btn-success"
+                      : "btn-primary"
+                  }`}
+                  onClick={() => {
+                    changeRoomBtnColor("Standard");
+                  }}
+                >
+                  India
+                </button>
+                <button
+                  type="button"
+                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
+                    roomTypeBtnColor === "Delux" ? "btn-success" : "btn-primary"
+                  }`}
+                  onClick={() => {
+                    changeRoomBtnColor("Delux");
+                  }}
+                >
+                  Other
+                </button>
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <label
+                htmlFor="modeofpayment"
+                className="col-sm-3 col-form-label"
+              >
+                Payment Type{" "}
               </label>
               <div className="col-sm-7 d-flex justify-content-between">
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
-                    mealTypeBtnColor === "TP" ? "btn-success" : "btn-primary"
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
+                    paymentTypeBtnColor === "Cash"
+                      ? "btn-success"
+                      : "btn-primary"
                   }`}
                   onClick={() => {
-                    changeMealBtnColor("TP");
+                    changePaymentBtnColor("Cash");
                   }}
                 >
-                  TP
+                  Cash
                 </button>
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
-                    mealTypeBtnColor === "CP" ? "btn-success" : "btn-primary"
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
+                    paymentTypeBtnColor === "Card"
+                      ? "btn-success"
+                      : "btn-primary"
                   }`}
                   onClick={() => {
-                    changeMealBtnColor("CP");
+                    changePaymentBtnColor("Card");
                   }}
                 >
-                  CP
+                  Card
                 </button>
                 <button
                   type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
-                    mealTypeBtnColor === "AP" ? "btn-success" : "btn-primary"
+                  className={`w-70 height-30 d-flex align-items-center justify-content-center font-size-14 text-light btn button-padding-5 large-button-width-60 large-button-font-size-12 ${
+                    paymentTypeBtnColor === "UPI"
+                      ? "btn-success"
+                      : "btn-primary"
                   }`}
                   onClick={() => {
-                    changeMealBtnColor("AP");
+                    changePaymentBtnColor("UPI");
                   }}
                 >
-                  AP
-                </button>
-                <button
-                  type="button"
-                  className={`w-70 height-30 d-flex align-items-center justify-content-center text-light btn button-padding-5 large-button-width-40 large-button-font-size-12 ${
-                    mealTypeBtnColor === "MAP" ? "btn-success" : "btn-primary"
-                  }`}
-                  onClick={() => {
-                    changeMealBtnColor("MAP");
-                  }}
-                >
-                  MAP
-                </button>
-              </div>
-            </div>
-            <div className="col-md-6 d-flex rev-margin-gap">
-              <label htmlFor="specialreq" className="col-sm-3 col-form-label">
-                Special Request{" "}
-              </label>
-              <div className="col-sm-7">
-                <textarea
-                  className="form-control"
-                  id="inputRequest"
-                  rows="2"
-                  name="specialreq"
-                  value={specialReq}
-                  onChange={handleInputChange}
-                ></textarea>
-              </div>
-            </div>
-            <div className="col-md-6 d-flex flex-column rev-margin-rev-margin-gap">
-              <div className="col-12 d-flex align-items-center">
-                <label
-                  htmlFor="resassisname"
-                  className="col-sm-3 col-form-label"
-                >
-                  Reservation Assistant Name{" "}
-                </label>
-                <div className="col-sm-7">
-                  <input
-                    type="text"
-                    className="form-control height-30"
-                    id="inputReservationAssistantName"
-                    name="resassisname"
-                    value={resAssisName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-12 d-flex align-items-center justify-content-center">
-                <button
-                  type="submit"
-                  className="d-flex align-items-center justify-content-center text-light btn btn-primary height-30 button-padding-5"
-                >
-                  Submit
+                  UPI
                 </button>
               </div>
             </div>
