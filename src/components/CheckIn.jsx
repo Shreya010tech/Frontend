@@ -2,11 +2,15 @@
 import React from "react";
 import { useState } from "react";
 import "../CustomCss/Reservation.css";
+import India from "./checkinpages/checkinIndia";
+import Other from "./checkinpages/checkinOther";
 
 const CheckIn = () => {
   const [roomTypeBtnColor, setRoomTypeBtnColor] = useState("");
   const [paymentTypeBtnColor, setPaymentTypeBtnColor] = useState("");
   const [mealTypeBtnColor, setMealTypeBtnColor] = useState("");
+  const [CountryBtnColor, setCountryBtnColor] = useState("");
+
 
   const [guestName, setGuestName] = useState({
     title: "",
@@ -21,6 +25,7 @@ const CheckIn = () => {
     zip: "",
   });
   const [guestPhoneNumber, setGuestPhoneNumber] = useState("");
+  const [icNo, seticNo] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [designation, setDesignation] = useState("");
   const [bookingDate, setBookingDate] = useState("");
@@ -45,10 +50,27 @@ const CheckIn = () => {
   const [travelAgentName, setTravelAgentName] = useState("");
   const [resAssisName, setResAssisName] = useState("");
   const [specialReq, setSpecialReq] = useState("");
+  const [reservationNumber, setreservationNumber] = useState("");
+  const [cityName, setcityName] = useState("");
+  const [zipNumber, setzipNumber] = useState("");
+  const [StateName, setStateName] = useState("");
+  const [adultNumber, setadultNumber] = useState("");
+  const [childrenNumber, setchildrenNumber] = useState("");
+  const [nightNumber, setnightNumber] = useState("");
+  const [cityledgetacctNumber, setcityledgetacctNumber] = useState("");
+  const [gstRate, setgstRate] = useState("");
+  const [depositRate, setdepositRate] = useState("");
+  const [countryType, setcountryType] = useState("");
+  
 
   const changeRoomBtnColor = (whichRoom) => {
     setRoomTypeBtnColor(whichRoom);
     setRoomType(whichRoom);
+  };
+
+  const changeCountryBtnColor = (whichcountry) => {
+    setCountryBtnColor(whichcountry);
+    setcountryType(whichcountry);
   };
 
   const changePaymentBtnColor = (paymentType) => {
@@ -74,6 +96,8 @@ const CheckIn = () => {
       setAddress({ ...address, ad1: e.target.value });
     } else if (e.target.name == "guestphonenumber") {
       setGuestPhoneNumber(e.target.value);
+    } else if (e.target.name == "icno") {
+      seticNo(e.target.value);
     } else if (e.target.name == "companyname") {
       setCompanyName(e.target.value);
     } else if (e.target.name == "designation") {
@@ -86,6 +110,26 @@ const CheckIn = () => {
       setArrivalTime(e.target.value);
     } else if (e.target.name == "departuredate") {
       setdepartureDate(e.target.value);
+    } else if (e.target.name == "reservationnumber") {
+      setreservationNumber(e.target.value);
+    } else if (e.target.name == "cityname") {
+      setcityName(e.target.value);
+    } else if (e.target.name == "statename") {
+      setStateName(e.target.value);
+    } else if (e.target.name == "zipnumber") {
+      setzipNumber(e.target.value);
+    } else if (e.target.name == "adultnumber") {
+      setadultNumber(e.target.value);
+    } else if (e.target.name == "childrennumber") {
+      setchildrenNumber(e.target.value);
+    } else if (e.target.name == "nightnumber") {
+      setnightNumber(e.target.value);
+    } else if (e.target.name == "cityledgetnumber") {
+      setcityledgetacctNumber(e.target.value);
+    } else if (e.target.name == "gstrate") {
+      setgstRate(e.target.value);
+    } else if (e.target.name == "depositnumber") {
+      setdepositRate(e.target.value);
     } else if (e.target.name == "departuretime") {
       setDepartureTime(e.target.value);
     } else if (e.target.name == "roomnumber") {
@@ -117,6 +161,7 @@ const CheckIn = () => {
     } else if (e.target.name == "specialreq") {
       setSpecialReq(e.target.value);
     }
+    
   };
 
   const onSubmitAction = async (e) => {
@@ -133,6 +178,7 @@ const CheckIn = () => {
     console.log(departureDate);
     console.log(departureTime);
     console.log(roomType);
+    console.log(countryType);
     console.log(roomNumber);
     console.log(noOfRooms);
     console.log(noOfPax);
@@ -213,7 +259,7 @@ const CheckIn = () => {
                 </button>
               </div>
             </div>
-            <div className="col-md-6 d-flex flex-row-reverse align-items-center rev-margin-gap bg-light">
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap bg-light">
             <button
               type="button"
               className="d-flex align-items-center text-primary btn btn-light button-padding-5"
@@ -226,6 +272,21 @@ const CheckIn = () => {
             >
               <i className="bx bxs-plus-square"></i>Add
             </button>
+            </div>
+            <div className="col-md-6 d-flex align-items-center">
+              <label htmlFor="noofrooms" className="col-sm-3 col-form-label">
+                No of Room{" "}
+              </label>
+              <div className="col-sm-6">
+                <input
+                  type="number"
+                  className="form-control height-30"
+                  id="inputNoOfRoom"
+                  name="noofrooms"
+                  value={noOfRooms}
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label htmlFor="name" className="col-sm-3 col-form-label">
@@ -275,16 +336,16 @@ const CheckIn = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center">
-              <label htmlFor="noofrooms" className="col-sm-3 col-form-label">
-                No of Room{" "}
+              <label htmlFor="roomnumber" className="col-sm-3 col-form-label">
+                Room No{" "}
               </label>
-              <div className="col-sm-6">
+              <div className="col-sm-5">
                 <input
-                  type="number"
+                  type="text"
                   className="form-control height-30"
-                  id="inputNoOfRoom"
-                  name="noofrooms"
-                  value={noOfRooms}
+                  id="inputRoomNo"
+                  name="roomnumber"
+                  value={roomNumber}
                   onChange={handleInputChange}
                 />
               </div>
@@ -292,18 +353,18 @@ const CheckIn = () => {
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center rev-margin-gap">
                 <label
-                  htmlFor="guestphonenumber"
+                  htmlFor="icno"
                   className="col-sm-3 col-form-label"
                 >
                   IC No{" "}
                 </label>
                 <div className="col-sm-7">
                   <input
-                    type="number"
+                    type="text"
                     className="form-control height-30"
-                    id="inputNumber"
-                    name="guestphonenumber"
-                    value={guestPhoneNumber}
+                    id="icNumber"
+                    name="icno"
+                    value={icNo}
                     onChange={handleInputChange}
                     required
                   />
@@ -318,7 +379,7 @@ const CheckIn = () => {
                 </label>
                 <div className="col-sm-7">
                   <input
-                    type="number"
+                    type="text"
                     className="form-control height-30"
                     id="inputNumber"
                     name="guestphonenumber"
@@ -330,16 +391,16 @@ const CheckIn = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center">
-              <label htmlFor="roomnumber" className="col-sm-3 col-form-label">
-                Room No{" "}
+              <label htmlFor="reservationnumber" className="col-sm-3 col-form-label">
+                Reservation No{" "}
               </label>
               <div className="col-sm-5">
                 <input
                   type="text"
                   className="form-control height-30"
-                  id="inputRoomNo"
-                  name="roomnumber"
-                  value={roomNumber}
+                  id="inputreservationNo"
+                  name="reservationnumber"
+                  value={reservationNumber}
                   onChange={handleInputChange}
                 />
               </div>
@@ -359,37 +420,6 @@ const CheckIn = () => {
                 />
               </div>
             </div>
-            <div className="col-md-6 d-flex align-items-center">
-              <label htmlFor="roomnumber" className="col-sm-3 col-form-label">
-                Reservation No{" "}
-              </label>
-              <div className="col-sm-5">
-                <input
-                  type="text"
-                  className="form-control height-30"
-                  id="inputRoomNo"
-                  name="roomnumber"
-                  value={roomNumber}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="address" className="col-sm-3 col-form-label">
-                Address{" "}
-              </label>
-              <div className="col-sm-7">
-                <input
-                  type="text"
-                  className="form-control height-30"
-                  id="inputAddress"
-                  name="address"
-                  value={address.ad1}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-            </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label htmlFor="bookingdate" className="col-sm-3 col-form-label">
                 Booking Date{" "}
@@ -406,9 +436,40 @@ const CheckIn = () => {
               </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <label htmlFor="address" className="col-sm-3 col-form-label">
+                Address{" "}
+              </label>
+              <div className="col-sm-7">
+                <textarea
+                type="text"
+                className="form-control height-30"
+                id="inputAddress"
+                name="address"
+                value={address.ad1}
+                onChange={handleInputChange}
+                required
+                ></textarea>
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <label htmlFor="extrabedtype" className="col-sm-3 col-form-label">
+                Extra Bed Type{" "}
+              </label>
+              <div className="col-sm-7">
+                <input
+                  type="text"
+                  className="form-control height-30"
+                  id="extrabedtype"
+                  name="extrabedtype"
+                  value={companyName}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center">
                 <label
-                  htmlFor="designation"
+                  htmlFor="city"
                   className="col-sm-6 col-form-label"
                 >
                   City{" "}
@@ -417,16 +478,16 @@ const CheckIn = () => {
                   <input
                     type="text"
                     className="form-control height-30"
-                    id="inputDesignation"
-                    name="designation"
-                    value={designation}
+                    id="inputcityname"
+                    name="cityname"
+                    value={cityName}
                     onChange={handleInputChange}
                   />
                 </div>
               </div>
               <div className="col-md-6 d-flex align-items-center">
                 <label
-                  htmlFor="travelagentname"
+                  htmlFor="state"
                   className="col-sm-4 col-form-label"
                 >
                   State{" "}
@@ -435,56 +496,9 @@ const CheckIn = () => {
                   <input
                     type="text"
                     className="form-control height-30"
-                    id="inputTravelAgent"
-                    name="travelagentname"
-                    value={travelAgentName}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="companyname" className="col-sm-3 col-form-label">
-                Extra Bed Type{" "}
-              </label>
-              <div className="col-sm-7">
-                <input
-                  type="text"
-                  className="form-control height-30"
-                  id="inputCompany"
-                  name="companyname"
-                  value={companyName}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <div className="col-md-6 d-flex align-items-center">
-                <label htmlFor="roomnumber" className="col-sm-6 col-form-label">
-                  Zip{" "}
-                </label>
-                <div className="col-sm-5">
-                  <input
-                    type="text"
-                    className="form-control height-30"
-                    id="inputRoomNo"
-                    name="roomnumber"
-                    value={roomNumber}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div className="col-md-6 d-flex align-items-center">
-                <label htmlFor="noofrooms" className="col-sm-4 col-form-label">
-                  Tel{" "}
-                </label>
-                <div className="col-sm-6">
-                  <input
-                    type="number"
-                    className="form-control height-30"
-                    id="inputNoOfRoom"
-                    name="noofrooms"
-                    value={noOfRooms}
+                    id="inputstate"
+                    name="statename"
+                    value={StateName}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -543,23 +557,23 @@ const CheckIn = () => {
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center">
-                <label htmlFor="roomnumber" className="col-sm-6 col-form-label">
-                  Adults{" "}
+                <label htmlFor="zipnumber" className="col-sm-6 col-form-label">
+                  Zip{" "}
                 </label>
                 <div className="col-sm-5">
                   <input
                     type="text"
                     className="form-control height-30"
-                    id="inputRoomNo"
-                    name="roomnumber"
-                    value={roomNumber}
+                    id="zipNo"
+                    name="zipnumber"
+                    value={zipNumber}
                     onChange={handleInputChange}
                   />
                 </div>
               </div>
               <div className="col-md-6 d-flex align-items-center">
                 <label htmlFor="noofrooms" className="col-sm-4 col-form-label">
-                  Children{" "}
+                  Tel{" "}
                 </label>
                 <div className="col-sm-6">
                   <input
@@ -614,16 +628,63 @@ const CheckIn = () => {
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center">
-                <label htmlFor="roomnumber" className="col-sm-6 col-form-label">
+                <label htmlFor="adult" className="col-sm-6 col-form-label">
+                  Adults{" "}
+                </label>
+                <div className="col-sm-5">
+                  <input
+                    type="text"
+                    className="form-control height-30"
+                    id="inputadult"
+                    name="adultnumber"
+                    value={adultNumber}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6 d-flex align-items-center">
+                <label htmlFor="children" className="col-sm-4 col-form-label">
+                  Children{" "}
+                </label>
+                <div className="col-sm-6">
+                  <input
+                    type="number"
+                    className="form-control height-30"
+                    id="inputchildren"
+                    name="childrennumber"
+                    value={childrenNumber}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center">
+              <label htmlFor="night" className="col-sm-3 col-form-label">
+                Nights{" "}
+              </label>
+              <div className="col-sm-6">
+                <input
+                  type="number"
+                  className="form-control height-30"
+                  id="inputnight"
+                  name="nightnumber"
+                  value={nightNumber}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <div className="col-md-6 d-flex align-items-center">
+                <label htmlFor="cityledgetacct" className="col-sm-6 col-form-label">
                   City Ledget Acct{" "}
                 </label>
                 <div className="col-sm-5">
                   <input
                     type="text"
                     className="form-control height-30"
-                    id="inputRoomNo"
-                    name="roomnumber"
-                    value={roomNumber}
+                    id="inputcityledgetacct"
+                    name="cityledgetacctnumber"
+                    value={cityledgetacctNumber}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -644,25 +705,10 @@ const CheckIn = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-6 d-flex align-items-center">
-              <label htmlFor="noofrooms" className="col-sm-3 col-form-label">
-                Nights{" "}
-              </label>
-              <div className="col-sm-6">
-                <input
-                  type="number"
-                  className="form-control height-30"
-                  id="inputNoOfRoom"
-                  name="noofrooms"
-                  value={noOfRooms}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center rev-margin-gap">
                 <label
-                  htmlFor="arrivaldate"
+                  htmlFor="departuredate"
                   className="col-sm-4 col-form-label"
                 >
                   Departure Date{" "}
@@ -671,9 +717,9 @@ const CheckIn = () => {
                   <input
                     type="date"
                     className="form-control height-30"
-                    id="inputArrivalDate"
-                    name="arrivaldate"
-                    value={arrivalDate}
+                    id="inputdepartureDate"
+                    name="departuredate"
+                    value={departureDate}
                     onChange={handleInputChange}
                     required
                   />
@@ -698,37 +744,6 @@ const CheckIn = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="upi" className="col-sm-3 col-form-label">
-                UPI{" "}
-              </label>
-              <div className="col-sm-7">
-                <input
-                  type="text"
-                  className="form-control height-30"
-                  id="inputupi"
-                  name="upi"
-                  value={upi}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="roomrate" className="col-sm-3 col-form-label">
-                Room Rate{" "}
-              </label>
-              <div className="col-sm-7">
-                <input
-                  type="number"
-                  className="form-control height-30 font-size-14"
-                  id="inputRoomRate"
-                  name="roomrate"
-                  value={roomRate}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-            </div>
             <div className="col-md-6 d-flex align-items-center">
                 <label
                   htmlFor="travelagentname"
@@ -746,6 +761,53 @@ const CheckIn = () => {
                     onChange={handleInputChange}
                   />
                 </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <label htmlFor="roomrate" className="col-sm-3 col-form-label">
+                Room Rate{" "}
+              </label>
+              <div className="col-sm-7">
+                <input
+                  type="number"
+                  className="form-control height-30 font-size-14"
+                  id="inputRoomRate"
+                  name="roomrate"
+                  value={roomRate}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <label htmlFor="countrytype" className="col-sm-3 col-form-label">
+                Country{" "}
+              </label>
+              <div className="col-sm-4 d-flex justify-content-between">
+                <button
+                  type="button"
+                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
+                    CountryBtnColor === "Standard"
+                      ? "btn-success"
+                      : "btn-primary"
+                  }`}
+                  onClick={() => {
+                    changeCountryBtnColor("Standard");
+                  }}
+                >
+                  India
+                </button>
+                <button
+                  type="button"
+                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
+                    CountryBtnColor === "Delux" ? "btn-success" : "btn-primary"
+                  }`}
+                  onClick={() => {
+                    changeCountryBtnColor("Delux");
+                  }}
+                >
+                  Other
+                </button>
+              </div>
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <div className="col-md-6 d-flex align-items-center">
@@ -785,36 +847,9 @@ const CheckIn = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-              <label htmlFor="roomtype" className="col-sm-3 col-form-label">
-                Country{" "}
-              </label>
-              <div className="col-sm-4 d-flex justify-content-between">
-                <button
-                  type="button"
-                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
-                    roomTypeBtnColor === "Standard"
-                      ? "btn-success"
-                      : "btn-primary"
-                  }`}
-                  onClick={() => {
-                    changeRoomBtnColor("Standard");
-                  }}
-                >
-                  India
-                </button>
-                <button
-                  type="button"
-                  className={`d-flex align-items-center justify-content-center text-light btn button-padding-5 height-30 large-button-width-60 large-button-font-size-12 ${
-                    roomTypeBtnColor === "Delux" ? "btn-success" : "btn-primary"
-                  }`}
-                  onClick={() => {
-                    changeRoomBtnColor("Delux");
-                  }}
-                >
-                  Other
-                </button>
-              </div>
+            <div className=" col-md-6 d-flex align-items-center rev-margin-gap">
+              {CountryBtnColor === "Standard" && <India/>}
+              {CountryBtnColor === "Delux" && <Other/>}
             </div>
             <div className="col-md-6 d-flex align-items-center rev-margin-gap">
               <label
@@ -865,7 +900,64 @@ const CheckIn = () => {
                 </button>
               </div>
             </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap"></div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <label htmlFor="roomrate" className="col-sm-3 col-form-label">
+                GST{" "}
+              </label>
+              <div className="col-sm-7">
+                <input
+                  type="number"
+                  className="form-control height-30 font-size-14"
+                  id="inputgst"
+                  name="gstrate"
+                  value={gstRate}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap"></div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap">
+              <label htmlFor="roomrate" className="col-sm-3 col-form-label">
+                Deposit{" "}
+              </label>
+              <div className="col-sm-7">
+                <input
+                  type="number"
+                  className="form-control height-30 font-size-14"
+                  id="inputdeposiy"
+                  name="depositrate"
+                  value={depositRate}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap"></div>
+            <div className="col-md-6 d-flex rev-margin-gap">
+              <label htmlFor="specialreq" className="col-sm-3 col-form-label">
+                Special Request{" "}
+              </label>
+              <div className="col-sm-7">
+                <textarea
+                  className="form-control"
+                  id="inputRequest"
+                  rows="2"
+                  name="specialreq"
+                  value={specialReq}
+                  onChange={handleInputChange}
+                ></textarea>
+              </div>
+            </div>
+            <div className="col-md-6 d-flex align-items-center rev-margin-gap"></div>
+            <div className="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Booking Hold</button>
+            <button type="submit" class="btn btn-primary">Pay and Book</button>
+            <button type="submit" class="btn btn-primary">Book</button>
+            </div>
           </form>
+
         </div>
       </div>
     </div>
