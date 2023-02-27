@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from "react";
 import { useState } from "react";
+import {NavLink} from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import "../CustomCss/Reservation.css";
 import Localbase from "localbase";
@@ -8,7 +9,7 @@ let db = new Localbase("hmctdb");
 db.config.debug = false;
 
 const ReservationConfirmation = () => {
-  const [amountPaid, setAmountPaid] = useState("");
+  const [amountPaid, setAmountPaid] = useState(0);
   const [bookingData, setBookingData] = useState({})
   const [nights, setNights] = useState(0);
   const location = useLocation();
@@ -30,7 +31,7 @@ const ReservationConfirmation = () => {
   }, [location])
 
 
-  useEffect(() => { calculateNights(); }, [bookingData])
+  useEffect(() => { calculateNights(); calculateAmountPaid(); }, [bookingData])
 
 
 
@@ -63,6 +64,21 @@ const ReservationConfirmation = () => {
     setNights(diffDays);
   }
 
+
+  const calculateAmountPaid = ()=>{
+    if(bookingData.roomrate){
+      const roomrate = parseFloat(bookingData?.roomrate);
+      const discountamount = parseFloat(bookingData?.discountamount);
+
+      if(isNaN(discountamount)){
+        setAmountPaid(roomrate);
+      }else{
+        let amountPaid = roomrate - discountamount;
+        setAmountPaid(amountPaid);
+      }
+    }
+  }
+
   const handleInputChange = (e) => {
     if(e.target.name == "amountpaid"){ setAmountPaid(e.target.value) }
   }
@@ -73,9 +89,9 @@ const ReservationConfirmation = () => {
         <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
-              <a className="text-primary" href="/#">
+              <NavLink className="text-primary" to="/Home3">
                 <i className="bx bx-chevrons-left font-size-25"></i>
-              </a>
+              </NavLink>
               <h5 className="text-primary">Reservation</h5>
             </div>
           </div>

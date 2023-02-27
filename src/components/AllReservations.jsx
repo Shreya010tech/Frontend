@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import "../CustomCss/Reservation.css";
 import Localbase from "localbase";
@@ -9,6 +10,7 @@ db.config.debug = false;
 const AllReservations = () => {
   const [bookingData, setBookingData] = useState([])
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -78,9 +80,9 @@ const AllReservations = () => {
         <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
-              <a className="text-primary" href="/#">
+              <div className="text-primary" onClick={()=>{navigate(-1)}}>
                 <i className="bx bx-chevrons-left font-size-25"></i>
-              </a>
+              </div>
               <h5 className="text-primary">Reservation</h5>
             </div>
           </div>
