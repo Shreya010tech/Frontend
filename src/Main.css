@@ -81,7 +81,7 @@ body {
   background: #edf8fd;
   padding: 30px;
   border-radius: 15px;
-  min-height: 80vh;
+  /* min-height: 80vh; */
 }
 
 .image-slider-duluxe {
@@ -91,7 +91,6 @@ body {
     rgba(249, 224, 196, 1) 72.3%
   );
   padding: 30px;
-  min-height: 80vh;
   border-radius: 15px;
 }
 
@@ -106,7 +105,6 @@ body {
     rgba(254, 207, 210, 1) 109.2%
   );
   padding: 30px;
-  min-height: 80vh;
   border-radius: 15px;
 }
 
@@ -158,9 +156,9 @@ body {
 .imgfix-rooms {
   width: 100%;
   height: auto;
-  max-height: 200px;
-  margin-bottom: 10px;
-  border-radius: 15px;
+  /* max-height: 200px; */
+  /* margin-bottom: 10px;
+  border-radius: 15px; */
 }
 
 .roomcirclered {

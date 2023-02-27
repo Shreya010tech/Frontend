@@ -112,7 +112,7 @@ const DuluxeRoomAvailability = () => {
     <nav className="navbar sticky-top navbar navbar-expand-lg">
         <div className="container-fluid">
           <div className="navbar-brand d-flex align-items-center">
-            <NavLink className="text-primary" to="/#">
+            <NavLink className="text-primary" to="/Home3">
               <i className="bx bx-chevrons-left"></i>
             </NavLink>
             <h5 className="text-primary">Room Availaibility</h5>
@@ -142,7 +142,7 @@ const DuluxeRoomAvailability = () => {
         </div>
       </nav>
       <div className="image-slider-duluxe">
-        <div className="row">
+        {/* <div className="row">
           <div className="col-sm">
             <div id="imgcontainer">
               <img
@@ -197,7 +197,7 @@ const DuluxeRoomAvailability = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Rooms icons */}
         <div className="row">
           {roomDataPart1 && Object.entries(roomDataPart1).map(([roomno, roomav]) => {
