@@ -4,7 +4,7 @@ import AllReservations from "./components/AllReservations";
 import Application from "./components/Application";
 import Notice from "./components/Notice";
 import Home from "./components/Home";
-import Home3 from "./components/home3";
+import Home3 from "./components/Home3";
 import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
