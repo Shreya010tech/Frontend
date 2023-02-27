@@ -1,0 +1,49 @@
+#checkoutbody {
+    overflow-x: hidden !important;
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 2.5px;
+    padding-bottom: 2px;
+}
+
+.row1A {
+    display: flex;
+    background-color: #EDF8FD;
+    justify-content: space-between;
+}
+
+.tableA {
+    background-color: blue;
+    width: 100%;
+}
+
+.lefta {
+    padding-left: 60px;
+    padding-top: 1rem;
+
+}
+
+.righta {
+    padding-right: 60px;
+    padding-top: 1rem;
+}
+
+.lefts {
+    color: #2545F8 !important;
+    padding-left: 20px;
+    padding-top: 0rem;
+    line-height: 22px;
+
+}
+
+.rights {
+    color: #2545F8 !important;
+    padding-left: 700px;
+    position: absolute;
+    line-height: 22px;
+    padding-top: 5px;
+}
+
+.row4A {
+    padding-left: 20px;
+}

@@ -1,80 +1,137 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import "../CustomCss/Reservation.css";
+import Localbase from "localbase";
+let db = new Localbase("hmctdb");
+db.config.debug = false;
 
 const AllReservations = () => {
+  const [bookingData, setBookingData] = useState([])
+  const location = useLocation();
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const firstname = query.get('firstname');
+    const lastname = query.get('lastname');
+    const phoneno = query.get('phoneno');
+
+    if(!firstname && !lastname && !phoneno){
+      async function fetchInitialData() {
+        let reservationResData = await getAllReservationData();
+        if(reservationResData.success){ setBookingData(reservationResData.data) }
+      }
+      fetchInitialData();
+    }else{
+      async function fetchInitialUserData() {
+        let reservationResData = await getReservationData(firstname,lastname,phoneno);
+        if(reservationResData.success){ setBookingData(reservationResData.data) }
+      }
+      fetchInitialUserData();
+    }
+  }, [location])
+
+
+
+
+
+  // GetAll : Get all reservation data (orderBy: recent booking first)
+  // params : none 
+  // return : 1. {success: true, data: [<Array of all reservation data>{},{}]}        IF ALL OK
+  //          2. {success: false, msg: 'Something Went Wrong'}                        IF INTERNAL SERVER ERROR
+  const getAllReservationData = async()=>{
+    try{
+      let reservationData = await db.collection('reservation').orderBy('bookingdate', 'desc').get();
+      return {success: true, data: reservationData}
+    }catch(e){
+      console.log("AllReservationPageError (getAllReservationData) : ",e);
+      return {success:false, msg: "Something Went Wrong"}
+    }
+  }
+
+
+  // Get : Get all reservation data based on a particular guest (orderBy: recent booking first)
+  // params : guestfirstname, guestlastname, guestphoneno
+  // return : 1. {success: true, data: [<Array of all reservation data>{},{}]}        IF ALL OK
+  //          2. {success: false, msg: 'No Reservations Found!'}                      IF DATA NOT FOUND
+  //          3. {success: false, msg: 'Something Went Wrong'}                        IF INTERNAL SERVER ERROR
+  const getReservationData = async(guestfirstname, guestlastname, guestphoneno) =>{
+    try{
+      let reservationData = await db.collection('reservation').orderBy('bookingdate', 'desc').get();
+
+      const filteredData = reservationData.filter(reservation => {
+        return reservation.name.firstname == guestfirstname && reservation.name.lastname == guestlastname && reservation.phoneno == guestphoneno;
+      });
+
+      if(!filteredData.length) return {success:false, msg: 'No Reservations Found!'}
+      return {success: true, data: filteredData}
+    }catch(e){
+      console.log("AllReservationPageError (getReservationData) : ",e);
+      return {success:false, msg: "Something Went Wrong"}
+    }
+  }
+
+
   return (
     <div>
       <div className="bg-light vh-100">
-        <nav class="navbar sticky-top navbar navbar-expand-lg bg-light">
-          <div class="container-fluid">
+        <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
+          <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
-              <a class="text-primary" href="/#">
-                <i class="bx bx-chevrons-left"></i>
+              <a className="text-primary" href="/#">
+                <i className="bx bx-chevrons-left font-size-25"></i>
               </a>
               <h5 className="text-primary">Reservation</h5>
             </div>
           </div>
         </nav>
-        <div class="container mb-5">
-          <div class="d-flex justify-content-end column-gap-3">
+        <div className="container mb-5">
+          <div className="d-flex justify-content-end column-gap-3">
             <button
               type="button"
-              class="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light"
             >
-              <i class="bx bxs-building"></i>Reservation
+              <i className="bx bxs-building font-size-25"></i>Reservation
             </button>
             <button
               type="button"
-              class="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light"
             >
-              <i class="bx bxs-plus-square"></i>Add
+              <i className="bx bxs-plus-square font-size-25"></i>Add
             </button>
             <button
               type="button"
-              class="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light"
             >
-              <i class="bx bxs-x-circle"></i>Cancel
+              <i className="bx bxs-x-circle font-size-25"></i>Cancel
             </button>
           </div>
-          <table class="table table-borderless text-primary bg-skyblue mt-4">
-            <thead>
-              <tr>
-                <th scope="col">Sl</th>
-                <th scope="col">Date</th>
-                <th scope="col">Booking ID</th>
-                <th scope="col">Guest Name</th>
-                <th scope="col">Booked Date</th>
-                <th scope="col">Departure Date</th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>fat</td>
-                <td>@twitter</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="table-responsive height-500 bg-skyblue mt-4">
+            <table className="table table-borderless table-border-collapse text-primary">
+              <thead className="table-head">
+                <tr>
+                  <th scope="col">Sl</th>
+                  <th scope="col">Booking Date</th>
+                  <th scope="col">Booking ID</th>
+                  <th scope="col">Guest Name</th>
+                  <th scope="col">Arrival Date</th>
+                  <th scope="col">Departure Date</th>
+                </tr>
+              </thead>
+              <tbody className="table-group-divider">
+                {bookingData && bookingData.map((item,index)=>{
+                  return <tr key={item?.bookingid}>
+                    <th scope="row">{index+1}</th>
+                    <td className="table-tdata">{item?.bookingdate}</td>
+                    <td className="table-tdata">{item?.bookingid}</td>
+                    <td className="table-tdata">{`${item?.name?.title} ${item?.name?.firstname} ${item?.name?.middlename} ${item?.name?.lastname}`}</td>
+                    <td className="table-tdata">{item?.arrivaldate}</td>
+                    <td className="table-tdata">{item?.departuredate}</td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,214 @@
-body
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif !important;
+  overflow-y: scroll !important;
+}
+
+.NavLinks
 {
-  font-family: Georgia;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: black!important;
+}
+#iconcolor
+{
+  color: #4763fd!important;
+}
+.offcanvas
+{
+  background-color: #E6F6FE!important;
+}
+#HomeCss {
+  background: rgba(178, 226, 246, 0.23);
+  margin-top: 5%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+#iconfix {
+  width: 100%;
+  height: auto;
+  font-size: 10rem !important;
+  color: rgba(71, 99, 253, 1) !important;
+}
+
+.profile-details {
+  margin-left: 4px;
+}
+
+.profile-details p {
+  color: #4763fd;
+}
+
+.profile-box {
+  background: rgba(236, 245, 255, 1);
+  width: 100%;
+  /* max-width: 600px; */
+  /* min-height: 80vh; */
+  padding: 30px;
+  margin-top: 30px;
+  border-radius: 10px;
+  color: rgba(71, 99, 253, 1);
+}
+
+.formcss {
+  margin-top: 20%;
+  width: 100%;
+  max-width: 400px;
+  background-color: rgba(208, 231, 254, 1);
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.selectcss {
+  background: transparent !important;
+  width: 100%;
+  height: 40px;
+  color: black !important;
+}
+
+.homeimgcss {
+  background: rgba(178, 226, 246, 0.23);
+}
+
+.imgfix {
+  width: 100%;
+  height: auto;
+}
+
+.image-slider {
+  background: #edf8fd;
+  padding: 30px;
+  border-radius: 15px;
+  min-height: 80vh;
+}
+
+.image-slider-duluxe {
+  background-image: radial-gradient(
+    circle 691px at 23.3% 17.5%,
+    rgba(241, 122, 59, 0.91) 0%,
+    rgba(249, 224, 196, 1) 72.3%
+  );
+  padding: 30px;
+  min-height: 80vh;
+  border-radius: 15px;
+}
+
+.image-slider-executive {
+  background-image: linear-gradient(
+    89.9deg,
+    rgba(178, 253, 238, 0.96) -8.1%,
+    rgba(207, 244, 254, 1) 26.3%,
+    rgba(207, 244, 254, 0.48) 47.5%,
+    rgba(254, 219, 243, 0.63) 61.5%,
+    rgba(254, 219, 243, 1) 78.7%,
+    rgba(254, 207, 210, 1) 109.2%
+  );
+  padding: 30px;
+  min-height: 80vh;
+  border-radius: 15px;
+}
+
+
+/* Overlay of rooms */
+#imgcontainer {
+  position: relative;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+#imgcontainer:hover {
+  transform: scale(1.2);
+  transition: 0.5s transform ease-in-out;
+}
+
+#roomimage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#roomimgoverlay {
+  height: auto;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+#imgcontainer:hover #roomimgoverlay {
+  opacity: 1;
+}
+
+.textofroom {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* ends */
+.imgfix-rooms {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+.roomcirclered {
+  width: 60px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  background: rgba(255, 0, 0, 0.5);
+  padding: 8px;
+  cursor: pointer;
+}
+
+.roomcircleyellow {
+  width: 60px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 0, 0.5);
+  padding: 8px;
+  cursor: pointer;
+}
+
+.roomcirclegreen {
+  width: 60px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  background: rgba(0, 255, 0, 0.5);
+  padding: 8px;
+  cursor: pointer;
+}
+
+.imgformfix {
+  width: 100%;
+  height: 600px;
 }
