@@ -9,7 +9,7 @@ import Profile from "./components/Profile";
 import Reservation from "./components/Reservation";
 import ReservationConfirmation from "./components/ReservationConfirmation";
 import RoomAvailability from "./components/RoomAvailability";
-import CheckIn from "./components/checkin";
+import CheckIn from "./components/CheckIn";
 import GuestHistory from "./components/GuestHistory";
 import HistoryReports from "./components/HistoryReports";
 import CheckOut from "./components/CheckOut";
@@ -36,7 +36,7 @@ const App = () => {
         <Route exact path="/Application" element={<Application />} />
         <Route exact path="/Notice" element={<Notice />} />
         <Route exact path="/GuestHistory" element={<GuestHistory />} />
-        <Route exact path="/HistoryReports" element={<HistoryReports />} />
+        <Route exact path="/Reports" element={<HistoryReports />} />
         <Route exact path="/Laundry" element={<Laundry />} />
         <Route exact path="/CheckIn" element={<CheckIn />} />
         <Route exact path="/Checkout" element={<CheckOut />} />

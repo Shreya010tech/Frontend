@@ -5,12 +5,20 @@ body {
   overflow-y: scroll !important;
 }
 
-.offcanvas-body .NavLink
+.NavLinks
 {
   text-decoration: none;
   font-size: 1.2rem;
+  color: black!important;
 }
-
+#iconcolor
+{
+  color: #4763fd!important;
+}
+.offcanvas
+{
+  background-color: #E6F6FE!important;
+}
 #HomeCss {
   background: rgba(178, 226, 246, 0.23);
   margin-top: 5%;
