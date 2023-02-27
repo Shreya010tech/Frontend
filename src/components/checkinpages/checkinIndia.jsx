@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "../../CustomCss/Reservation.css"
 
 const India = () => {
   const [aadharNumber, setaadharNumber] = useState("");

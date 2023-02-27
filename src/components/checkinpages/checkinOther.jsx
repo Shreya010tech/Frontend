@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-// import ".../CustomCss/Reservation.css";
+import "../../CustomCss/Reservation.css"
 
 const Other = () => {
   const [passportNumber, setpassportNumber] = useState("");

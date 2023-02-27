@@ -117,6 +117,11 @@ const Home3 = () => {
                 &nbsp; Profile
               </NavLink>
               <br />
+              <NavLink to="/Team" className="NavLinks">
+                <i id="iconcolor" class="fa fa-book" aria-hidden="true"></i>
+                &nbsp; Team
+              </NavLink>
+              <br />
             </div>
           </div>
           <h1>
