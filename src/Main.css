@@ -188,6 +188,24 @@ body {
   padding: 8px;
   cursor: pointer;
 }
+#socialiconfix
+{
+  font-size: 30px!important;
+  color: #4763fd!important;
+}
+.card-img-top
+{
+  width: 100%;
+  height: auto;
+  height: 400px;
+}
+.teamcard
+{
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  margin-bottom: 30px;
+}
 
 .roomcircleyellow {
   width: 60px;

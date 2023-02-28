@@ -17,6 +17,7 @@ import Laundry from "./components/Laundry";
 import DuluxeRoomAvailability from "./components/DuluxeRoomAvailablility";
 import ExecutiveRoomAvailability from "./components/ExecutiveRoomAvailability";
 import FandB from "./components/FandB";
+import Team from "./components/Team";
 
 const App = () => {
   return (
@@ -49,6 +50,7 @@ const App = () => {
           element={<ExecutiveRoomAvailability />}
         />
         <Route path="*" element={<Navigate to="/Home" replace />} />
+        <Route path="/Team" element={<Team />} />
       </Routes>
     </>
   );
