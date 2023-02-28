@@ -50,7 +50,7 @@ const App = () => {
           element={<ExecutiveRoomAvailability />}
         />
         <Route path="*" element={<Navigate to="/Home" replace />} />
-        <Route path="/Team" element={<Team/>} />
+        <Route path="/Team" element={<Team />} />
       </Routes>
     </>
   );

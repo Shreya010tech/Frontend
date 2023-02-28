@@ -1,12 +1,22 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {NavLink} from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
+import shreya from "../img/shreya.jpeg";
+import alik from "../img/alik.jpeg";
+import srishti from "../img/srishti.jpeg";
+import soumwadeep from "../img/soumwadeep.png";
+import prittha from "../img/prittha.jpeg";
+import sayantani from "../img/sayantani.jpeg";
+import prasun from "../img/prasun.jpeg";
+import sagnik from "../img/sagnik.jpeg";
+import subham from "../img/subham.jpeg";
+import arnab from "../img/arnab.png";
+import diya from "../img/diya.jpeg";
 const Team = () => {
-  return(
+  return (
     <>
-      <div className="bg-light vh-100">
+      <div className="bg-light">
         <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
@@ -18,33 +28,402 @@ const Team = () => {
           </div>
         </nav>
         <div className="container mb-1">
-          <h4 className="text-center text-primary">This Web Application has been created by department  of Computer Science and Engineering batch 2024 for Hotel Management Department of Siliguri Institute of Technology.</h4>
-          <br/>
-          <h5>Here are Team of CSE department of Siliguri Institute of Technology :</h5>
-          <br/>
+          <h4 className="text-center text-primary">
+            This Web Application has been created by department of Computer
+            Science and Engineering batch 2024 for Hotel Management Department
+            of Siliguri Institute of Technology.
+          </h4>
+          <br />
+          <h5>
+            Here are Team of CSE department of Siliguri Institute of Technology
+            :
+          </h5>
+          <br />
           <h6 className="text-primary">UI/UX team :</h6>
+          <div className="card teamcard">
+            <img src={shreya} className="card-img-top" alt="..." />
+            <div className="card-body">
+              <center>
+                <p className="card-text">Shreya Roy</p>
+                <a href="#">
+                  <i
+                    class="fa fa-linkedin-square"
+                    aria-hidden="true"
+                    id="socialiconfix"
+                  ></i>
+                </a>
+                &nbsp;&nbsp;
+                <a href="#">
+                  <i
+                    class="fa fa-twitter-square"
+                    aria-hidden="true"
+                    id="socialiconfix"
+                  ></i>
+                </a>
+                &nbsp;&nbsp;
+                <a href="#">
+                  <i
+                    class="fa fa-instagram"
+                    aria-hidden="true"
+                    id="socialiconfix"
+                  ></i>
+                </a>
+                &nbsp;&nbsp;
+              </center>
+            </div>
+          </div>
+          <br />
+          <h6 className="text-primary">Front-End Team :</h6>
           <div className="row">
-            <div className="col-md-3 col-sm-6">
-              <div className="card h-100">
-                <div className="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, optio!</div>
+            <div className="col-sm">
+              <div className="card teamcard">
+                <img src={alik} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <center>
+                    <p className="card-text">Alik Sarkar</p>
+                    <a href="#">
+                      <i
+                        class="fa fa-linkedin-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-twitter-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-instagram"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                  </center>
+                </div>
               </div>
             </div>
-            <div className="col-md-3 col-sm-6">
-              <div className="card h-100">
-                <div className="card-body">Dolor corporis laudantium cum sint molestiae consectetur voluptatum distinctio eum!</div>
+            <div className="col-sm">
+              <div className="card teamcard">
+                <img src={srishti} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <center>
+                    <p className="card-text">Srishti Majumder</p>
+                    <a href="#">
+                      <i
+                        class="fa fa-linkedin-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-twitter-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-instagram"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                  </center>
+                </div>
               </div>
             </div>
-            <div className="col-md-3 col-sm-6">
-              <div className="card h-100">
-                <div className="card-body">Magnam error, ratione dicta aliquid labore explicabo harum id cum!</div>
+            <div className="col-sm">
+              <div className="card teamcard">
+                <img src={soumwadeep} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <center>
+                    <p className="card-text">Soumwadeep Guha</p>
+                    <a href="https://www.linkedin.com/in/soumwadeepguha/">
+                      <i
+                        class="fa fa-linkedin-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="https://github.com/soumwadeep">
+                      <i
+                        class="fa fa-github-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="https://www.instagram.com/soumwadeep/">
+                      <i
+                        class="fa fa-instagram"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                  </center>
+                </div>
               </div>
             </div>
-            <div className="col-md-3 col-sm-6">
-              <div className="card h-100">
-                <div className="card-body">Accusamus dolores, quos adipisci asperiores praesentium expedita illum animi? Sint.</div>
+            <div className="col-sm">
+              <div className="card teamcard">
+                <img src={prittha} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <center>
+                    <p className="card-text">Prittha Dutta</p>
+                    <a href="#">
+                      <i
+                        class="fa fa-linkedin-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    {/* <a href="#">
+                      <i
+                        class="fa fa-github-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp; */}
+                    <a href="#">
+                      <i
+                        class="fa fa-instagram"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                  </center>
+                </div>
               </div>
             </div>
           </div>
+          <br />
+          <h6 className="text-primary">Back-End Team :</h6>
+          <div className="row">
+            <div className="col-sm">
+              <div className="card teamcard">
+                <img src={sayantani} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <center>
+                    <p className="card-text">Sayantani Sarkar</p>
+                    <a href="#">
+                      <i
+                        class="fa fa-linkedin-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-twitter-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-instagram"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                  </center>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm">
+              <div className="card teamcard">
+                <img src={prasun} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <center>
+                    <p className="card-text">Prasun Roy</p>
+                    <a href="#">
+                      <i
+                        class="fa fa-linkedin-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-twitter-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-instagram"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                  </center>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm">
+              <div className="card teamcard">
+                <img src={sagnik} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <center>
+                    <p className="card-text">Sagnik Saha</p>
+                    <a href="#">
+                      <i
+                        class="fa fa-linkedin-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-twitter-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-instagram"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                  </center>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm">
+              <div className="card teamcard">
+                <img src={subham} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <center>
+                    <p className="card-text">Subham</p>
+                    <a href="#">
+                      <i
+                        class="fa fa-linkedin-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-twitter-square"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a href="#">
+                      <i
+                        class="fa fa-instagram"
+                        aria-hidden="true"
+                        id="socialiconfix"
+                      ></i>
+                    </a>
+                    &nbsp;&nbsp;
+                  </center>
+                </div>
+              </div>
+            </div>
+          </div>
+          <center>
+            <div className="row">
+              <div className="col-sm">
+                <div className="card teamcard">
+                  <img src={arnab} className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <center>
+                      <p className="card-text">Arnab Saha</p>
+                      <a href="#">
+                        <i
+                          class="fa fa-linkedin-square"
+                          aria-hidden="true"
+                          id="socialiconfix"
+                        ></i>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a href="#">
+                        <i
+                          class="fa fa-twitter-square"
+                          aria-hidden="true"
+                          id="socialiconfix"
+                        ></i>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a href="#">
+                        <i
+                          class="fa fa-instagram"
+                          aria-hidden="true"
+                          id="socialiconfix"
+                        ></i>
+                      </a>
+                      &nbsp;&nbsp;
+                    </center>
+                  </div>
+                </div>
+              </div>
+              <div className="col-sm">
+                <div className="card teamcard">
+                  <img src={diya} className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <center>
+                      <p className="card-text">Diya Sarkar</p>
+                      <a href="#">
+                        <i
+                          class="fa fa-linkedin-square"
+                          aria-hidden="true"
+                          id="socialiconfix"
+                        ></i>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a href="#">
+                        <i
+                          class="fa fa-twitter-square"
+                          aria-hidden="true"
+                          id="socialiconfix"
+                        ></i>
+                      </a>
+                      &nbsp;&nbsp;
+                      <a href="#">
+                        <i
+                          class="fa fa-instagram"
+                          aria-hidden="true"
+                          id="socialiconfix"
+                        ></i>
+                      </a>
+                      &nbsp;&nbsp;
+                    </center>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </center>
         </div>
       </div>
     </>

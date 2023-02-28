@@ -75,11 +75,11 @@ const Home3 = () => {
                 &nbsp; House Keeping
               </NavLink>
               <br />
-              <NavLink to="/FandB" className="NavLinks">
+              {/* <NavLink to="/FandB" className="NavLinks">
                 <i id="iconcolor" class="fa fa-cutlery" aria-hidden="true"></i>
                 &nbsp; F & B Service
               </NavLink>
-              <br />
+              <br /> */}
               <NavLink to="/GuestHistory" className="NavLinks">
                 <i id="iconcolor" class="fa fa-book" aria-hidden="true"></i>
                 &nbsp; Guest History
@@ -118,7 +118,7 @@ const Home3 = () => {
               </NavLink>
               <br />
               <NavLink to="/Team" className="NavLinks">
-                <i id="iconcolor" class="fa fa-book" aria-hidden="true"></i>
+                <i id="iconcolor" class="fa fa-users" aria-hidden="true"></i>
                 &nbsp; Team
               </NavLink>
               <br />
@@ -133,19 +133,8 @@ const Home3 = () => {
           </h3>
         </div>
       </div>
-      <div className="right">
-        <img
-          id="iconcolor"
-          mg
-          src={homeimg}
-          style={{
-            marginTop: "45%",
-            width: "100%",
-            minHeight: "500px",
-            minWidth: "800px",
-          }}
-          className="imgfix"
-        />
+      <div className="right" style={{minHeight:"80vh"}}>
+        <img src={homeimg} alt="homeimg" style={{minHeight:"80vh"}} className="imgfix"/>
       </div>
     </div>
   );
