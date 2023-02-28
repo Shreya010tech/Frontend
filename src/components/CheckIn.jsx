@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useState } from "react";
+import {NavLink} from "react-router-dom";
 import "../CustomCss/Reservation.css";
 import India from "./checkinpages/checkinIndia";
 import Other from "./checkinpages/checkinOther";
@@ -10,7 +11,6 @@ const CheckIn = () => {
   const [paymentTypeBtnColor, setPaymentTypeBtnColor] = useState("");
   const [mealTypeBtnColor, setMealTypeBtnColor] = useState("");
   const [CountryBtnColor, setCountryBtnColor] = useState("");
-
 
   const [guestName, setGuestName] = useState({
     title: "",
@@ -203,9 +203,9 @@ const CheckIn = () => {
         <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
-              <a className="text-primary" href="/Home3">
+              <NavLink className="text-primary" to="/Home3">
                 <i className="bx bx-chevrons-left"></i>
-              </a>
+              </NavLink>
               <h5 className="text-primary">Check-In</h5>
             </div>
           </div>

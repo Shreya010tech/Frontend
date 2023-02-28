@@ -1,14 +1,14 @@
 import React from "react";
-
+import { NavLink } from "react-router-dom";
 const Profile = () => {
   return (
     <div className="container">
       <nav className="navbar sticky-top navbar navbar-expand-lg">
         <div className="container-fluid">
           <div className="navbar-brand d-flex align-items-center">
-            <a className="text-primary" href="/Home3">
+            <NavLink className="text-primary" to="/Home3">
               <i className="bx bx-chevrons-left"></i>
-            </a>
+            </NavLink>
             <h5 className="text-primary">Profile</h5>
           </div>
         </div>

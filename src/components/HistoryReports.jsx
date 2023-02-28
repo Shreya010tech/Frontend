@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import "../CustomCss/Reservation.css";
 
 const HistoryReports = () => {
@@ -8,9 +9,9 @@ const HistoryReports = () => {
                 <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
                     <div className="container-fluid">
                         <div className="navbar-brand d-flex align-items-center">
-                            <a className="text-primary" href="/Home3">
+                            <NavLink className="text-primary" to="/Home3">
                                 <i className="bx bx-chevrons-left font-size-25"></i>
-                            </a>
+                            </NavLink>
                             <h5 className="text-primary">Hotel Reports</h5>
                         </div>
                     </div>
