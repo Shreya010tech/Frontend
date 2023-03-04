@@ -18,15 +18,20 @@ import DuluxeRoomAvailability from "./components/DuluxeRoomAvailablility";
 import ExecutiveRoomAvailability from "./components/ExecutiveRoomAvailability";
 import FandB from "./components/FandB";
 import Team from "./components/Team";
+import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie'
 import Localbase from "localbase";
 let db = new Localbase("hmctdb");
 db.config.debug = false;
 
 
 const App = () => {
+  const navigate = useNavigate();
 
   useEffect(() => {
     initializeRoomAvDatabase();
+    initializeUsersDatabase();
+    // isAuthenticated();
   }, [])
   
 
@@ -45,6 +50,41 @@ const App = () => {
     }
   };
 
+
+  // Dependency : If users collection doesn't exist create one
+  // params : none             return : none
+  const initializeUsersDatabase = async () => {
+    let collectionExist = await db.collection("users").get();
+
+    if (!collectionExist.length) {
+      await db.collection("users").add({
+        role: "Admin",  username: "admin@sithmct",  password: "Admin@123", name:"SIT-HMCT-Admin",  email:"hod_hmct@sittechno.org", 
+        phoneno: "1234567891",  designation:"Manager", usersince: "2023", shift: "Morning"
+      });
+      await db.collection("users").add({
+        role: "Employee",  username: "employee@sithmct",  password: "Employee@123", name:"SIT-HMCT-Employee",  email:"hod_hmct@sittechno.org", 
+        phoneno: "1234567891",  designation:"Employee", usersince: "2023", shift: "Morning"
+      });
+    }
+  };
+
+
+  // Check : Check if user logged in or not  (if not it redirect to Login Page) 
+  // params : none             return : none
+  const isAuthenticated = ()=>{
+    setTimeout(() => {    
+      try{
+        if(Cookies.get('isLoggedIn') == 'true'){    return {success:true};  }
+        else{ navigate('/Home');   return {success:false}; }
+      }catch(e){
+        console.log("isAuthenticated : ",e);
+        navigate('/Home');
+        return {success:false, msg: 'Something Went Wrong' }
+      }
+    }, 1000);
+  }
+
+
   return (
     <>
       {/* Routes Setup */}
@@ -58,18 +98,18 @@ const App = () => {
           path="/ReservationConfirmation"
           element={<ReservationConfirmation />}
         />
-        <Route exact path="/Profile" element={<Profile />} />
-        <Route exact path="/RoomAvailability" element={<RoomAvailability initializeDatabase={initializeRoomAvDatabase}/>} />
-        <Route exact path="/Application" element={<Application />} />
-        <Route exact path="/Notice" element={<Notice />} />
-        <Route exact path="/GuestHistory" element={<GuestHistory />} />
-        <Route exact path="/Reports" element={<HistoryReports />} />
-        <Route exact path="/Laundry" element={<Laundry />} />
-        <Route exact path="/CheckIn" element={<CheckIn />} />
-        <Route exact path="/Checkout" element={<CheckOut />} />
-        <Route exact path="/FandB" element={<FandB />} />
-        <Route exact path="/Duluxe" element={<DuluxeRoomAvailability initializeDatabase={initializeRoomAvDatabase}/>} />
-        <Route exact path="/Executive" element={<ExecutiveRoomAvailability initializeDatabase={initializeRoomAvDatabase}/>} />
+        <Route exact path="/Profile" element={<Profile isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/RoomAvailability" element={<RoomAvailability isAuthenticated={isAuthenticated} initializeDatabase={initializeRoomAvDatabase}/>} />
+        <Route exact path="/Application" element={<Application isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/Notice" element={<Notice isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/GuestHistory" element={<GuestHistory isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/Reports" element={<HistoryReports isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/Laundry" element={<Laundry isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/CheckIn" element={<CheckIn isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/Checkout" element={<CheckOut isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/FandB" element={<FandB isAuthenticated={isAuthenticated}/>} />
+        <Route exact path="/Duluxe" element={<DuluxeRoomAvailability isAuthenticated={isAuthenticated} initializeDatabase={initializeRoomAvDatabase}/>} />
+        <Route exact path="/Executive" element={<ExecutiveRoomAvailability isAuthenticated={isAuthenticated} initializeDatabase={initializeRoomAvDatabase}/>} />
         <Route path="*" element={<Navigate to="/Home" replace />} />
         <Route path="/Team" element={<Team />} />
       </Routes>
