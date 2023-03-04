@@ -393,6 +393,7 @@ const Reservation = () => {
                   className="form-control height-30 font-size-14"
                   id="inputArrivalDate"
                   name="arrivaldate"
+                  max={departureDate}
                   value={arrivalDate}
                   onChange={handleInputChange}
                   required
@@ -450,6 +451,7 @@ const Reservation = () => {
                   className="form-control height-30 font-size-14"
                   id="inputDepartureDate"
                   name="departuredate"
+                  min={arrivalDate}
                   value={departureDate}
                   onChange={handleInputChange}
                   required
@@ -798,6 +800,7 @@ const Reservation = () => {
                   className="form-control height-30 font-size-14"
                   id="inputBookingDate"
                   name="bookingdate"
+                  max={arrivalDate}
                   value={bookingDate}
                   onChange={handleInputChange}
                   required
