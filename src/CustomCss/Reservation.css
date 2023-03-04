@@ -284,3 +284,5 @@
 .font-size-11{font-size: 11px !important;}
 
 .overflow-y-axis-auto{overflow-y: auto;}
+
+.make-cursor-pointer { cursor: pointer; }

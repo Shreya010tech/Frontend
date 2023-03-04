@@ -80,7 +80,7 @@ const AllReservations = () => {
         <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
-              <div className="text-primary" onClick={()=>{navigate(-1)}}>
+              <div className="text-primary make-cursor-pointer" onClick={()=>{navigate(-1)}}>
                 <i className="bx bx-chevrons-left font-size-25"></i>
               </div>
               <h5 className="text-primary">Reservation</h5>
@@ -97,7 +97,7 @@ const AllReservations = () => {
             </button>
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light" onClick={()=>{navigate('/reservation')}}
             >
               <i className="bx bxs-plus-square font-size-25"></i>Add
             </button>
