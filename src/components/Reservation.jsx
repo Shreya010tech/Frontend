@@ -102,8 +102,8 @@ const Reservation = () => {
   }
 
 
-  // Add :  Book room number against bookingid
-  // params : bookingid
+  // Internal Service/Add :  Book room number against bookingid
+  // params : bookingid   (take useState internally-auto -> roomType,roomNumber,arrivalDate,arrivalTime,departureDate,departureTime)
   // return :   1.  {success:true}                                             IF BOOKED
   //            2.  {success:false, msg: 'Something Went Wrong'}               IF BOOKING FAILED
   //            3.  {success:false, msg: '<Room_No> Invalid Room Number'}      IF ROOM NO IS INVALID/NOT FOUND
@@ -146,7 +146,10 @@ const Reservation = () => {
     }
   }
 
-  // Internal Service :  Check room is available or not
+  // Internal Service/Check :  Check room is available or not
+  // params :  roomtype, roomnumber   (take useState internally-auto -> arrivalDate,arrivalTime,departureDate,departureTime)
+  // return :  1. true                      IF ROOM AVAILABLE
+  //           2. false                     IF ROOM NOT AVAILABLE
   const isRoomAvailable = async(roomtype,roomnumber)=>{
     let roomav = await db.collection("roomavailability").get();
     let bookings = roomav[0][roomtype][roomnumber].activeBookings;
