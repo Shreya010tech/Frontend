@@ -109,35 +109,68 @@ const Reservation = () => {
   //            3.  {success:false, msg: '<Room_No> Invalid Room Number'}      IF ROOM NO IS INVALID/NOT FOUND
   //            4.  {success:false, msg: '<Room_No> Room is not available!'}   IF ROOM NO IS ALREADY BOOKED
   const bookRoom = async(bookingid)=>{
-    let roomav = await db.collection("roomavailability").get();
+    try{
+      let roomav = await db.collection("roomavailability").get();
 
-    if (!roomav.length) { return { success: false, msg: "Something Went Wrong!" }; }
+      if (!roomav.length) { return { success: false, msg: "Something Went Wrong!" }; }
+      
+      const avroomnos = roomNumber.split(',').map(value => value.trim()).filter(value => value !== '');
+      
+      let isCheckPass = true;
+      let isCheckPassMsg = "";
+      for (const avroom of avroomnos) {  
+        let roomData = roomav[0][roomType.toLowerCase()];
+        if (!roomData[avroom]) { isCheckPass = false; isCheckPassMsg = `${avroom} Invalid Room Number`; break; }
+        if(roomData[avroom].av != "1") { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available!`; break; }
+
+        let isrmavl = await isRoomAvailable(roomType.toLowerCase(),avroom);
+        if(!isrmavl) { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available in your Date Range!`; break; }
+      };
     
-    const avroomnos = roomNumber.split(',').map(value => value.trim()).filter(value => value !== '');
-    
-    let isCheckPass = true;
-    let isCheckPassMsg = "";
-    avroomnos.forEach(avroom => {  
-      let roomData = roomav[0][roomType.toLowerCase()];
-      if (!roomData[avroom]) { isCheckPass = false; isCheckPassMsg = `${avroom} Invalid Room Number`; return; }
-      if(roomData[avroom].av != "1") { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available!`; return; }
-    });
- 
-    if(!isCheckPass) { return { success:false, msg: isCheckPassMsg } }
+      if(!isCheckPass) { return { success:false, msg: isCheckPassMsg } }
 
-    avroomnos.forEach(avroom =>{
-      const roomObj = roomav[0][roomType.toLowerCase()][avroom];
-      roomObj.av = '0';
-      roomObj.bookingid = bookingid;
-    })
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomType.toLowerCase()][avroom];
+        const ifBookingExist = roomObj.activeBookings.find(room => room.bookingid === bookingid);
+        if (!ifBookingExist) {
+          roomObj.activeBookings.push({bookingid: bookingid, arrivaldate: arrivalDate, departuredate: departureDate, arrivaltime: arrivalTime, departuretime: departureTime});
+        }
+      })
 
-    await db.collection('roomavailability').set(roomav);
-
-    return {success: true}
+      await db.collection('roomavailability').set(roomav);
+  
+      return {success: true}
+    }catch(e){
+      console.log("ReservationPageError (bookRoom) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
   }
 
+  // Internal Service :  Check room is available or not
+  const isRoomAvailable = async(roomtype,roomnumber)=>{
+    let roomav = await db.collection("roomavailability").get();
+    let bookings = roomav[0][roomtype][roomnumber].activeBookings;
+    
+    const requestedArrivalDT = new Date(arrivalDate + 'T' + arrivalTime);
+    const requestedDepartureDT = new Date(departureDate + 'T' + departureTime);
 
+    let isAv = true;
+    for (let i = 0; i < bookings.length; i++) {
+      const booking = bookings[i];
 
+      const bookingArrivalDT = new Date(booking.arrivaldate + 'T' + booking.arrivaltime);
+      const bookingDepartureDT = new Date(booking.departuredate + 'T' + booking.departuretime);
+
+      if (requestedArrivalDT >= bookingArrivalDT && requestedArrivalDT < bookingDepartureDT       ||
+          requestedDepartureDT > bookingArrivalDT && requestedDepartureDT <= bookingDepartureDT) 
+      {
+        isAv = false;
+        break;
+      }
+    }
+
+    return isAv;
+  }
 
   const changeRoomBtnColor = (whichRoom) => {
     setRoomTypeBtnColor(whichRoom);
