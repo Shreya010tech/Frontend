@@ -5,6 +5,9 @@ import {NavLink} from "react-router-dom";
 import "../CustomCss/Reservation.css";
 import India from "./checkinpages/checkinIndia";
 import Other from "./checkinpages/checkinOther";
+import Localbase from "localbase";
+let db = new Localbase("hmctdb");
+db.config.debug = false;
 
 const CheckIn = () => {
   const [roomTypeBtnColor, setRoomTypeBtnColor] = useState("");
@@ -62,6 +65,123 @@ const CheckIn = () => {
   const [depositRate, setdepositRate] = useState("");
   const [countryType, setcountryType] = useState("");
   
+
+  // Add :  Book room number against bookingid
+  // params : bookingid, roomtype, roomnumber, arrivaldate, arrivaltime, departuredate, departuretime
+  // return :   1.  {success:true}                                                                IF BOOKED
+  //            2.  {success:false, msg: 'Something Went Wrong'}                                  IF BOOKING FAILED
+  //            3.  {success:false, msg: '<Room_No> Invalid Room Number'}                         IF ROOM NO IS INVALID/NOT FOUND
+  //            4.  {success:false, msg: '<Room_No> Room is not available!'}                      IF ROOM NO IS ALREADY BOOKED
+  //            5.  {success:false, msg: '<Room_No> Room is not available in your Date Range!'}   IF ROOM NO IS ALREADY BOOKED IN A REQUESTED DATE
+  const bookRoom = async(bookingid, roomtype, roomnumber, arrivaldate, arrivaltime, departuredate, departuretime)=>{
+    try{
+      let roomav = await db.collection("roomavailability").get();
+
+      if (!roomav.length) { return { success: false, msg: "Something Went Wrong!" }; }
+      
+      const avroomnos = roomnumber.split(',').map(value => value.trim()).filter(value => value !== '');
+      
+      let res = await releaseRoomOccupancy(bookingid);
+      if(!res.success) { return { success: false, msg: "Something Went Wrong!" }; }
+
+      let isCheckPass = true;
+      let isCheckPassMsg = "";
+      for (const avroom of avroomnos) {  
+        let roomData = roomav[0][roomtype.toLowerCase()];
+        if (!roomData[avroom]) { isCheckPass = false; isCheckPassMsg = `${avroom} Invalid Room Number`; break; }
+        if(roomData[avroom].av != "1") { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available!`; break; }
+
+        let isrmavl = await isRoomAvailable(roomtype.toLowerCase(), avroom, arrivaldate, arrivaltime, departuredate, departuretime );
+        if(!isrmavl) { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available in your Date Range!`; break; }
+      };
+    
+      if(!isCheckPass) { return { success:false, msg: isCheckPassMsg } }
+
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomtype.toLowerCase()][avroom];
+        roomObj.av = "0";
+        const ifBookingExist = roomObj.activeBookings.find(room => room.bookingid === bookingid);
+        if (!ifBookingExist) {
+          roomObj.activeBookings.push({bookingid: bookingid, arrivaldate: arrivaldate, departuredate: departuredate, arrivaltime: arrivaltime, departuretime: departuretime});
+        }
+      })
+
+      await db.collection('roomavailability').set(roomav);
+  
+      return {success: true}
+    }catch(e){
+      console.log("ReservationPageError (bookRoom) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+  
+  // Internal Service/Delete : Release Prev Stored Room Occupancy from RoomAv. DB
+  // params : bookingid  (case sensitive)
+  // return : 1. {success: true}                                            IF ALL OK
+  //          2. {success:false, msg: "Invalid Booking Details"}            IF BOOKINGID IS INVALID/NOT FOUND
+  //          3. {success:false, msg: "Something Went Wrong!"}              IF ROOMAV DB ERROR
+  //          4. {success: false, msg: 'Something Went Wrong'}              IF SERVER ERROR
+  const releaseRoomOccupancy = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      let roomav = await db.collection("roomavailability").get();
+
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      if(!roomav)  { return {success:false, msg: "Something Went Wrong!"} }
+
+      let rooms = booking.roomno;
+      let roomtype = booking.typeofroom;
+      roomtype = roomtype.toLowerCase();
+
+      const avroomnos = rooms.split(',').map(value => value.trim()).filter(value => value !== '');
+
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomtype][avroom];
+        roomObj.activeBookings = roomObj.activeBookings.filter(room => room.bookingid !== bookingid);
+      })
+
+      await db.collection('roomavailability').set(roomav);
+      return {success: true}
+    }catch(e){
+      console.log("CheckoutPageError (releaseRoomOccupancy) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+  
+
+  // Internal Service/Check :  Check room is available or not
+  // params :  roomtype, roomnumber, arrivaldate, arrivaltime, departuredate, departuretime
+  // return :  1. true                      IF ROOM AVAILABLE
+  //           2. false                     IF ROOM NOT AVAILABLE
+  const isRoomAvailable = async(roomtype, roomnumber, arrivaldate, arrivaltime, departuredate, departuretime)=>{
+    let roomav = await db.collection("roomavailability").get();
+    let bookings = roomav[0][roomtype.toLowerCase()][roomnumber].activeBookings;
+    
+    const requestedArrivalDT = new Date(arrivaldate + 'T' + arrivaltime);
+    const requestedDepartureDT = new Date(departuredate + 'T' + departuretime);
+
+    let isAv = true;
+    for (let i = 0; i < bookings.length; i++) {
+      const booking = bookings[i];
+
+      const bookingArrivalDT = new Date(booking.arrivaldate + 'T' + booking.arrivaltime);
+      const bookingDepartureDT = new Date(booking.departuredate + 'T' + booking.departuretime);
+
+      if (requestedArrivalDT >= bookingArrivalDT && requestedArrivalDT < bookingDepartureDT       ||
+          requestedDepartureDT > bookingArrivalDT && requestedDepartureDT <= bookingDepartureDT) 
+      {
+        isAv = false;
+        break;
+      }
+    }
+
+    return isAv;
+  }
+
+
+
 
   const changeRoomBtnColor = (whichRoom) => {
     setRoomTypeBtnColor(whichRoom);
