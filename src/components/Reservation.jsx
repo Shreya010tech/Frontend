@@ -15,6 +15,7 @@ const Reservation = () => {
   const [isCardNoDisabled, setIsCardNoDisabled] = useState(false);
   const [isUpiDisabled, setIsUpiDisabled] = useState(false);
   const [isDiscountDisabled, setIsDiscountDisabled] = useState(true);
+  const [isRoomNoDisabled, setIsRoomNoDisabled] = useState(true);
 
   const [roomTypeBtnColor, setRoomTypeBtnColor] = useState("");
   const [paymentTypeBtnColor, setPaymentTypeBtnColor] = useState("");
@@ -58,6 +59,11 @@ const Reservation = () => {
     try{
       let ubid = new ShortUniqueId({ length: 14 });  let ubookingid = ubid();
       
+      if(roomNumber){
+        let isBooked = await bookRoom(ubookingid);
+        if(!isBooked.success){  return { success: false, msg: isBooked?.msg }}
+      }
+
       db.collection('reservation').add({
           bookingid: ubookingid,  name: guestName,  address: address, icno: "", 
           phoneno: guestPhoneNumber,  telno: "",  companyname: companyName, designation: designation,
@@ -96,9 +102,47 @@ const Reservation = () => {
   }
 
 
+  // Add :  Book room number against bookingid
+  // params : bookingid
+  // return :   1.  {success:true}                                             IF BOOKED
+  //            2.  {success:false, msg: 'Something Went Wrong'}               IF BOOKING FAILED
+  //            3.  {success:false, msg: '<Room_No> Invalid Room Number'}      IF ROOM NO IS INVALID/NOT FOUND
+  //            4.  {success:false, msg: '<Room_No> Room is not available!'}   IF ROOM NO IS ALREADY BOOKED
+  const bookRoom = async(bookingid)=>{
+    let roomav = await db.collection("roomavailability").get();
+
+    if (!roomav.length) { return { success: false, msg: "Something Went Wrong!" }; }
+    
+    const avroomnos = roomNumber.split(',').map(value => value.trim()).filter(value => value !== '');
+    
+    let isCheckPass = true;
+    let isCheckPassMsg = "";
+    avroomnos.forEach(avroom => {  
+      let roomData = roomav[0][roomType.toLowerCase()];
+      if (!roomData[avroom]) { isCheckPass = false; isCheckPassMsg = `${avroom} Invalid Room Number`; return; }
+      if(roomData[avroom].av != "1") { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available!`; return; }
+    });
+ 
+    if(!isCheckPass) { return { success:false, msg: isCheckPassMsg } }
+
+    avroomnos.forEach(avroom =>{
+      const roomObj = roomav[0][roomType.toLowerCase()][avroom];
+      roomObj.av = '0';
+      roomObj.bookingid = bookingid;
+    })
+
+    await db.collection('roomavailability').set(roomav);
+
+    return {success: true}
+  }
+
+
+
+
   const changeRoomBtnColor = (whichRoom) => {
     setRoomTypeBtnColor(whichRoom);
     setRoomType(whichRoom);
+    setIsRoomNoDisabled(false);
   };
 
   const changePaymentBtnColor = (paymentType) => {
@@ -121,6 +165,10 @@ const Reservation = () => {
     setDepartureTime(""); setNights(0); setRoomType(""); setRoomNumber(""); setNoOfRooms(""); setNoOfPax(""); setModeOfArrival(""); setTrainNo("");
     setFlightNo(""); setRoomRate(""); setDiscountAmount(""); setDiscountPercentage(""); setModeOfPayment(""); setCardNo("");
     setUpi(""); setMealPlan(""); setTravelAgentName(""); setResAssisName(""); setSpecialReq("");
+
+    setRoomTypeBtnColor(""); setPaymentTypeBtnColor(""); setMealTypeBtnColor("");
+
+    setIsCardNoDisabled(false); setIsUpiDisabled(false);  setIsDiscountDisabled(true); setIsRoomNoDisabled(true);
   }
 
   const handleInputChange = (e) => {
@@ -158,7 +206,12 @@ const Reservation = () => {
     }
     else if (e.target.name == "nights") { setNights(e.target.value); }
     else if (e.target.name == "departuretime") {  setDepartureTime(e.target.value); }
-    else if (e.target.name == "roomnumber") {  setRoomNumber(e.target.value); }
+    else if (e.target.name == "roomnumber" && e.target.value!=" ") {  
+      setRoomNumber(e.target.value);
+      const avroomnos = e.target.value.split(',').map(value => value.trim()).filter(value => value !== '');
+      if(!avroomnos.length) { setNoOfRooms("") }
+      else { setNoOfRooms(avroomnos.length); }
+    }
     else if (e.target.name == "noofrooms") {  setNoOfRooms(e.target.value); }
     else if (e.target.name == "noofpax") {  setNoOfPax(e.target.value); }
     else if (e.target.name == "modeofarrival") {  setModeOfArrival(e.target.value); }
@@ -526,7 +579,7 @@ const Reservation = () => {
                   Room No{" "}
                 </label>
                 <div className="col-sm-5">
-                  <input
+                  <input disabled={isRoomNoDisabled}
                     type="text"
                     className="form-control height-30 font-size-14"
                     id="inputRoomNo"
