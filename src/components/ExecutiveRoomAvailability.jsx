@@ -42,16 +42,18 @@ const ExecutiveRoomAvailability = () => {
 
     if (!collectionExist.length) {
       await db.collection("roomavailability").add({
-        standard: { 101: "0", 102: "1", 103: "1", 104: "1", 105: "0", 106: "1", 107: "1", 108: "2", 109: "1", 110: "0", 111: "1", 112: "1", 113: "1", 114: "1", 115: "1", 116: "0", 117: "1", 118: "1", },
-        delux: {  201: "1", 202: "1",  203: "2", 204: "1",  205: "1", 206: "0",  207: "0", 208: "1",  209: "1", 210: "1",  211: "1", 212: "1",  213: "1", 214: "1",  215: "1", 216: "2",  217: "1", 218: "0", },
-        executive: {  301: "1", 302: "1",  303: "2", 304: "1",  305: "1", 306: "1",  307: "1", 308: "1",  309: "1", 310: "1",  311: "1", 312: "1",  313: "1", 314: "1",  315: "0", 316: "1",  317: "2", 318: "1", },
+        standard:  {  101: { av: "1", bookingid: ""}, 102: { av: "1", bookingid: ""},  103: { av: "1", bookingid: ""}, 104: { av: "1", bookingid: ""},  105: { av: "1", bookingid: ""}, 106: { av: "1", bookingid: ""},  107: { av: "1", bookingid: ""}, 108: { av: "2", bookingid: ""},  109: { av: "1", bookingid: ""}, 110: { av: "1", bookingid: ""},  111: { av:"1", bookingid: ""}, 112: { av:"1", bookingid: ""},  113: { av:"1", bookingid: ""}, 114: { av:"1", bookingid: ""},  115: { av:"1", bookingid: ""}, 116: { av:"1", bookingid: ""},  117: { av:"1", bookingid: ""}, 118: { av:"1", bookingid: ""}, },
+        delux:     {  201: { av: "1", bookingid: ""}, 202: { av: "1", bookingid: ""},  203: { av: "2", bookingid: ""}, 204: { av: "1", bookingid: ""},  205: { av: "1", bookingid: ""}, 206: { av: "1", bookingid: ""},  207: { av: "1", bookingid: ""}, 208: { av: "1", bookingid: ""},  209: { av: "1", bookingid: ""}, 210: { av: "1", bookingid: ""},  211: { av:"1", bookingid: ""}, 212: { av:"1", bookingid: ""},  213: { av:"1", bookingid: ""}, 214: { av:"1", bookingid: ""},  215: { av:"1", bookingid: ""}, 216: { av:"2", bookingid: ""},  217: { av:"1", bookingid: ""}, 218: { av:"1", bookingid: ""}, },
+        executive: {  301: { av: "1", bookingid: ""}, 302: { av: "1", bookingid: ""},  303: { av: "2", bookingid: ""}, 304: { av: "1", bookingid: ""},  305: { av: "1", bookingid: ""}, 306: { av: "1", bookingid: ""},  307: { av: "1", bookingid: ""}, 308: { av: "1", bookingid: ""},  309: { av: "1", bookingid: ""}, 310: { av: "1", bookingid: ""},  311: { av:"1", bookingid: ""}, 312: { av:"1", bookingid: ""},  313: { av:"1", bookingid: ""}, 314: { av:"1", bookingid: ""},  315: { av:"1", bookingid: ""}, 316: { av:"1", bookingid: ""},  317: { av:"2", bookingid: ""}, 318: { av:"1", bookingid: ""}, },
       });
     }
   };
 
   // Get : Get room no and their availability status
   // params : roomType ->  ('standard', 'delux', 'executive') only
-  // return : 1. {success: true, data: {101: '0', 102: '1', 103: '2'}}           IF ALL OK
+  // return : 1. {success: true, data: {101: {av: '0', bookingid: ""}, 
+  //                                    102: {av:'1',bookingid:""}, 
+  //                                    103: {av:'2',bookingid:""}}              IF ALL OK.av
   //          2. {success: false, msg: 'Invalid Input'}                          IF INVALID INPUT
   //          3. {success: false, msg: 'Something went wrong'}                   IF INTERNAL SERVER ERROR
   const getRoomsData = async (roomType) => {
@@ -203,7 +205,7 @@ const ExecutiveRoomAvailability = () => {
         <div className="row">
           {roomDataPart1 && Object.entries(roomDataPart1).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
+              <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>
@@ -212,7 +214,7 @@ const ExecutiveRoomAvailability = () => {
         <div className="row">
           {roomDataPart2 && Object.entries(roomDataPart2).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
+              <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>
@@ -221,7 +223,7 @@ const ExecutiveRoomAvailability = () => {
         <div className="row">
           {roomDataPart3 && Object.entries(roomDataPart3).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
+              <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>
