@@ -10,15 +10,13 @@ db.config.debug = false;
 
 // }
 
-const RoomAvailability = () => {
+const RoomAvailability = ({initializeDatabase}) => {
   const [roomData, setRoomData] = useState({});
   const [roomDataPart1, setRoomDataPart1] = useState({});
   const [roomDataPart2, setRoomDataPart2] = useState({});
   const [roomDataPart3, setRoomDataPart3] = useState({});
 
   useEffect(() => {
-    initializeDatabase();                                       // Note :  Must present before using any backend query
-
     async function fetchInitialData() {
       let roomResData = await getRoomsData("standard");
       if(roomResData.success){
@@ -34,21 +32,6 @@ const RoomAvailability = () => {
   useEffect(() => { divideDataAccordingToRow(); }, [roomData])
   
 
-
-  // Dependency : If roomavailability collection doesn't exist create one
-  // 0 == "Occupied"(yellow)    ---     1 == "Available"(green)     ---      2 == "Dirty"(red)
-  // params : none             return : none
-  const initializeDatabase = async () => {
-    let collectionExist = await db.collection("roomavailability").get();
-
-    if (!collectionExist.length) {
-      await db.collection("roomavailability").add({
-        standard:  {  101: { av: "1", bookingid: ""}, 102: { av: "1", bookingid: ""},  103: { av: "1", bookingid: ""}, 104: { av: "1", bookingid: ""},  105: { av: "1", bookingid: ""}, 106: { av: "1", bookingid: ""},  107: { av: "1", bookingid: ""}, 108: { av: "2", bookingid: ""},  109: { av: "1", bookingid: ""}, 110: { av: "1", bookingid: ""},  111: { av:"1", bookingid: ""}, 112: { av:"1", bookingid: ""},  113: { av:"1", bookingid: ""}, 114: { av:"1", bookingid: ""},  115: { av:"1", bookingid: ""}, 116: { av:"1", bookingid: ""},  117: { av:"1", bookingid: ""}, 118: { av:"1", bookingid: ""}, },
-        delux:     {  201: { av: "1", bookingid: ""}, 202: { av: "1", bookingid: ""},  203: { av: "2", bookingid: ""}, 204: { av: "1", bookingid: ""},  205: { av: "1", bookingid: ""}, 206: { av: "1", bookingid: ""},  207: { av: "1", bookingid: ""}, 208: { av: "1", bookingid: ""},  209: { av: "1", bookingid: ""}, 210: { av: "1", bookingid: ""},  211: { av:"1", bookingid: ""}, 212: { av:"1", bookingid: ""},  213: { av:"1", bookingid: ""}, 214: { av:"1", bookingid: ""},  215: { av:"1", bookingid: ""}, 216: { av:"2", bookingid: ""},  217: { av:"1", bookingid: ""}, 218: { av:"1", bookingid: ""}, },
-        executive: {  301: { av: "1", bookingid: ""}, 302: { av: "1", bookingid: ""},  303: { av: "2", bookingid: ""}, 304: { av: "1", bookingid: ""},  305: { av: "1", bookingid: ""}, 306: { av: "1", bookingid: ""},  307: { av: "1", bookingid: ""}, 308: { av: "1", bookingid: ""},  309: { av: "1", bookingid: ""}, 310: { av: "1", bookingid: ""},  311: { av:"1", bookingid: ""}, 312: { av:"1", bookingid: ""},  313: { av:"1", bookingid: ""}, 314: { av:"1", bookingid: ""},  315: { av:"1", bookingid: ""}, 316: { av:"1", bookingid: ""},  317: { av:"2", bookingid: ""}, 318: { av:"1", bookingid: ""}, },
-      });
-    }
-  };
 
   // Get : Get room no and their availability status
   // params : roomType ->  ('standard', 'delux', 'executive') only
