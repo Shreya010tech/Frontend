@@ -78,6 +78,81 @@ const AllReservations = () => {
     }
   }
 
+  // Remove : Remove reservation-data and release occupied rooms also
+  // params : bookingid
+  // return : 1. {success: true}                                                      IF ALL OK
+  //          2. {success: false, msg: 'Invalid Booking Details'}                     IF BOOKING DATA NOT FOUND
+  //          3. {success: false, msg: 'Something Went Wrong'}                        IF INTERNAL SERVER ERROR
+  const removeReservationData = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+
+      let roomreservcheck = await releaseRoomOccupancy(bookingid);
+
+      if(!roomreservcheck.success) { return {success:false, msg: "Something Went Wrong!"} }
+      
+      await db.collection('reservation').doc({ bookingid: bookingid }).delete();
+
+      return {success: true}
+    }catch(e){
+      console.log("AllReservationPageError (removeReservationData) : ",e);
+      return {success:false, msg: "Something Went Wrong"}
+    }
+  }
+
+
+  // Internal Service/Delete : Release Prev Stored Room Occupancy from RoomAv. DB
+  // params : bookingid  (case sensitive)
+  // return : 1. {success: true}                                            IF ALL OK
+  //          2. {success:false, msg: "Invalid Booking Details"}            IF BOOKINGID IS INVALID/NOT FOUND
+  //          3. {success:false, msg: "Something Went Wrong!"}              IF ROOMAV DB ERROR
+  //          4. {success: false, msg: 'Something Went Wrong'}              IF SERVER ERROR
+  const releaseRoomOccupancy = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      let roomav = await db.collection("roomavailability").get();
+
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      if(!roomav)  { return {success:false, msg: "Something Went Wrong!"} }
+
+      let rooms = booking.roomno;
+      let roomtype = booking.typeofroom;
+      roomtype = roomtype.toLowerCase();
+
+      const avroomnos = rooms.split(',').map(value => value.trim()).filter(value => value !== '');
+
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomtype][avroom];
+
+        let bookings = roomav[0][roomtype.toLowerCase()][avroom].activeBookings;
+        for (let i = 0; i < bookings.length; i++) {
+          if(bookingid === bookings[i].bookingid){
+            const today = new Date(); const year = today.getFullYear(); const month = String(today.getMonth() + 1).padStart(2, '0');  const day = String(today.getDate()).padStart(2, '0');
+            const todayDate = `${year}-${month}-${day}`;
+
+            if(bookings[i].arrivaldate<= todayDate && todayDate<=bookings[i].departuredate){
+              if(roomObj.av == "0"){ roomObj.av = "1"; }
+              break;
+            }
+          }
+        }
+
+        roomObj.activeBookings = roomObj.activeBookings.filter(room => room.bookingid !== bookingid);
+      })
+
+      await db.collection('roomavailability').set(roomav);
+      return {success: true}
+    }catch(e){
+      console.log("AllReservationsPageError (releaseRoomOccupancy) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+
+
+
 
   const selectReservationData = (bookingID)=>{
 
@@ -105,16 +180,33 @@ const AllReservations = () => {
 
   const updateReservationData = ()=>{
     alert (selectedBookingId + "update");
-    resetReservationData();
+    resetUpdateOrDeleteActionChanges();
   }
 
-  const deleteReservationData = ()=>{
-    alert (selectedBookingId + "delete");
-    resetReservationData();
-  }
-
-  const resetReservationData = ()=>{
+  const deleteReservationData = async()=>{
+    let isDeleted = await removeReservationData(selectedBookingId);
     
+    if(isDeleted.success){
+      const query = new URLSearchParams(location.search);
+      const firstname = query.get('firstname');  const lastname = query.get('lastname');   const phoneno = query.get('phoneno');
+
+      if(!firstname && !lastname && !phoneno){
+        let reservationResData = await getAllReservationData();
+        if(reservationResData.success){ setBookingData(reservationResData.data) }
+      }else{
+        let reservationResData = await getReservationData(firstname,lastname,phoneno);
+        if(reservationResData.success){ setBookingData(reservationResData.data) }
+      }
+
+      alert(selectedBookingId + " Reservation Data Deleted!");
+    }else{
+      alert(isDeleted?.msg);
+    }
+
+    resetUpdateOrDeleteActionChanges();
+  }
+
+  const resetUpdateOrDeleteActionChanges = ()=>{    
     if(selectedBookingId){ 
       let tableRow = document.getElementById(selectedBookingId);
       tableRow.classList.remove('background-gray')
@@ -123,6 +215,8 @@ const AllReservations = () => {
     setIsAddBtnDisabled(true);
     setIsCancelBtnDisabled(true);
   }
+
+
 
   return (
     <div>
