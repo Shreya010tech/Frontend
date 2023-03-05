@@ -176,12 +176,19 @@ const Reservation = () => {
   }
 
   const changeRoomBtnColor = (whichRoom) => {
+    if(roomType == whichRoom){
+      setRoomTypeBtnColor(""); setRoomType(""); setIsRoomNoDisabled(true);  return;
+    }
     setRoomTypeBtnColor(whichRoom);
     setRoomType(whichRoom);
     setIsRoomNoDisabled(false);
   };
 
   const changePaymentBtnColor = (paymentType) => {
+    if(paymentType == modeOfPayment){
+      setIsCardNoDisabled(false); setIsUpiDisabled(false);
+      setPaymentTypeBtnColor(""); setModeOfPayment(""); return;
+    }
     if(paymentType == 'Cash') { setIsCardNoDisabled(true); setIsUpiDisabled(true); }
     if(paymentType == 'Card') { setIsCardNoDisabled(false); setIsUpiDisabled(true); }
     if(paymentType == 'UPI') { setIsCardNoDisabled(true); setIsUpiDisabled(false); }
@@ -190,6 +197,9 @@ const Reservation = () => {
   };
 
   const changeMealBtnColor = (mealType) => {
+    if(mealPlan == mealType){
+      setMealTypeBtnColor(""); setMealPlan(""); return;
+    }
     setMealTypeBtnColor(mealType);
     setMealPlan(mealType);
   };

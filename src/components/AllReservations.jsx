@@ -9,6 +9,11 @@ db.config.debug = false;
 
 const AllReservations = () => {
   const [bookingData, setBookingData] = useState([])
+  const [selectedBookingId, setSelectedBookingId] = useState("")
+
+  const [isAddBtnDisabled, setIsAddBtnDisabled] = useState(true)
+  const [isCancelBtnDisabled, setIsCancelBtnDisabled] = useState(true)
+  
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -74,6 +79,51 @@ const AllReservations = () => {
   }
 
 
+  const selectReservationData = (bookingID)=>{
+
+    if(selectedBookingId == bookingID){
+      let tableRow = document.getElementById(selectedBookingId);
+      tableRow.classList.remove('background-gray');
+      setSelectedBookingId(""); setIsAddBtnDisabled(true); setIsCancelBtnDisabled(true);
+      return;
+    }
+
+    if(selectedBookingId){ 
+      let tableRow = document.getElementById(selectedBookingId);
+      tableRow.classList.remove('background-gray')
+    }
+
+    setSelectedBookingId(bookingID);
+
+    if(bookingID == ""){  setIsAddBtnDisabled(true); setIsCancelBtnDisabled(true); }
+    else{
+      setIsAddBtnDisabled(false); setIsCancelBtnDisabled(false);
+      let tableRow = document.getElementById(bookingID);
+      tableRow.classList.add('background-gray')
+    }
+  }
+
+  const updateReservationData = ()=>{
+    alert (selectedBookingId + "update");
+    resetReservationData();
+  }
+
+  const deleteReservationData = ()=>{
+    alert (selectedBookingId + "delete");
+    resetReservationData();
+  }
+
+  const resetReservationData = ()=>{
+    
+    if(selectedBookingId){ 
+      let tableRow = document.getElementById(selectedBookingId);
+      tableRow.classList.remove('background-gray')
+    }
+    setSelectedBookingId("");
+    setIsAddBtnDisabled(true);
+    setIsCancelBtnDisabled(true);
+  }
+
   return (
     <div>
       <div className="bg-light vh-100">
@@ -91,24 +141,26 @@ const AllReservations = () => {
           <div className="d-flex justify-content-end column-gap-3">
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light" onClick={()=>{navigate('/reservation')}}
             >
               <i className="bx bxs-building font-size-25"></i>Reservation
             </button>
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light" onClick={()=>{navigate('/reservation')}}
+              className="d-flex align-items-center text-primary btn btn-light" onClick={updateReservationData}
+              disabled={isAddBtnDisabled}
             >
               <i className="bx bxs-plus-square font-size-25"></i>Add
             </button>
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light" onClick={deleteReservationData}
+              disabled={isCancelBtnDisabled}
             >
               <i className="bx bxs-x-circle font-size-25"></i>Cancel
             </button>
           </div>
-          <div className="table-responsive height-500 bg-skyblue mt-4">
+          <div className="table-responsive height-500 bg-skyblue mt-2">
             <table className="table table-borderless table-border-collapse text-primary">
               <thead className="table-head">
                 <tr>
@@ -122,7 +174,7 @@ const AllReservations = () => {
               </thead>
               <tbody className="table-group-divider">
                 {bookingData && bookingData.map((item,index)=>{
-                  return <tr key={item?.bookingid}>
+                  return <tr key={item?.bookingid} className='hover-gray make-cursor-pointer' id={item?.bookingid} onClick={()=>{selectReservationData(item?.bookingid)}}>
                     <th scope="row">{index+1}</th>
                     <td className="table-tdata">{item?.bookingdate}</td>
                     <td className="table-tdata">{item?.bookingid}</td>
