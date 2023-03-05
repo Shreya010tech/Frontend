@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {NavLink} from "react-router-dom";
 import "../CustomCss/Reservation.css";
+import { useLocation } from 'react-router-dom';
 import ShortUniqueId from "short-unique-id";
 import Localbase from "localbase";
 let db = new Localbase("hmctdb");
@@ -11,16 +12,19 @@ db.config.debug = false;
 
 const Reservation = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isCardNoDisabled, setIsCardNoDisabled] = useState(false);
   const [isUpiDisabled, setIsUpiDisabled] = useState(false);
   const [isDiscountDisabled, setIsDiscountDisabled] = useState(true);
   const [isRoomNoDisabled, setIsRoomNoDisabled] = useState(true);
+  const [isForUpdate, setIsForUpdate] = useState(false);
 
   const [roomTypeBtnColor, setRoomTypeBtnColor] = useState("");
   const [paymentTypeBtnColor, setPaymentTypeBtnColor] = useState("");
   const [mealTypeBtnColor, setMealTypeBtnColor] = useState("");
 
+  const [bookingidForUpdate, setBookingidForUpdate] = useState("");
   const [guestName, setGuestName] = useState({ title: "", firstname: "", middlename: "", lastname: "", });
   const [address, setAddress] = useState({ ad1: "", city: "", state: "", zip: "", });
   const [guestPhoneNumber, setGuestPhoneNumber] = useState("");
@@ -49,6 +53,23 @@ const Reservation = () => {
   const [travelAgentName, setTravelAgentName] = useState("");
   const [resAssisName, setResAssisName] = useState("");
   const [specialReq, setSpecialReq] = useState("");
+
+  
+
+  useEffect(() => {
+    setTimeout(() => {
+      const query = new URLSearchParams(location.search);
+      const bookingid = query.get('bookingid');
+      const isupdate = query.get('isupdate');
+    
+      if(bookingid && isupdate){
+        setBookingidForUpdate(bookingid);
+        setIsForUpdate(isupdate);
+        getAndSetUserData(bookingid);
+      }
+    }, 1000);
+  }, [location])
+  
 
 
   // Add :  Add reservation details 
@@ -174,6 +195,52 @@ const Reservation = () => {
 
     return isAv;
   }
+
+
+  // Get :  Get all user data of a booking against bookingid
+  // params : bookingid
+  // return : 1. { success:true, data: {bookingid:"",name: {..}, phoneno: "", ...} }           IF ALL OK
+  //          2. {success: false, msg: 'Something Went Wrong'}                                 IF SERVER ERROR
+  //          3. {success:false, msg: "Invalid Booking Details"}                               IF BOOKING DATA NOT FOUND
+  const getUserDataAgainstBookingId = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      return {success:true, data: booking};
+    }catch(e){
+      console.log("ReservationPageError (getUserDataAgainstBookingId) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+
+
+
+
+
+  const getAndSetUserData = async(bookingid)=>{
+    let res = await getUserDataAgainstBookingId(bookingid);
+
+    if(res?.success){
+      let booking = res?.data;
+      setGuestName(booking.name); setAddress(booking.address); setGuestPhoneNumber(booking.phoneno); 
+      setCompanyName(booking.companyname); setDesignation(booking.designation); setBookingDate(booking.bookingdate); 
+      setArrivalDate(booking.arrivaldate); setArrivalTime(booking.arrivaltime); setdepartureDate(booking.departuredate);
+      setDepartureTime(booking.departuretime); setNights(booking.nights); setRoomNumber(booking.roomno); 
+      setNoOfRooms(booking.noofrooms); setNoOfPax(booking.noofpax); setModeOfArrival(booking.modeofarrival); 
+      setTrainNo(booking.trainno); setFlightNo(booking.flightno); setRoomRate(booking.roomrate); 
+      setDiscountAmount(booking.discountamount); setDiscountPercentage(booking.discountpercentage); setCardNo(booking.cardno); 
+      setUpi(booking.upi); setTravelAgentName(booking.travelagentname); setResAssisName(booking.resassisname); 
+      setSpecialReq(booking.specialreq);
+
+      changeRoomBtnColor(booking.typeofroom);
+      changePaymentBtnColor(booking.modeofpayment);
+      changeMealBtnColor(booking.mealplan);
+
+      if(booking.roomrate == ''){ setIsDiscountDisabled(true); } else{ setIsDiscountDisabled(false); }
+    }
+  }
+
 
   const changeRoomBtnColor = (whichRoom) => {
     if(roomType == whichRoom){

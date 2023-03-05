@@ -179,8 +179,7 @@ const AllReservations = () => {
   }
 
   const updateReservationData = ()=>{
-    alert (selectedBookingId + "update");
-    resetUpdateOrDeleteActionChanges();
+    navigate(`/Reservation?bookingid=${selectedBookingId}&isupdate=true`);
   }
 
   const deleteReservationData = async()=>{
