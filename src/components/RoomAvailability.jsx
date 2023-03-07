@@ -10,15 +10,13 @@ db.config.debug = false;
 
 // }
 
-const RoomAvailability = () => {
+const RoomAvailability = ({initializeDatabase}) => {
   const [roomData, setRoomData] = useState({});
   const [roomDataPart1, setRoomDataPart1] = useState({});
   const [roomDataPart2, setRoomDataPart2] = useState({});
   const [roomDataPart3, setRoomDataPart3] = useState({});
 
   useEffect(() => {
-    initializeDatabase();                                       // Note :  Must present before using any backend query
-
     async function fetchInitialData() {
       let roomResData = await getRoomsData("standard");
       if(roomResData.success){
@@ -35,24 +33,11 @@ const RoomAvailability = () => {
   
 
 
-  // Dependency : If roomavailability collection doesn't exist create one
-  // 0 == "Occupied"(yellow)    ---     1 == "Available"(green)     ---      2 == "Dirty"(red)
-  // params : none             return : none
-  const initializeDatabase = async () => {
-    let collectionExist = await db.collection("roomavailability").get();
-
-    if (!collectionExist.length) {
-      await db.collection("roomavailability").add({
-        standard: { 101: "0", 102: "1", 103: "1", 104: "1", 105: "0", 106: "1", 107: "1", 108: "2", 109: "1", 110: "0", 111: "1", 112: "1", 113: "1", 114: "1", 115: "1", 116: "0", 117: "1", 118: "1", },
-        delux: {  201: "1", 202: "1",  203: "2", 204: "1",  205: "1", 206: "0",  207: "0", 208: "1",  209: "1", 210: "1",  211: "1", 212: "1",  213: "1", 214: "1",  215: "1", 216: "2",  217: "1", 218: "0", },
-        executive: {  301: "1", 302: "1",  303: "2", 304: "1",  305: "1", 306: "1",  307: "1", 308: "1",  309: "1", 310: "1",  311: "1", 312: "1",  313: "1", 314: "1",  315: "0", 316: "1",  317: "2", 318: "1", },
-      });
-    }
-  };
-
   // Get : Get room no and their availability status
   // params : roomType ->  ('standard', 'delux', 'executive') only
-  // return : 1. {success: true, data: {101: '0', 102: '1', 103: '2'}}           IF ALL OK
+  // return : 1. {success: true, data: {101: {av: '0', bookingid: ""}, 
+  //                                    102: {av:'1',bookingid:""}, 
+  //                                    103: {av:'2',bookingid:""}}              IF ALL OK
   //          2. {success: false, msg: 'Invalid Input'}                          IF INVALID INPUT
   //          3. {success: false, msg: 'Something went wrong'}                   IF INTERNAL SERVER ERROR
   const getRoomsData = async (roomType) => {
@@ -204,7 +189,7 @@ const RoomAvailability = () => {
         <div className="row">
           {roomDataPart1 && Object.entries(roomDataPart1).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
+              <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>
@@ -214,7 +199,7 @@ const RoomAvailability = () => {
         <div className="row">
           {roomDataPart2 && Object.entries(roomDataPart2).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
+              <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>
@@ -224,7 +209,7 @@ const RoomAvailability = () => {
         <div className="row">
           {roomDataPart3 && Object.entries(roomDataPart3).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
-              <div className={`${roomav == '0' ? 'roomcircleyellow' : ''} ${roomav == '1' ? 'roomcirclegreen' : ''} ${roomav == '2' ? 'roomcirclered' : ''}`} >
+              <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
                 {roomno}
               </div>
             </div>

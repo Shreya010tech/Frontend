@@ -1,6 +1,61 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-const Profile = () => {
+import Cookies from 'js-cookie'
+import Localbase from "localbase";
+let db = new Localbase("hmctdb");
+db.config.debug = false;
+
+const Profile = () => {  
+
+  
+  // Get : Get all data of logged-in user using username
+  // params : none         (In Background it take Cookies to get data)
+  // return : 1. {success: true, data: {role: "",  username: "",  password: "", name:"",  email:"", 
+  //                                    phoneno: "", designation:"", usersince: "", shift: ""}  }            IF ALL OK
+  //          2. {success: false, msg: 'Something went wrong'}                                               IF SERVER ERROR
+  //          3. {success: false, msg: 'User not found!'}                                                    IF USER NOT FOUND
+  const getUserData = async()=>{
+    try{
+      let username = Cookies.get('username');
+      let user = await db.collection("users").doc({ username: username }).get();
+
+      if(!user) return {success:false, msg: 'User not found!' }
+
+      return {success:true, data:user};
+    }catch(e){
+      console.log("ProfilePageError (getUserData) : ",e);
+      return {success:false, msg: 'Something Went Wrong' }
+    }
+  }
+
+
+  // Update : Update user data based on username(const)
+  // params : role,username,password,name,email,phoneno,designation,usersince,shift
+  // return : 1. {success: true}                                                                   IF ALL OK
+  //          2. {success: false, msg: 'Invalid Username'}                                         IF USERNAME NOT FOUND
+  //          3. {success: false, msg: 'Something Went Wrong'}                                     IF SERVER ERROR
+  const updateUserData = async(role,username,password,name,email,phoneno,designation,usersince,shift)=>{
+    try{
+      if(!username) return {success:false, msg: "Invalid Username"};
+      
+      let user = await db.collection("users").doc({ username: username }).get();
+      if(!user) return {success:false, msg: 'Invalid Username' }
+
+      await db.collection("users").doc({ username: username }).update({
+        role: role,  username: username,  password: password, name: name,  email: email, 
+        phoneno: phoneno,  designation:designation, usersince: usersince, shift: shift
+      });
+
+      return {success: true}
+    }catch(e){
+      console.log("ProfilePageError (updateUserData) : ",e);
+      return {success:false, msg: 'Something Went Wrong' }
+    }
+  }
+
+
+
+  
   return (
     <div className="container">
       <nav className="navbar sticky-top navbar navbar-expand-lg">

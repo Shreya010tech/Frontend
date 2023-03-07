@@ -1,8 +1,50 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "../CustomCss/out.css";
+import Localbase from "localbase";
+let db = new Localbase("hmctdb");
+db.config.debug = false;
+
 
 const CheckOut = () => {
+
+
+  // Delete : Release Room Occupancy from RoomAv. DB
+  // params : bookingid   (case sensitive)
+  // return : 1. {success: true}                                            IF ALL OK
+  //          2. {success:false, msg: "Invalid Booking Details"}            IF BOOKINGID IS INVALID/NOT FOUND
+  //          3. {success:false, msg: "Something Went Wrong!"}              IF ROOMAV DB ERROR
+  //          4. {success: false, msg: 'Something Went Wrong'}              IF SERVER ERROR
+  const releaseRoomOccupancy = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      let roomav = await db.collection("roomavailability").get();
+
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      if(!roomav)  { return {success:false, msg: "Something Went Wrong!"} }
+
+      let rooms = booking.roomno;
+      let roomtype = booking.typeofroom;
+      roomtype = roomtype.toLowerCase();
+
+      const avroomnos = rooms.split(',').map(value => value.trim()).filter(value => value !== '');
+
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomtype][avroom];
+        roomObj.av = "1";
+        roomObj.activeBookings = roomObj.activeBookings.filter(room => room.bookingid !== bookingid);
+      })
+
+      await db.collection('roomavailability').set(roomav);
+      return {success: true}
+    }catch(e){
+      console.log("CheckoutPageError (releaseRoomOccupancy) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+
+
   return (
     <div>
       <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">

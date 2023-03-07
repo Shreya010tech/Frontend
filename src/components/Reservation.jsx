@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {NavLink} from "react-router-dom";
 import "../CustomCss/Reservation.css";
+import { useLocation } from 'react-router-dom';
 import ShortUniqueId from "short-unique-id";
 import Localbase from "localbase";
 let db = new Localbase("hmctdb");
@@ -11,15 +12,19 @@ db.config.debug = false;
 
 const Reservation = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isCardNoDisabled, setIsCardNoDisabled] = useState(false);
   const [isUpiDisabled, setIsUpiDisabled] = useState(false);
   const [isDiscountDisabled, setIsDiscountDisabled] = useState(true);
+  const [isRoomNoDisabled, setIsRoomNoDisabled] = useState(true);
+  const [isForUpdate, setIsForUpdate] = useState(false);
 
   const [roomTypeBtnColor, setRoomTypeBtnColor] = useState("");
   const [paymentTypeBtnColor, setPaymentTypeBtnColor] = useState("");
   const [mealTypeBtnColor, setMealTypeBtnColor] = useState("");
 
+  const [bookingidForUpdate, setBookingidForUpdate] = useState("");
   const [guestName, setGuestName] = useState({ title: "", firstname: "", middlename: "", lastname: "", });
   const [address, setAddress] = useState({ ad1: "", city: "", state: "", zip: "", });
   const [guestPhoneNumber, setGuestPhoneNumber] = useState("");
@@ -49,6 +54,23 @@ const Reservation = () => {
   const [resAssisName, setResAssisName] = useState("");
   const [specialReq, setSpecialReq] = useState("");
 
+  
+
+  useEffect(() => {
+    setTimeout(() => {
+      const query = new URLSearchParams(location.search);
+      const bookingid = query.get('bookingid');
+      const isupdate = query.get('isupdate');
+    
+      if(bookingid && isupdate){
+        setBookingidForUpdate(bookingid);
+        setIsForUpdate(isupdate);
+        getAndSetUserData(bookingid);
+      }
+    }, 1000);
+  }, [location])
+  
+
 
   // Add :  Add reservation details 
   // params : none     (directly get data from useState)
@@ -58,6 +80,11 @@ const Reservation = () => {
     try{
       let ubid = new ShortUniqueId({ length: 14 });  let ubookingid = ubid();
       
+      if(roomNumber){
+        let isBooked = await bookRoom(ubookingid);
+        if(!isBooked.success){  return { success: false, msg: isBooked?.msg }}
+      }
+
       db.collection('reservation').add({
           bookingid: ubookingid,  name: guestName,  address: address, icno: "", 
           phoneno: guestPhoneNumber,  telno: "",  companyname: companyName, designation: designation,
@@ -96,12 +123,139 @@ const Reservation = () => {
   }
 
 
+  // Internal Service/Add :  Book room number against bookingid
+  // params : bookingid   (take useState internally-auto -> roomType,roomNumber,arrivalDate,arrivalTime,departureDate,departureTime)
+  // return :   1.  {success:true}                                             IF BOOKED
+  //            2.  {success:false, msg: 'Something Went Wrong'}               IF BOOKING FAILED
+  //            3.  {success:false, msg: '<Room_No> Invalid Room Number'}      IF ROOM NO IS INVALID/NOT FOUND
+  //            4.  {success:false, msg: '<Room_No> Room is not available!'}   IF ROOM NO IS ALREADY BOOKED
+  const bookRoom = async(bookingid)=>{
+    try{
+      let roomav = await db.collection("roomavailability").get();
+
+      if (!roomav.length) { return { success: false, msg: "Something Went Wrong!" }; }
+      
+      const avroomnos = roomNumber.split(',').map(value => value.trim()).filter(value => value !== '');
+      
+      let isCheckPass = true;
+      let isCheckPassMsg = "";
+      for (const avroom of avroomnos) {  
+        let roomData = roomav[0][roomType.toLowerCase()];
+        if (!roomData[avroom]) { isCheckPass = false; isCheckPassMsg = `${avroom} Invalid Room Number`; break; }
+        if(roomData[avroom].av != "1") { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available!`; break; }
+
+        let isrmavl = await isRoomAvailable(roomType.toLowerCase(),avroom);
+        if(!isrmavl) { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available in your Date Range!`; break; }
+      };
+    
+      if(!isCheckPass) { return { success:false, msg: isCheckPassMsg } }
+
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomType.toLowerCase()][avroom];
+        const ifBookingExist = roomObj.activeBookings.find(room => room.bookingid === bookingid);
+        if (!ifBookingExist) {
+          roomObj.activeBookings.push({bookingid: bookingid, arrivaldate: arrivalDate, departuredate: departureDate, arrivaltime: arrivalTime, departuretime: departureTime});
+        }
+      })
+
+      await db.collection('roomavailability').set(roomav);
+  
+      return {success: true}
+    }catch(e){
+      console.log("ReservationPageError (bookRoom) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+  // Internal Service/Check :  Check room is available or not
+  // params :  roomtype, roomnumber   (take useState internally-auto -> arrivalDate,arrivalTime,departureDate,departureTime)
+  // return :  1. true                      IF ROOM AVAILABLE
+  //           2. false                     IF ROOM NOT AVAILABLE
+  const isRoomAvailable = async(roomtype,roomnumber)=>{
+    let roomav = await db.collection("roomavailability").get();
+    let bookings = roomav[0][roomtype][roomnumber].activeBookings;
+    
+    const requestedArrivalDT = new Date(arrivalDate + 'T' + arrivalTime);
+    const requestedDepartureDT = new Date(departureDate + 'T' + departureTime);
+
+    let isAv = true;
+    for (let i = 0; i < bookings.length; i++) {
+      const booking = bookings[i];
+
+      const bookingArrivalDT = new Date(booking.arrivaldate + 'T' + booking.arrivaltime);
+      const bookingDepartureDT = new Date(booking.departuredate + 'T' + booking.departuretime);
+
+      if (requestedArrivalDT >= bookingArrivalDT && requestedArrivalDT < bookingDepartureDT       ||
+          requestedDepartureDT > bookingArrivalDT && requestedDepartureDT <= bookingDepartureDT) 
+      {
+        isAv = false;
+        break;
+      }
+    }
+
+    return isAv;
+  }
+
+
+  // Get :  Get all user data of a booking against bookingid
+  // params : bookingid
+  // return : 1. { success:true, data: {bookingid:"",name: {..}, phoneno: "", ...} }           IF ALL OK
+  //          2. {success: false, msg: 'Something Went Wrong'}                                 IF SERVER ERROR
+  //          3. {success:false, msg: "Invalid Booking Details"}                               IF BOOKING DATA NOT FOUND
+  const getUserDataAgainstBookingId = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      return {success:true, data: booking};
+    }catch(e){
+      console.log("ReservationPageError (getUserDataAgainstBookingId) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+
+
+
+
+
+  const getAndSetUserData = async(bookingid)=>{
+    let res = await getUserDataAgainstBookingId(bookingid);
+
+    if(res?.success){
+      let booking = res?.data;
+      setGuestName(booking.name); setAddress(booking.address); setGuestPhoneNumber(booking.phoneno); 
+      setCompanyName(booking.companyname); setDesignation(booking.designation); setBookingDate(booking.bookingdate); 
+      setArrivalDate(booking.arrivaldate); setArrivalTime(booking.arrivaltime); setdepartureDate(booking.departuredate);
+      setDepartureTime(booking.departuretime); setNights(booking.nights); setRoomNumber(booking.roomno); 
+      setNoOfRooms(booking.noofrooms); setNoOfPax(booking.noofpax); setModeOfArrival(booking.modeofarrival); 
+      setTrainNo(booking.trainno); setFlightNo(booking.flightno); setRoomRate(booking.roomrate); 
+      setDiscountAmount(booking.discountamount); setDiscountPercentage(booking.discountpercentage); setCardNo(booking.cardno); 
+      setUpi(booking.upi); setTravelAgentName(booking.travelagentname); setResAssisName(booking.resassisname); 
+      setSpecialReq(booking.specialreq);
+
+      changeRoomBtnColor(booking.typeofroom);
+      changePaymentBtnColor(booking.modeofpayment);
+      changeMealBtnColor(booking.mealplan);
+
+      if(booking.roomrate == ''){ setIsDiscountDisabled(true); } else{ setIsDiscountDisabled(false); }
+    }
+  }
+
+
   const changeRoomBtnColor = (whichRoom) => {
+    if(roomType == whichRoom){
+      setRoomTypeBtnColor(""); setRoomType(""); setIsRoomNoDisabled(true);  return;
+    }
     setRoomTypeBtnColor(whichRoom);
     setRoomType(whichRoom);
+    setIsRoomNoDisabled(false);
   };
 
   const changePaymentBtnColor = (paymentType) => {
+    if(paymentType == modeOfPayment){
+      setIsCardNoDisabled(false); setIsUpiDisabled(false);
+      setPaymentTypeBtnColor(""); setModeOfPayment(""); return;
+    }
     if(paymentType == 'Cash') { setIsCardNoDisabled(true); setIsUpiDisabled(true); }
     if(paymentType == 'Card') { setIsCardNoDisabled(false); setIsUpiDisabled(true); }
     if(paymentType == 'UPI') { setIsCardNoDisabled(true); setIsUpiDisabled(false); }
@@ -110,6 +264,9 @@ const Reservation = () => {
   };
 
   const changeMealBtnColor = (mealType) => {
+    if(mealPlan == mealType){
+      setMealTypeBtnColor(""); setMealPlan(""); return;
+    }
     setMealTypeBtnColor(mealType);
     setMealPlan(mealType);
   };
@@ -121,6 +278,10 @@ const Reservation = () => {
     setDepartureTime(""); setNights(0); setRoomType(""); setRoomNumber(""); setNoOfRooms(""); setNoOfPax(""); setModeOfArrival(""); setTrainNo("");
     setFlightNo(""); setRoomRate(""); setDiscountAmount(""); setDiscountPercentage(""); setModeOfPayment(""); setCardNo("");
     setUpi(""); setMealPlan(""); setTravelAgentName(""); setResAssisName(""); setSpecialReq("");
+
+    setRoomTypeBtnColor(""); setPaymentTypeBtnColor(""); setMealTypeBtnColor("");
+
+    setIsCardNoDisabled(false); setIsUpiDisabled(false);  setIsDiscountDisabled(true); setIsRoomNoDisabled(true);
   }
 
   const handleInputChange = (e) => {
@@ -158,7 +319,12 @@ const Reservation = () => {
     }
     else if (e.target.name == "nights") { setNights(e.target.value); }
     else if (e.target.name == "departuretime") {  setDepartureTime(e.target.value); }
-    else if (e.target.name == "roomnumber") {  setRoomNumber(e.target.value); }
+    else if (e.target.name == "roomnumber" && e.target.value!=" ") {  
+      setRoomNumber(e.target.value);
+      const avroomnos = e.target.value.split(',').map(value => value.trim()).filter(value => value !== '');
+      if(!avroomnos.length) { setNoOfRooms("") }
+      else { setNoOfRooms(avroomnos.length); }
+    }
     else if (e.target.name == "noofrooms") {  setNoOfRooms(e.target.value); }
     else if (e.target.name == "noofpax") {  setNoOfPax(e.target.value); }
     else if (e.target.name == "modeofarrival") {  setModeOfArrival(e.target.value); }
@@ -340,6 +506,7 @@ const Reservation = () => {
                   className="form-control height-30 font-size-14"
                   id="inputArrivalDate"
                   name="arrivaldate"
+                  max={departureDate}
                   value={arrivalDate}
                   onChange={handleInputChange}
                   required
@@ -397,6 +564,7 @@ const Reservation = () => {
                   className="form-control height-30 font-size-14"
                   id="inputDepartureDate"
                   name="departuredate"
+                  min={arrivalDate}
                   value={departureDate}
                   onChange={handleInputChange}
                   required
@@ -526,7 +694,7 @@ const Reservation = () => {
                   Room No{" "}
                 </label>
                 <div className="col-sm-5">
-                  <input
+                  <input disabled={isRoomNoDisabled}
                     type="text"
                     className="form-control height-30 font-size-14"
                     id="inputRoomNo"
@@ -745,6 +913,7 @@ const Reservation = () => {
                   className="form-control height-30 font-size-14"
                   id="inputBookingDate"
                   name="bookingdate"
+                  max={arrivalDate}
                   value={bookingDate}
                   onChange={handleInputChange}
                   required

@@ -9,6 +9,11 @@ db.config.debug = false;
 
 const AllReservations = () => {
   const [bookingData, setBookingData] = useState([])
+  const [selectedBookingId, setSelectedBookingId] = useState("")
+
+  const [isAddBtnDisabled, setIsAddBtnDisabled] = useState(true)
+  const [isCancelBtnDisabled, setIsCancelBtnDisabled] = useState(true)
+  
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -73,6 +78,144 @@ const AllReservations = () => {
     }
   }
 
+  // Remove : Remove reservation-data and release occupied rooms also
+  // params : bookingid
+  // return : 1. {success: true}                                                      IF ALL OK
+  //          2. {success: false, msg: 'Invalid Booking Details'}                     IF BOOKING DATA NOT FOUND
+  //          3. {success: false, msg: 'Something Went Wrong'}                        IF INTERNAL SERVER ERROR
+  const removeReservationData = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+
+      let roomreservcheck = await releaseRoomOccupancy(bookingid);
+
+      if(!roomreservcheck.success) { return {success:false, msg: "Something Went Wrong!"} }
+      
+      await db.collection('reservation').doc({ bookingid: bookingid }).delete();
+
+      return {success: true}
+    }catch(e){
+      console.log("AllReservationPageError (removeReservationData) : ",e);
+      return {success:false, msg: "Something Went Wrong"}
+    }
+  }
+
+
+  // Internal Service/Delete : Release Prev Stored Room Occupancy from RoomAv. DB
+  // params : bookingid  (case sensitive)
+  // return : 1. {success: true}                                            IF ALL OK
+  //          2. {success:false, msg: "Invalid Booking Details"}            IF BOOKINGID IS INVALID/NOT FOUND
+  //          3. {success:false, msg: "Something Went Wrong!"}              IF ROOMAV DB ERROR
+  //          4. {success: false, msg: 'Something Went Wrong'}              IF SERVER ERROR
+  const releaseRoomOccupancy = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      let roomav = await db.collection("roomavailability").get();
+
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      if(!roomav)  { return {success:false, msg: "Something Went Wrong!"} }
+
+      let rooms = booking.roomno;
+      let roomtype = booking.typeofroom;
+      roomtype = roomtype.toLowerCase();
+
+      const avroomnos = rooms.split(',').map(value => value.trim()).filter(value => value !== '');
+
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomtype][avroom];
+
+        let bookings = roomav[0][roomtype.toLowerCase()][avroom].activeBookings;
+        for (let i = 0; i < bookings.length; i++) {
+          if(bookingid === bookings[i].bookingid){
+            const today = new Date(); const year = today.getFullYear(); const month = String(today.getMonth() + 1).padStart(2, '0');  const day = String(today.getDate()).padStart(2, '0');
+            const todayDate = `${year}-${month}-${day}`;
+
+            if(bookings[i].arrivaldate<= todayDate && todayDate<=bookings[i].departuredate){
+              if(roomObj.av == "0"){ roomObj.av = "1"; }
+              break;
+            }
+          }
+        }
+
+        roomObj.activeBookings = roomObj.activeBookings.filter(room => room.bookingid !== bookingid);
+      })
+
+      await db.collection('roomavailability').set(roomav);
+      return {success: true}
+    }catch(e){
+      console.log("AllReservationsPageError (releaseRoomOccupancy) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+
+
+
+
+  const selectReservationData = (bookingID)=>{
+
+    if(selectedBookingId == bookingID){
+      let tableRow = document.getElementById(selectedBookingId);
+      tableRow.classList.remove('background-gray');
+      setSelectedBookingId(""); setIsAddBtnDisabled(true); setIsCancelBtnDisabled(true);
+      return;
+    }
+
+    if(selectedBookingId){ 
+      let tableRow = document.getElementById(selectedBookingId);
+      tableRow.classList.remove('background-gray')
+    }
+
+    setSelectedBookingId(bookingID);
+
+    if(bookingID == ""){  setIsAddBtnDisabled(true); setIsCancelBtnDisabled(true); }
+    else{
+      setIsAddBtnDisabled(false); setIsCancelBtnDisabled(false);
+      let tableRow = document.getElementById(bookingID);
+      tableRow.classList.add('background-gray')
+    }
+  }
+
+  const updateReservationData = ()=>{
+    navigate(`/Reservation?bookingid=${selectedBookingId}&isupdate=true`);
+  }
+
+  const deleteReservationData = async()=>{
+    let isDeleted = await removeReservationData(selectedBookingId);
+    
+    if(isDeleted.success){
+      const query = new URLSearchParams(location.search);
+      const firstname = query.get('firstname');  const lastname = query.get('lastname');   const phoneno = query.get('phoneno');
+
+      if(!firstname && !lastname && !phoneno){
+        let reservationResData = await getAllReservationData();
+        if(reservationResData.success){ setBookingData(reservationResData.data) }
+      }else{
+        let reservationResData = await getReservationData(firstname,lastname,phoneno);
+        if(reservationResData.success){ setBookingData(reservationResData.data) }
+      }
+
+      alert(selectedBookingId + " Reservation Data Deleted!");
+    }else{
+      alert(isDeleted?.msg);
+    }
+
+    resetUpdateOrDeleteActionChanges();
+  }
+
+  const resetUpdateOrDeleteActionChanges = ()=>{    
+    if(selectedBookingId){ 
+      let tableRow = document.getElementById(selectedBookingId);
+      tableRow.classList.remove('background-gray')
+    }
+    setSelectedBookingId("");
+    setIsAddBtnDisabled(true);
+    setIsCancelBtnDisabled(true);
+  }
+
+
 
   return (
     <div>
@@ -80,7 +223,7 @@ const AllReservations = () => {
         <nav className="navbar sticky-top navbar navbar-expand-lg bg-light">
           <div className="container-fluid">
             <div className="navbar-brand d-flex align-items-center">
-              <div className="text-primary" onClick={()=>{navigate(-1)}}>
+              <div className="text-primary make-cursor-pointer" onClick={()=>{navigate(-1)}}>
                 <i className="bx bx-chevrons-left font-size-25"></i>
               </div>
               <h5 className="text-primary">Reservation</h5>
@@ -91,24 +234,26 @@ const AllReservations = () => {
           <div className="d-flex justify-content-end column-gap-3">
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light" onClick={()=>{navigate('/reservation')}}
             >
               <i className="bx bxs-building font-size-25"></i>Reservation
             </button>
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light" onClick={updateReservationData}
+              disabled={isAddBtnDisabled}
             >
               <i className="bx bxs-plus-square font-size-25"></i>Add
             </button>
             <button
               type="button"
-              className="d-flex align-items-center text-primary btn btn-light"
+              className="d-flex align-items-center text-primary btn btn-light" onClick={deleteReservationData}
+              disabled={isCancelBtnDisabled}
             >
               <i className="bx bxs-x-circle font-size-25"></i>Cancel
             </button>
           </div>
-          <div className="table-responsive height-500 bg-skyblue mt-4">
+          <div className="table-responsive height-500 bg-skyblue mt-2">
             <table className="table table-borderless table-border-collapse text-primary">
               <thead className="table-head">
                 <tr>
@@ -122,7 +267,7 @@ const AllReservations = () => {
               </thead>
               <tbody className="table-group-divider">
                 {bookingData && bookingData.map((item,index)=>{
-                  return <tr key={item?.bookingid}>
+                  return <tr key={item?.bookingid} className='hover-gray make-cursor-pointer' id={item?.bookingid} onClick={()=>{selectReservationData(item?.bookingid)}}>
                     <th scope="row">{index+1}</th>
                     <td className="table-tdata">{item?.bookingdate}</td>
                     <td className="table-tdata">{item?.bookingid}</td>
