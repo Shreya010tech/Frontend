@@ -74,16 +74,14 @@ const App = () => {
   // return : 1. {success:true,  isAdmin: true}                                           IF ADMIN
   //          2. {success:true, isAdmin: false}                                          IF NOT ADMIN
   //          3. {success:false, isAdmin: false, msg: 'Something Went Wrong' }            IF SERVER ERROR
-  const isUserAdmin = ()=>{
-    setTimeout(() => {    
-      try{
-        if(Cookies.get('role') == 'Admin'){    return {success:true, isAdmin: true};  }
-        else{   return {success:true, isAdmin: false}; }
-      }catch(e){
-        console.log("isUserAdmin : ",e);
-        return {success:false, isAdmin: false, msg: 'Something Went Wrong' }
-      }
-    }, 1000);
+  const isUserAdmin = ()=>{    
+    try{
+      if(Cookies.get('role') == 'Admin'){    return {success:true, isAdmin: true};  }
+      else{   return {success:true, isAdmin: false}; }
+    }catch(e){
+      console.log("isUserAdmin : ",e);
+      return {success:false, isAdmin: false, msg: 'Something Went Wrong' }
+    }
   }
 
 
@@ -112,16 +110,14 @@ const App = () => {
   //          2. {success:false, msg: 'Not Logged In'}                                    IF NOT AUTHENTICATED
   //          3. {success:false, msg: 'Something Went Wrong' }                            IF SERVER ERROR
   const isAuthenticated = ()=>{
-    setTimeout(() => {    
-      try{
-        if(Cookies.get('isLoggedIn') == 'true'){    return {success:true};  }
-        else{ navigate('/Home');   return {success:false, msg: "Not Logged In"}; }
-      }catch(e){
-        console.log("isAuthenticated : ",e);
-        navigate('/Home');
-        return {success:false, msg: 'Something Went Wrong' }
-      }
-    }, 1000);
+    try{
+      if(Cookies.get('isLoggedIn') == 'true'){    return {success:true};  }
+      else{ navigate('/Home');   return {success:false, msg: "Not Logged In"}; }
+    }catch(e){
+      console.log("isAuthenticated : ",e);
+      navigate('/Home');
+      return {success:false, msg: 'Something Went Wrong' }
+    }
   }
 
 
@@ -131,7 +127,7 @@ const App = () => {
       <Routes>
         <Route exact path="/Home" element={<Home />} />
         <Route exact path="/Home3" element={<Home3 />} />
-        <Route exact path="/AllReservations" element={<AllReservations />} />
+        <Route exact path="/AllReservations" element={<AllReservations isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
         <Route exact path="/Reservation" element={<Reservation />} />
         <Route
           exact

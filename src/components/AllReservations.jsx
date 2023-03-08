@@ -7,13 +7,14 @@ import Localbase from "localbase";
 let db = new Localbase("hmctdb");
 db.config.debug = false;
 
-const AllReservations = () => {
+const AllReservations = ({isUserAdmin, isAuthenticated}) => {
   const [bookingData, setBookingData] = useState([])
   const [selectedBookingId, setSelectedBookingId] = useState("")
 
   const [isAddBtnDisabled, setIsAddBtnDisabled] = useState(true)
   const [isCancelBtnDisabled, setIsCancelBtnDisabled] = useState(true)
-  
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -39,6 +40,17 @@ const AllReservations = () => {
   }, [location])
 
 
+  useEffect(() => {
+    let adminCheck = ()=>{
+      let res = isUserAdmin();
+      if(res.success && res.isAdmin){
+        setIsAdmin(true);
+      }
+    }
+    isAuthenticated();
+    adminCheck();
+  }, [])
+  
 
 
 
@@ -155,6 +167,7 @@ const AllReservations = () => {
 
 
   const selectReservationData = (bookingID)=>{
+    if(!isAdmin){ return; }
 
     if(selectedBookingId == bookingID){
       let tableRow = document.getElementById(selectedBookingId);
@@ -179,10 +192,13 @@ const AllReservations = () => {
   }
 
   const updateReservationData = ()=>{
+    if(!isAdmin){ alert("Access Denied"); return; }
     navigate(`/Reservation?bookingid=${selectedBookingId}&isupdate=true`);
   }
 
   const deleteReservationData = async()=>{
+    if(!isAdmin){ alert("Access Denied"); return; }
+
     let isDeleted = await removeReservationData(selectedBookingId);
     
     if(isDeleted.success){
@@ -236,7 +252,7 @@ const AllReservations = () => {
               type="button"
               className="d-flex align-items-center text-primary btn btn-light" onClick={()=>{navigate('/reservation')}}
             >
-              <i className="bx bxs-building font-size-25"></i>Reservation
+              <i className="bx bxs-building font-size-25"></i>Reservations
             </button>
             <button
               type="button"
