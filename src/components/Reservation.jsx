@@ -61,12 +61,25 @@ const Reservation = () => {
       const query = new URLSearchParams(location.search);
       const bookingid = query.get('bookingid');
       const isupdate = query.get('isupdate');
+      const roomtype = query.get('roomtype');
+      const roomnumber = query.get('roomnumber');
     
       if(bookingid && isupdate){
         setBookingidForUpdate(bookingid);
         setIsForUpdate(isupdate);
         getAndSetUserData(bookingid);
       }
+      
+      else if(roomtype && roomnumber){
+        if(roomtype === 'Standard' || roomtype === 'Delux' || roomtype === 'Executive'){
+          changeRoomBtnColor(roomtype);
+          setRoomNumber(roomnumber);
+          const avroomnos = roomnumber.split(',').map(value => value.trim()).filter(value => value !== '');
+          if(!avroomnos.length) { setNoOfRooms("") }
+          else { setNoOfRooms(avroomnos.length); }
+        }
+      }
+
     }, 1000);
   }, [location])
   
