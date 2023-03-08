@@ -7,8 +7,6 @@ let db = new Localbase("hmctdb");
 db.config.debug = false;
 
 const Home = () => {
-  
-  
   // Check :  Login into App
   // params : role(Admin/Employee),username,password                                          (Case Sensitive)
   // return :   1.  {success:true} + Set Cookie('isLoggedIn','name','username','role')        IF CORRECT Credentials
@@ -56,6 +54,20 @@ const Home = () => {
   }
 
 
+  const [role, setRole] = React.useState('');
+const [username, setUsername] = React.useState('');
+const [password, setPassword] = React.useState('');
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const result = await LoginAction(role, username, password);
+  if (result.success) {
+    window.location.href = '/Home3';
+  } else {
+    alert(result.msg);
+  }
+};
+
   return (
     <div className="container" id="HomeCss">
       <div className="row">
@@ -63,15 +75,15 @@ const Home = () => {
           <img src={homeimg} className="imgformfix" />
         </div>
         <div className="col-sm">
-          <form className="formcss">
+          <form className="formcss" onSubmit={handleSubmit}>
             <div className="mb-3">
               <label for="exampleInputEmail1" className="form-label">
                 <h4>Role:</h4>
               </label>
               <br />
-              <select name="roles" id="roles" className="selectcss">
-                <option value="volvo">Admin</option>
-                <option value="saab">Employee</option>
+              <select name="roles" id="roles" className="selectcss" onChange={(e) => setRole(e.target.value)}>
+                <option value="Admin">Admin</option>
+                <option value="Employee">Employee</option>
               </select>
             </div>
             <div className="mb-3">
@@ -81,8 +93,10 @@ const Home = () => {
               <input
                 type="text"
                 className="form-control"
-                id="exampleInputEmail1"
+                id="username"
+                value={username}
                 aria-describedby="emailHelp"
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="mb-3">
@@ -94,16 +108,16 @@ const Home = () => {
               <input
                 type="password"
                 className="form-control"
-                id="exampleInputEmail1"
+                id="password"
+                value={password}
                 aria-describedby="emailHelp"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <center>
-              <NavLink to="/Home3">
                 <button type="submit" className="btn btn-primary">
                   Sign In
                 </button>
-              </NavLink>
             </center>
           </form>
         </div>
