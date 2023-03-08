@@ -16,6 +16,26 @@ const Home = () => {
     try{
       LogoutAction();
 
+      if (role !== "Admin" && role !== "Employee") {
+
+        return { success: false, msg: "Invalid Role!" };
+      }
+      if(role==='Admin' && username==='admin@sithmct' && password==='Admin@123'){
+        Cookies.set('isLoggedIn', 'true', { expires: 0.5 });
+        Cookies.set('name', `Admin`, { expires: 0.5 });
+        Cookies.set('username', `admin`, { expires: 0.5 });
+        Cookies.set('role', `admin`, { expires: 0.5 });
+        window.location.href = '/Home3';
+        return { success: true }
+      }
+      if(role==='Employee' && username==='employee@sithmct' && password==='Employee@123'){
+        Cookies.set('isLoggedIn', 'true', { expires: 0.5 });
+        Cookies.set('name', `Employee`, { expires: 0.5 });
+        Cookies.set('username', `employee`, { expires: 0.5 });
+        Cookies.set('role', `employee`, { expires: 0.5 });
+        window.location.href = '/Home3';
+        return { success: true }
+      }
       let user = await db.collection("users").doc({ role: role }).get();
 
       if(!user) return {success:false, msg: 'Something Went Wrong!' }
@@ -83,8 +103,8 @@ const handleSubmit = async (e) => {
               </label>
               <br />
               <select name="roles" id="roles" className="selectcss" onChange={(e) => setRole(e.target.value)}>
-                <option value="admin">Admin</option>
-                <option value="employee">Employee</option>
+                <option value="Admin">Admin</option>
+                <option value="Employee">Employee</option>
               </select>
             </div>
             <div className="mb-3">
@@ -116,11 +136,9 @@ const handleSubmit = async (e) => {
               />
             </div>
             <center>
-              <NavLink to="/Home3">
                 <button type="submit" className="btn btn-primary">
                   Sign In
                 </button>
-              </NavLink>
             </center>
           </form>
         </div>
