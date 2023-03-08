@@ -83,7 +83,7 @@ const handleSubmit = async (e) => {
               <br />
               <select name="roles" id="roles" className="selectcss" onChange={(e) => setRole(e.target.value)}>
                 <option value="Admin">Admin</option>
-                <option value="Employee">Employee</option>
+                <option value="Employee" selected>Employee</option>
               </select>
             </div>
             <div className="mb-3">
