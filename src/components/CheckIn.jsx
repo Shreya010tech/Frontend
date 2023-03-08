@@ -87,6 +87,8 @@ const CheckIn = () => {
       let res = await releaseRoomOccupancy(bookingid);
       if(!res.success) { return { success: false, msg: "Something Went Wrong!" }; }
 
+      roomav = await db.collection("roomavailability").get();
+      
       let isCheckPass = true;
       let isCheckPassMsg = "";
       for (const avroom of avroomnos) {  
