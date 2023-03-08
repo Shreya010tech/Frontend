@@ -54,7 +54,7 @@ const Home = () => {
   }
 
 
-  const [role, setRole] = React.useState('');
+  const [role, setRole] = React.useState('Employee');
 const [username, setUsername] = React.useState('');
 const [password, setPassword] = React.useState('');
 
