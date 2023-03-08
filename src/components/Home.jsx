@@ -16,11 +16,6 @@ const Home = () => {
     try{
       LogoutAction();
 
-      if (role !== "Admin" && role !== "Employee") {
-
-        return { success: false, msg: "Invalid Role!" };
-      }
-      
       let user = await db.collection("users").doc({ role: role }).get();
 
       if(!user) return {success:false, msg: 'Something Went Wrong!' }
