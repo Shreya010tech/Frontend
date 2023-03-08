@@ -116,6 +116,23 @@ const CheckIn = () => {
   }
 
   
+  // Get :  Get all user data of a booking against bookingid
+  // params : bookingid
+  // return : 1. {success:true, data: {bookingid:"",name: {..}, phoneno: "", ...} }            IF ALL OK
+  //          2. {success: false, msg: 'Something Went Wrong'}                                 IF SERVER ERROR
+  //          3. {success:false, msg: "Invalid Booking Details"}                               IF BOOKING DATA NOT FOUND
+  const getUserDataAgainstBookingId = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      return {success:true, data: booking};
+    }catch(e){
+      console.log("CheckinPageError (getUserDataAgainstBookingId) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+  
   // Internal Service/Delete : Release Prev Stored Room Occupancy from RoomAv. DB
   // params : bookingid  (case sensitive)
   // return : 1. {success: true}                                            IF ALL OK
