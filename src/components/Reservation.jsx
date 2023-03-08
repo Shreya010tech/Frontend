@@ -528,7 +528,7 @@ const Reservation = () => {
     else if (e.target.name == "middlename") {  setGuestName({ ...guestName, middlename: e.target.value }); }
     else if (e.target.name == "lastname") {  setGuestName({ ...guestName, lastname: e.target.value }); }
     else if (e.target.name == "address") {  setAddress({ ...address, ad1: e.target.value }); }
-    else if (e.target.name == "guestphonenumber") {  setGuestPhoneNumber(e.target.value); }
+    else if (e.target.name == "guestphonenumber" && !isNaN(e.target.value) && e.target.value.length < 14) {  setGuestPhoneNumber(e.target.value); }
     else if (e.target.name == "companyname") {  setCompanyName(e.target.value); }
     else if (e.target.name == "designation") {  setDesignation(e.target.value); }
     else if (e.target.name == "bookingdate") {  setBookingDate(e.target.value); }
@@ -578,7 +578,7 @@ const Reservation = () => {
     else if (e.target.name == "discountpercentage") {  
       setDiscountPercentage(e.target.value);  let result = (e.target.value * roomRate) / 100; setDiscountAmount(result);
     }
-    else if (e.target.name == "cardno") {  setCardNo(e.target.value); }
+    else if (e.target.name == "cardno" && !isNaN(e.target.value) && e.target.value.length <= 16) {  setCardNo(e.target.value); }
     else if (e.target.name == "upi") {  setUpi(e.target.value); }
     else if (e.target.name == "travelagentname") {  setTravelAgentName(e.target.value); }
     else if (e.target.name == "resassisname") {  setResAssisName(e.target.value); }
@@ -629,7 +629,7 @@ const Reservation = () => {
               type="button"
               className="d-flex align-items-center text-primary btn btn-light button-padding-5" onClick={()=>{navigate('/AllReservations')}}
             >
-              <i className="bx bxs-building font-size-25"></i>Reservation
+              <i className="bx bxs-building font-size-25"></i>All Reservations
             </button>
             <button
               type="button"
@@ -704,7 +704,7 @@ const Reservation = () => {
               </label>
               <div className="col-sm-7">
                 <input
-                  type="number"
+                  type="text"
                   className="form-control height-30 font-size-14"
                   id="inputNumber"
                   name="guestphonenumber"
@@ -921,11 +921,11 @@ const Reservation = () => {
               <div className="col-md-6 d-flex align-items-center">
                 <label
                   htmlFor="nights"
-                  className="col-sm-3 col-form-label font-size-14"
+                  className="col-sm-4 col-form-label font-size-14"
                 >
-                  Nights
+                  No. of Nights
                 </label>
-                <div className="col-sm-5">
+                <div className="col-sm-4">
                   <input
                     type="text"
                     className="form-control height-30 font-size-14"
@@ -943,7 +943,7 @@ const Reservation = () => {
                   Room No{" "}
                 </label>
                 <div className="col-sm-5">
-                  <input disabled={isRoomNoDisabled}
+                  <input readOnly={isRoomNoDisabled}
                     type="text"
                     className="form-control height-30 font-size-14"
                     id="inputRoomNo"
@@ -961,6 +961,7 @@ const Reservation = () => {
                   <input
                     type="number"
                     className="form-control height-30 font-size-14"
+                    min="0"
                     id="inputNoOfRoom"
                     name="noofrooms"
                     value={noOfRooms}
@@ -1025,6 +1026,7 @@ const Reservation = () => {
                 <input
                   type="number"
                   className="form-control height-30 font-size-14"
+                  min="0"
                   id="inputRoomRate"
                   name="roomrate"
                   value={roomRate}
@@ -1092,9 +1094,10 @@ const Reservation = () => {
                 </label>
                 <div className="col-sm-5">
                   <input
-                    disabled={isDiscountDisabled}
+                    readOnly={isDiscountDisabled}
                     type="number"
                     className="form-control height-30 font-size-14"
+                    min="0"
                     id="inputRoomNo"
                     name="discountamount"
                     value={discountAmount}
@@ -1111,8 +1114,9 @@ const Reservation = () => {
                 </label>
                 <div className="col-sm-4">
                   <input
-                    disabled={isDiscountDisabled}
+                    readOnly={isDiscountDisabled}
                     type="number"
+                    min="0"
                     className="form-control height-30 font-size-14"
                     id="inputNoOfRoom"
                     name="discountpercentage"
@@ -1128,7 +1132,7 @@ const Reservation = () => {
               </label>
               <div className="col-sm-7">
                 <input disabled={isCardNoDisabled}
-                  type="number"
+                  type="text"
                   className="form-control height-30 font-size-14"
                   id="inputCardNo"
                   name="cardno"
