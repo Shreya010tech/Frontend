@@ -8,6 +8,9 @@ const Application = () => {
     const [message, setMessage] = useState("");
     const [senderName, setSenderName] = useState("");
 
+    const [buttonText, setButtonText] = useState("Send");
+    const [isSendDisabled, setIsSendDisabled] = useState(false);
+
     const handleInputChange = (e) => {
         if(e.target.name == "receivername"){ setReceiverName(e.target.value) }
         else if(e.target.name == "message"){ setMessage(e.target.value) }
@@ -37,7 +40,7 @@ const Application = () => {
                         />
                     </div>
                     <div className="mt-3">
-                        <textarea className="form-control bg-skyblue w-75 height-400 margin-left-180" name="message" value={message} onChange={handleInputChange}></textarea>
+                        <textarea className="form-control bg-skyblue w-75 height-350 margin-left-180" name="message" value={message} onChange={handleInputChange}></textarea>
                     </div>
                     <div className="d-flex justify-content-end mt-4 padding-right-50">
                         <div className="flex-column">
@@ -49,6 +52,9 @@ const Application = () => {
                                 name="sendername" value={senderName} onChange={handleInputChange}
                             />
                         </div>
+                    </div>
+                    <div className="d-flex justify-content-center align-items-center">
+                        <button className="width-150 btn btn-primary hover-transform-button" disabled={isSendDisabled} onClick={()=>{setButtonText("Sent"); setIsSendDisabled(true);}}>{buttonText}</button>
                     </div>
                 </div>
             </div>
