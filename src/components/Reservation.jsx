@@ -85,7 +85,7 @@ const Reservation = () => {
         if(!isBooked.success){  return { success: false, msg: isBooked?.msg }}
       }
 
-      db.collection('reservation').add({
+      await db.collection('reservation').add({
           bookingid: ubookingid,  name: guestName,  address: address, icno: "", 
           phoneno: guestPhoneNumber,  telno: "",  companyname: companyName, designation: designation,
 
@@ -118,6 +118,44 @@ const Reservation = () => {
       return {success: true, bookingid: ubookingid}     
     }catch(e){
       console.log("ReservationPageError (addReservationData) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+
+  // Update :  Update reservation details 
+  // params : none     (directly get data from useState)
+  // return :   1.  {success:true}                                    IF UPDATED SUCCESSFULLY
+  //            2.  {success:false, msg: 'Something Went Wrong'}      IF ADD FAILED
+  const updateReservationData = async()=>{
+    try{
+      let isBooked = await updateBookRoom(bookingidForUpdate);
+      if(!isBooked.success){  return { success: false, msg: isBooked?.msg }}
+
+      await db.collection('reservation').doc({bookingid: bookingidForUpdate}).update({
+          name: guestName,  address: address,
+          phoneno: guestPhoneNumber, companyname: companyName, designation: designation,
+
+          bookingdate: bookingDate, arrivaldate: arrivalDate, arrivaltime: arrivalTime, 
+          departuredate: departureDate, departuretime: departureTime, nights: nights,
+
+          typeofroom: roomType, roomno: roomNumber, noofrooms: noOfRooms,
+
+          noofpax: noOfPax, modeofarrival: modeOfArrival, trainno: trainNo, flightno: flightNo,
+
+          roomrate: roomRate, discountamount: discountAmount, discountpercentage: discountPercentage,
+          modeofpayment: modeOfPayment, cardno: cardNo, upi: upi,
+
+          mealplan: mealPlan,
+
+          travelagentname: travelAgentName,
+
+          resassisname: resAssisName, specialreq: specialReq
+      })
+
+      return {success: true}     
+    }catch(e){
+      console.log("ReservationPageError (updateReservationData) : ",e);
       return {success: false, msg: 'Something Went Wrong'}
     }
   }
@@ -166,6 +204,193 @@ const Reservation = () => {
       return {success: false, msg: 'Something Went Wrong'}
     }
   }
+
+
+  // Internal Service/Update :  Update booking room number against bookingid
+  // params : bookingid   (take useState internally-auto -> roomType,roomNumber,arrivalDate,arrivalTime,departureDate,departureTime)
+  // return :   1.  {success:true}                                             IF BOOKED
+  //            2.  {success:false, msg: 'Something Went Wrong'}               IF BOOKING FAILED
+  //            3.  {success:false, msg: '<Room_No> Invalid Room Number'}      IF ROOM NO IS INVALID/NOT FOUND
+  //            4.  {success:false, msg: '<Room_No> Room is not available!'}   IF ROOM NO IS ALREADY BOOKED
+  const updateBookRoom = async(bookingid)=>{
+    try{
+      let roomav = await db.collection("roomavailability").get();
+
+      if (!roomav.length) { return { success: false, msg: "Something Went Wrong!" }; }
+      
+      const avroomnos = roomNumber.split(',').map(value => value.trim()).filter(value => value !== '');
+      
+      let checkAv = await checkRoomAvForUpdate(bookingid);
+      if(!checkAv.success) { return {success:false, msg: checkAv?.msg} }
+
+      let res = await releaseRoomOccupancy(bookingid);
+      if(!res.success) { return { success: false, msg: "Something Went Wrong!" }; }
+
+      roomav = await db.collection("roomavailability").get();
+
+      let isCheckPass = true;
+      let isCheckPassMsg = "";
+      for (const avroom of avroomnos) {  
+        let roomData = roomav[0][roomType.toLowerCase()];
+        if (!roomData[avroom]) { isCheckPass = false; isCheckPassMsg = `${avroom} Invalid Room Number`; break; }
+        if(roomData[avroom].av != "1") { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available!`; break; }
+
+        let isrmavl = await isRoomAvailable(roomType.toLowerCase(),avroom);
+        if(!isrmavl) { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available in your Date Range!`; break; }
+      };
+    
+      if(!isCheckPass) { return { success:false, msg: isCheckPassMsg } }
+
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomType.toLowerCase()][avroom];
+        const ifBookingExist = roomObj.activeBookings.find(room => room.bookingid === bookingid);
+        if (!ifBookingExist) {
+          roomObj.activeBookings.push({bookingid: bookingid, arrivaldate: arrivalDate, departuredate: departureDate, arrivaltime: arrivalTime, departuretime: departureTime});
+        }
+      })
+
+      await db.collection('roomavailability').set(roomav);
+  
+      return {success: true}
+    }catch(e){
+      console.log("ReservationPageError (updateBookRoom) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+
+  // Internal Service/Delete : Release Prev Stored Room Occupancy from RoomAv. DB
+  // params : bookingid  (case sensitive)
+  // return : 1. {success: true}                                            IF ALL OK
+  //          2. {success:false, msg: "Invalid Booking Details"}            IF BOOKINGID IS INVALID/NOT FOUND
+  //          3. {success:false, msg: "Something Went Wrong!"}              IF ROOMAV DB ERROR
+  //          4. {success: false, msg: 'Something Went Wrong'}              IF SERVER ERROR
+  const releaseRoomOccupancy = async(bookingid)=>{
+    try{
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      let roomav = await db.collection("roomavailability").get();
+
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      if(!roomav)  { return {success:false, msg: "Something Went Wrong!"} }
+
+      let rooms = booking.roomno;
+      let roomtype = booking.typeofroom;
+      roomtype = roomtype.toLowerCase();
+
+      const avroomnos = rooms.split(',').map(value => value.trim()).filter(value => value !== '');
+
+      avroomnos.forEach(avroom =>{
+        let roomObj = roomav[0][roomtype][avroom];
+
+        let bookings = roomav[0][roomtype.toLowerCase()][avroom].activeBookings;
+        for (let i = 0; i < bookings.length; i++) {
+          if(bookingid === bookings[i].bookingid){
+            const today = new Date(); const year = today.getFullYear(); const month = String(today.getMonth() + 1).padStart(2, '0');  const day = String(today.getDate()).padStart(2, '0');
+            const todayDate = `${year}-${month}-${day}`;
+
+            if(bookings[i].arrivaldate<= todayDate && todayDate<=bookings[i].departuredate){
+              if(roomObj.av == "0"){ roomObj.av = "1"; }
+              break;
+            }
+          }
+        }
+
+        roomObj.activeBookings = roomObj.activeBookings.filter(room => room.bookingid !== bookingid);
+      })
+
+      await db.collection('roomavailability').set(roomav);
+      return {success: true}
+    }catch(e){
+      console.log("ReservationsPageError (releaseRoomOccupancy) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
+
+  // Internal Service/Check : Perform check to test updated req rooms are available or not
+  // params : bookingid   (take useState internally-auto -> roomType, roomNumber, arrivalDate,arrivalTime,departureDate,departureTime)
+  // return : 1. {success: true}                                                               IF ALL OK
+  //          2. {success:false, msg: "Invalid Booking Details"}                               IF BOOKINGID IS INVALID/NOT FOUND
+  //          3. {success:false, msg: "Something Went Wrong!"}                                 IF ROOMAV DB ERROR
+  //          4. {success:false, msg: '<Room_No> Invalid Room Number'}                         IF ROOM NO IS INVALID/NOT FOUND
+  //          5. {success:false, msg: '<Room_No> Room is not available!'}                      IF ROOM NO IS ALREADY BOOKED
+  //          6. {success:false, msg: '<Room_No> Room is not available in your Date Range!'}   IF ROOM NO IS ALREADY BOOKED IN A REQUESTED DATE
+  //          7. {success: false, msg: 'Something Went Wrong'}                                 IF SERVER ERROR
+  const checkRoomAvForUpdate = async(bookingid)=>{
+    try{
+      // Temp Remove Prev Booking Data locally
+      let booking = await db.collection('reservation').doc({ bookingid: bookingid }).get();
+      let roomav = await db.collection("roomavailability").get();
+
+      if(!booking) { return {success:false, msg: "Invalid Booking Details"} }
+      if(!roomav)  { return {success:false, msg: "Something Went Wrong!"} }
+
+      let rooms = booking.roomno;
+      let roomtype = booking.typeofroom;
+      roomtype = roomtype.toLowerCase();
+
+      const avroomnos = rooms.split(',').map(value => value.trim()).filter(value => value !== '');
+
+      avroomnos.forEach(avroom =>{
+        const roomObj = roomav[0][roomtype][avroom];
+
+        let bookings = roomav[0][roomtype.toLowerCase()][avroom].activeBookings;
+        for (let i = 0; i < bookings.length; i++) {
+          if(bookingid === bookings[i].bookingid){
+            const today = new Date(); const year = today.getFullYear(); const month = String(today.getMonth() + 1).padStart(2, '0');  const day = String(today.getDate()).padStart(2, '0');
+            const todayDate = `${year}-${month}-${day}`;
+
+            if(bookings[i].arrivaldate<= todayDate && todayDate<=bookings[i].departuredate){
+              if(roomObj.av == "0"){ roomObj.av = "1"; }
+              break;
+            }
+          }
+        }
+
+        roomObj.activeBookings = roomObj.activeBookings.filter(room => room.bookingid !== bookingid);
+      })
+      // End of Temp Remove Prev Booking Data locally
+
+
+      // Check room availability
+      const avrnos = roomNumber.split(',').map(value => value.trim()).filter(value => value !== '');
+      let isCheckPass = true;
+      let isCheckPassMsg = "";
+      for (const avroom of avrnos) {  
+        let roomData = roomav[0][roomType.toLowerCase()];
+        if (!roomData[avroom]) { isCheckPass = false; isCheckPassMsg = `${avroom} Invalid Room Number`; break; }
+        if(roomData[avroom].av != "1") { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available!`; break; }
+
+        let ubookings = roomav[0][roomType.toLowerCase()][avroom].activeBookings;    
+        const requestedArrivalDT = new Date(arrivalDate + 'T' + arrivalTime);
+        const requestedDepartureDT = new Date(departureDate + 'T' + departureTime);
+        let isAv = true;
+        for (let i = 0; i < ubookings.length; i++) {
+          const ubooking = ubookings[i];
+        
+          const bookingArrivalDT = new Date(ubooking.arrivaldate + 'T' + ubooking.arrivaltime);
+          const bookingDepartureDT = new Date(ubooking.departuredate + 'T' + ubooking.departuretime);
+        
+          if (requestedArrivalDT >= bookingArrivalDT && requestedArrivalDT < bookingDepartureDT       ||
+              requestedDepartureDT > bookingArrivalDT && requestedDepartureDT <= bookingDepartureDT) 
+          {
+            isAv = false; break;
+          }
+        }
+
+        if(!isAv) { isCheckPass = false; isCheckPassMsg = `${avroom} Room is not available in your Date Range!`; break; }
+      };
+    
+      if(!isCheckPass) { return { success:false, msg: isCheckPassMsg } }
+      // End of check room availability
+
+      return {success: true}
+    }catch(e){
+      console.log("ReservationPageError (checkRoomAvForUpdate) : ",e);
+      return {success: false, msg: 'Something Went Wrong'}
+    }
+  }
+
 
   // Internal Service/Check :  Check room is available or not
   // params :  roomtype, roomnumber   (take useState internally-auto -> arrivalDate,arrivalTime,departureDate,departureTime)
@@ -353,11 +578,22 @@ const Reservation = () => {
     if(mealPlan == "") { alert("Select Meal Plan"); return; }
     if(modeOfPayment == "") { alert("Select Mode of Payment"); return; }
 
-    let res = await addReservationData();
-    if(res.success){
-      navigate(`/ReservationConfirmation?bookingid=${res.bookingid}`);
+    
+    if(isForUpdate){
+      let res = await updateReservationData();
+      if(res.success){
+        alert("Reservation Data Updated!");
+        navigate(-1);
+      }else{
+        alert(res.msg);
+      }
     }else{
-      alert(res.msg);
+      let res = await addReservationData();
+      if(res.success){
+        navigate(`/ReservationConfirmation?bookingid=${res.bookingid}`);
+      }else{
+        alert(res.msg);
+      }
     }
   };
 
