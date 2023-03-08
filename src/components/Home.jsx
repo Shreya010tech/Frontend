@@ -20,22 +20,7 @@ const Home = () => {
 
         return { success: false, msg: "Invalid Role!" };
       }
-      if(role==='Admin' && username==='admin@sithmct' && password==='Admin@123'){
-        Cookies.set('isLoggedIn', 'true', { expires: 0.5 });
-        Cookies.set('name', `Admin`, { expires: 0.5 });
-        Cookies.set('username', `admin`, { expires: 0.5 });
-        Cookies.set('role', `admin`, { expires: 0.5 });
-        window.location.href = '/Home3';
-        return { success: true }
-      }
-      if(role==='Employee' && username==='employee@sithmct' && password==='Employee@123'){
-        Cookies.set('isLoggedIn', 'true', { expires: 0.5 });
-        Cookies.set('name', `Employee`, { expires: 0.5 });
-        Cookies.set('username', `employee`, { expires: 0.5 });
-        Cookies.set('role', `employee`, { expires: 0.5 });
-        window.location.href = '/Home3';
-        return { success: true }
-      }
+      
       let user = await db.collection("users").doc({ role: role }).get();
 
       if(!user) return {success:false, msg: 'Something Went Wrong!' }
@@ -66,7 +51,6 @@ const Home = () => {
       if(Cookies.get('name')) { Cookies.remove('name'); }
       if(Cookies.get('username')) { Cookies.remove('username'); }
       if(Cookies.get('role')) { Cookies.remove('role'); }
-      window.location.href = '/';
       return {success:true}
     }catch(e){
       console.log("LoginPageError (logoutAction) : ",e);
@@ -85,7 +69,7 @@ const handleSubmit = async (e) => {
   if (result.success) {
     window.location.href = '/Home3';
   } else {
-    LogoutAction();
+    alert(result.msg);
   }
 };
 
