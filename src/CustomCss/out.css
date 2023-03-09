@@ -18,12 +18,12 @@
 }
 
 h6 {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
     font-size: 18px !important;
     color:#2545F8 !important;
     line-height: 22px !important;
     text-align: center;
 }
+
 .lefta {
     padding-left: 60px;
     padding-top: 1rem;
