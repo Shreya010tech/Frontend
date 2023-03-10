@@ -134,8 +134,8 @@ const CheckOut = () => {
             <div>
                 <tr>
                     <hr style="border: 1.20468px solid #4763FD;
-        margin-left: 40px;
-        margin-right: 40px">
+                     margin-left: 40px;
+                     margin-right: 40px">
                     <th>Date</th>
                     <th>Description</th>
                     <th>Reference</th>
