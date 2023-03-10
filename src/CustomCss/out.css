@@ -17,12 +17,19 @@
     width: 100%;
 }
 
+h6 {
+    font-size: 18px !important;
+    color:#2545F8 !important;
+    line-height: 22px !important;
+    text-align: center;
+}
+
 .lefta {
     padding-left: 60px;
     padding-top: 1rem;
 
 }
-
+ 
 .righta {
     padding-right: 60px;
     padding-top: 1rem;
@@ -33,7 +40,6 @@
     padding-left: 20px;
     padding-top: 0rem;
     line-height: 22px;
-
 }
 
 .rights {

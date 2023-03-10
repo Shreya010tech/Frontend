@@ -31,7 +31,7 @@ const App = () => {
   useEffect(() => {
     initializeRoomAvDatabase();
     initializeUsersDatabase();
-    // isAuthenticated();
+    isAuthenticated();
   }, [])
   
 
@@ -72,37 +72,52 @@ const App = () => {
   // Check : Check if user is admin or not
   // params : none             
   // return : 1. {success:true,  isAdmin: true}                                           IF ADMIN
-  //          2. {success:false, isAdmin: false}                                          IF NOT ADMIN
+  //          2. {success:true, isAdmin: false}                                          IF NOT ADMIN
   //          3. {success:false, isAdmin: false, msg: 'Something Went Wrong' }            IF SERVER ERROR
-  const isUserAdmin = ()=>{
-    setTimeout(() => {    
-      try{
-        if(Cookies.get('role') == 'Admin'){    return {success:true, isAdmin: true};  }
-        else{   return {success:false, isAdmin: false}; }
-      }catch(e){
-        console.log("isUserAdmin : ",e);
-        return {success:false, isAdmin: false, msg: 'Something Went Wrong' }
-      }
-    }, 1000);
+  const isUserAdmin = ()=>{    
+    try{
+      if(Cookies.get('role') == 'Admin'){    return {success:true, isAdmin: true};  }
+      else{   return {success:true, isAdmin: false}; }
+    }catch(e){
+      console.log("isUserAdmin : ",e);
+      return {success:false, isAdmin: false, msg: 'Something Went Wrong' }
+    }
+  }
+
+
+  // Get :  Get all the details of loggedin user
+  // params: none
+  // return:  1.  {success:true, data: {role:"",username:"",password:"",name:"",                    //  IF ALL OK
+  //                email:"",phoneno:"",designation:"",usersince:"",shift:""} }
+  //          2.  {success:false, msg: 'User Not Found!'}                                           //  IF LOGIN PROBLEM
+  //          3.  {success:false, msg: 'Something Went Wrong'}                                      //  IF SERVER ERROR
+  const getLoggedInUserDetails = async()=>{   
+    try{
+      let username = Cookies.get('username');
+      let user = await db.collection("users").doc({ username: username }).get();
+      if(!user) return {success:false, msg: 'User Not Found!' }
+      return {success:true, data: user};
+    }catch(e){
+      console.log("getLoggedInUserDetails : ",e);
+      return {success:false, msg: 'Something Went Wrong' }
+    }
   }
 
 
   // Check : Check if user logged in or not  (if not it redirect to Login Page) 
   // params : none             
   // return : 1. {success:true}                                                           IF AUTHENTICATED
-  //          2. {success:false}                                                          IF NOT AUTHENTICATED
+  //          2. {success:false, msg: 'Not Logged In'}                                    IF NOT AUTHENTICATED
   //          3. {success:false, msg: 'Something Went Wrong' }                            IF SERVER ERROR
   const isAuthenticated = ()=>{
-    setTimeout(() => {    
-      try{
-        if(Cookies.get('isLoggedIn') == 'true'){    return {success:true};  }
-        else{ navigate('/Home');   return {success:false}; }
-      }catch(e){
-        console.log("isAuthenticated : ",e);
-        navigate('/Home');
-        return {success:false, msg: 'Something Went Wrong' }
-      }
-    }, 1000);
+    try{
+      if(Cookies.get('isLoggedIn') == 'true'){    return {success:true};  }
+      else{ navigate('/Home');   return {success:false, msg: "Not Logged In"}; }
+    }catch(e){
+      console.log("isAuthenticated : ",e);
+      navigate('/Home');
+      return {success:false, msg: 'Something Went Wrong' }
+    }
   }
 
 
@@ -112,26 +127,26 @@ const App = () => {
       <Routes>
         <Route exact path="/Home" element={<Home />} />
         <Route exact path="/Home3" element={<Home3 />} />
-        <Route exact path="/AllReservations" element={<AllReservations />} />
+        <Route exact path="/AllReservations" element={<AllReservations isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
         <Route exact path="/Reservation" element={<Reservation />} />
         <Route
           exact
           path="/ReservationConfirmation"
           element={<ReservationConfirmation />}
         />
-        <Route exact path="/Profile" element={<Profile isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin}/>} />
-        <Route exact path="/RoomAvailability" element={<RoomAvailability isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} initializeDatabase={initializeRoomAvDatabase}/>} />
-        <Route exact path="/Application" element={<Application isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} />} />
-        <Route exact path="/Notice" element={<Notice isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} />} />
-        <Route exact path="/GuestHistory" element={<GuestHistory isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} />} />
-        <Route exact path="/Reports" element={<HistoryReports isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} />} />
-        <Route exact path="/Laundry" element={<Laundry isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} />} />
-        <Route exact path="/CheckIn" element={<CheckIn isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} />} />
-        <Route exact path="/Checkout" element={<CheckOut isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} />} />
-        <Route exact path="/FandB" element={<FandB isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} />} />
-        <Route exact path="/Duluxe" element={<DuluxeRoomAvailability isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} initializeDatabase={initializeRoomAvDatabase}/>} />
-        <Route exact path="/Executive" element={<ExecutiveRoomAvailability isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} initializeDatabase={initializeRoomAvDatabase}/>} />
-        <Route path="*" element={<Navigate to="/Home" replace isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin}/>} />
+        <Route exact path="/Profile" element={<Profile isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails}/>} />
+        <Route exact path="/RoomAvailability" element={<RoomAvailability isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} initializeDatabase={initializeRoomAvDatabase} getLoggedInUserDetails={getLoggedInUserDetails}/>} />
+        <Route exact path="/Application" element={<Application isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
+        <Route exact path="/Notice" element={<Notice isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
+        <Route exact path="/GuestHistory" element={<GuestHistory isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
+        <Route exact path="/Reports" element={<HistoryReports isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
+        <Route exact path="/Laundry" element={<Laundry isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
+        <Route exact path="/CheckIn" element={<CheckIn isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
+        <Route exact path="/Checkout" element={<CheckOut isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
+        <Route exact path="/FandB" element={<FandB isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} getLoggedInUserDetails={getLoggedInUserDetails} />} />
+        <Route exact path="/Duluxe" element={<DuluxeRoomAvailability isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} initializeDatabase={initializeRoomAvDatabase} getLoggedInUserDetails={getLoggedInUserDetails}/>} />
+        <Route exact path="/Executive" element={<ExecutiveRoomAvailability isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin} initializeDatabase={initializeRoomAvDatabase} getLoggedInUserDetails={getLoggedInUserDetails}/>} />
+        <Route path="*" element={<Navigate to="/Home3" replace isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin}/>} />
         <Route path="/Team" element={<Team isAuthenticated={isAuthenticated} isUserAdmin={isUserAdmin}/>} />
       </Routes>
     </>

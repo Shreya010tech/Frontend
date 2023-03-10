@@ -54,6 +54,7 @@ const CheckOut = () => {
               <i className="bx bx-chevrons-left"></i>
             </NavLink>
             <h5 className="text-primary">Check Out</h5>
+            <h6 className="text-primary">Copy of Invoice</h6>
           </div>
         </div>
       </nav>
