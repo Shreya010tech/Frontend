@@ -54,7 +54,7 @@ const CheckOut = () => {
               <i className="bx bx-chevrons-left"></i>
             </NavLink>
           <div class="nav">
-            <h2 class="checkA">Check Out</h2><br><br>
+            <h2 class="checkA">Check Out</h2><br /><br />
             <div class="headingA">
               <h4>Copy Of Invoice</h4>
             </div>
@@ -71,60 +71,60 @@ const CheckOut = () => {
                         <option value="Mrs" name="guestname">Mrs.</option>
                         <option value="Miss" name="guestname">Miss</option>
                         <option value="Mr" name="guestname">Mr.</option>
-                        <input type="text" id="fullname" name="fullname"><br><br>
+                        <input type="text" id="fullname" name="fullname" required /><br /><br />
 
                         <label for="agent">Travel Agent</label>
-                        <input type="text" id="agent" name="agent">
+                        <input type="text" id="agent" name="agent" required />
 
                         <label for="phn">Phone Number</label>
-                        <input type="number" id="phn" name="phn"><br><br>
+                        <input type="number" id="phn" name="phn" required /><br /><br />
 
                         <label for="company">Company</label>
-                        <input type="text" id="company" name="company">
+                        <input type="text" id="company" name="company" required />
 
                         <label for="gstid">GST ID</label>
-                        <input type="number" id="gstid" name="gstid"><br><br>
+                        <input type="number" id="gstid" name="gstid" required /><br /><br />
 
                         <label for="billing">Billing</label>
-                        <input type="text" id="billing" name="billing"><br><br>
+                        <input type="text" id="billing" name="billing" required /><br /><br />
 
                         <label for="bill">Bill No.</label>
-                        <input type="text" id="bill" name="bill">
+                        <input type="text" id="bill" name="bill" required />
 
                         <label for="page">Page</label>
-                        <input type="text" id="page" name="page" value="1 Of 1"><br><br>
+                        <input type="text" id="page" name="page" value="1 Of 1" required /><br /><br />
 
                         <label for="confirmation">Confirmation No</label>
-                        <input type="text" id="confirmation" name="confirmation"><br><br>
+                        <input type="text" id="confirmation" name="confirmation" required /><br /><br />
 
                         <label for="billdate">Original Bill Date</label>
-                        <input type="text" id="billdate" name="billdate"><br><br>
+                        <input type="text" id="billdate" name="billdate" required /><br /><br />
                 </div>
                 <div class="columnA-b">
                     <label for="roomnumber">Room Number:</label>
-                    <input type="number" id="roomnumber" name="roomnumber"><br><br>
+                    <input type="number" id="roomnumber" name="roomnumber" required /><br /><br />
 
                     <label for="roomcount">No. of Rooms:</label>
-                    <input type="number" id="roomcount" name="roomcount"><br><br>
+                    <input type="number" id="roomcount" name="roomcount" required /><br /><br />
 
                     <label for="rate">Room Rate</label>
-                    <input type="number" id="rate" name="rate"><br><br>
+                    <input type="number" id="rate" name="rate" required /><br /><br />
 
                     <label for="guestno">Guests No</label>
-                    <input type="number" id="guestno" name="guestno"><br><br>
+                    <input type="number" id="guestno" name="guestno" required /><br /><br />
 
                     <label for="arrivaldate">Arrival Date:</label>
-                    <input type="date" id="arrivaldate" name="arrivaldate">
+                    <input type="date" id="arrivaldate" name="arrivaldate" required />
                     <label for="arrivaltime">at</label>
-                    <input type="time" id="arrivaltime" name="arrivaltime"><br><br>
+                    <input type="time" id="arrivaltime" name="arrivaltime" required /><br /><br />
 
                     <label for="departuredate">Departure Date:</label>
-                    <input type="date" id="departuredate" name="departuredate">
+                    <input type="date" id="departuredate" name="departuredate" required />
                     <label for="departuretime">at</label>
-                    <input type="time" id="c" name="departuretime"><br><br>
+                    <input type="time" id="c" name="departuretime" required /><br /><br />
 
                     <label for="registration">Registration No.</label>
-                    <input type="number" id="registration" name="registration">
+                    <input type="number" id="registration" name="registration" required />
                 </div>
             </form>
         </div>
