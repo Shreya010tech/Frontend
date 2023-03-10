@@ -11,6 +11,12 @@ body {
   font-size: 1.2rem;
   color: black!important;
 }
+.menu_btn
+{
+  position: absolute;
+  top: 0;
+  margin-top: 30px;
+}
 #iconcolor
 {
   color: #4763fd!important;

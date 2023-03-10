@@ -2,19 +2,20 @@ import React from "react";
 import homeimg from "../img/homeimg.png";
 import "../CustomCss/home3css.css";
 import { NavLink } from "react-router-dom";
+import menu_icon from "../img/menu_icon.png";
 const Home3 = () => {
   return (
     <div className="containerhome3" id="fixheight">
       <div className="left">
         <div>
           <button
-            className="btn btn-primary"
+            className="btn menu_btn"
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasWithBothOptions"
             aria-controls="offcanvasWithBothOptions"
           >
-            <i className="fa fa-align-right" aria-hidden="true"></i>
+            <img className="imgfix" src={menu_icon} />
           </button>
 
           <div
@@ -35,7 +36,7 @@ const Home3 = () => {
                   className="fa fa-angle-double-right"
                   aria-hidden="true"
                   style={{ color: "#4763FD" }}
-                ></i>{" "}
+                ></i>{" "}&nbsp;
                 Getting Started
               </h5>
               <button
@@ -55,35 +56,41 @@ const Home3 = () => {
                 &nbsp; Reservation
               </NavLink>
               <br />
+              <br />
               <NavLink to="/CheckIn" className="NavLinks">
                 <i id="iconcolor" class="fa fa-sign-in" aria-hidden="true"></i>
                 &nbsp; Check In
               </NavLink>
+              <br />
               <br />
               <NavLink to="/CheckOut" className="NavLinks">
                 <i id="iconcolor" class="fa fa-sign-in" aria-hidden="true"></i>
                 &nbsp; Check Out
               </NavLink>
               <br />
+              <br />
               <NavLink to="/RoomAvailability" className="NavLinks">
                 <i id="iconcolor" class="fa fa-bed" aria-hidden="true"></i>
                 &nbsp; Room Availability
               </NavLink>
+              <br />
               <br />
               <NavLink to="/Laundry" className="NavLinks">
                 <i id="iconcolor" class="fa fa-user" aria-hidden="true"></i>
                 &nbsp; House Keeping
               </NavLink>
               <br />
+              <br />
               {/* <NavLink to="/FandB" className="NavLinks">
                 <i id="iconcolor" class="fa fa-cutlery" aria-hidden="true"></i>
                 &nbsp; F & B Service
               </NavLink>
-              <br /> */}
+              <br /><br/> */}
               <NavLink to="/GuestHistory" className="NavLinks">
                 <i id="iconcolor" class="fa fa-book" aria-hidden="true"></i>
                 &nbsp; Guest History
               </NavLink>
+              <br />
               <br />
               <NavLink to="/Reports" className="NavLinks">
                 <i
@@ -94,10 +101,12 @@ const Home3 = () => {
                 &nbsp; Reports
               </NavLink>
               <br />
+              <br />
               <NavLink to="/Application" className="NavLinks">
                 <i id="iconcolor" class="fa fa-pencil" aria-hidden="true"></i>
                 &nbsp; Application
               </NavLink>
+              <br />
               <br />
               <NavLink to="/Notice" className="NavLinks">
                 <i
@@ -108,6 +117,7 @@ const Home3 = () => {
                 &nbsp; Notice
               </NavLink>
               <br />
+              <br />
               <NavLink to="/Profile" className="NavLinks">
                 <i
                   id="iconcolor"
@@ -117,10 +127,12 @@ const Home3 = () => {
                 &nbsp; Profile
               </NavLink>
               <br />
+              <br />
               <NavLink to="/Team" className="NavLinks">
                 <i id="iconcolor" class="fa fa-users" aria-hidden="true"></i>
                 &nbsp; Team
               </NavLink>
+              <br />
               <br />
             </div>
           </div>
@@ -133,8 +145,13 @@ const Home3 = () => {
           </h3>
         </div>
       </div>
-      <div className="right" style={{minHeight:"80vh"}}>
-        <img src={homeimg} alt="homeimg" style={{minHeight:"80vh"}} className="imgfix"/>
+      <div className="right" style={{ minHeight: "80vh" }}>
+        <img
+          src={homeimg}
+          alt="homeimg"
+          style={{ minHeight: "80vh" }}
+          className="imgfix"
+        />
       </div>
     </div>
   );
