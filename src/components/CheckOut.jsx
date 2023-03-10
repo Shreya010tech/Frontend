@@ -53,175 +53,153 @@ const CheckOut = () => {
             <NavLink className="text-primary" to="/Home3">
               <i className="bx bx-chevrons-left"></i>
             </NavLink>
-            <h5 className="text-primary">Check Out</h5>
-            <h6 className="text-primary">Copy of Invoice</h6>
+            <div class="nav">
+              <h2 class="checkA">Check Out</h2><br><br>
+            <div class="headingA">
+              <h4>Copy Of Invoice</h4>
+            </div>
+            </div>
           </div>
         </div>
       </nav>
-      <div className="containerA px-0" style={{ maxWidth: "100%" }} id="checkoutbody">
-        <div className="row1A">
-          <div className="lefta">
-            <form>
-              <div className="form-group">
-                <label>Guest Name:</label>
-                <input type="text" placeholder="Guest Name" required />
-              </div>
-              <div className="form-group">
-                <label>Travel Agent:</label>
-                <input type="text" placeholder="" required />
-              </div>
-              <div className="form-group">
-                <label>Company Name:</label>
-                <input type="text" placeholder="" required />
-              </div>
-              <div className="form-group">
-                <label>Mobile No:</label>
-                <input type="Text" placeholder="" required />
-              </div>
-              <div className="form-group">
-                <label>Billing:</label>
-                <input type="text" placeholder="" required />
-              </div>
-              <div className="form-group">
-                <label>GST ID:</label>
-                <input type="text" placeholder="" required />
-              </div>
-              <div className="form-group">
-                <label>Bill No:</label>
-                <input type="text" placeholder="" required />
-              </div>
-              <div className="form-group">
-                <label>Confirmation No:</label>
-                <input type="text" placeholder="" required />
-              </div>
+     <div class="rowA">
+            <form action="">
+                <div class="columnA-a">
+                    <label for="guestname">Guest Name:</label>
+                    <select id="guestname">
+                        <option value="Ms" name="guestname">Ms.</option>
+                        <option value="Mrs" name="guestname">Mrs.</option>
+                        <option value="Miss" name="guestname">Miss</option>
+                        <option value="Mr" name="guestname">Mr.</option>
+                        <input type="text" id="fullname" name="fullname"><br><br>
+
+                        <label for="agent">Travel Agent</label>
+                        <input type="text" id="agent" name="agent">
+
+                        <label for="phn">Phone Number</label>
+                        <input type="number" id="phn" name="phn"><br><br>
+
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company">
+
+                        <label for="gstid">GST ID</label>
+                        <input type="number" id="gstid" name="gstid"><br><br>
+
+                        <label for="billing">Billing</label>
+                        <input type="text" id="billing" name="billing"><br><br>
+
+                        <label for="bill">Bill No.</label>
+                        <input type="text" id="bill" name="bill">
+
+                        <label for="page">Page</label>
+                        <input type="text" id="page" name="page" value="1 Of 1"><br><br>
+
+                        <label for="confirmation">Confirmation No</label>
+                        <input type="text" id="confirmation" name="confirmation"><br><br>
+
+                        <label for="billdate">Original Bill Date</label>
+                        <input type="text" id="billdate" name="billdate"><br><br>
+                </div>
+                <div class="columnA-b">
+                    <label for="roomnumber">Room Number:</label>
+                    <input type="number" id="roomnumber" name="roomnumber"><br><br>
+
+                    <label for="roomcount">No. of Rooms:</label>
+                    <input type="number" id="roomcount" name="roomcount"><br><br>
+
+                    <label for="rate">Room Rate</label>
+                    <input type="number" id="rate" name="rate"><br><br>
+
+                    <label for="guestno">Guests No</label>
+                    <input type="number" id="guestno" name="guestno"><br><br>
+
+                    <label for="arrivaldate">Arrival Date:</label>
+                    <input type="date" id="arrivaldate" name="arrivaldate">
+                    <label for="arrivaltime">at</label>
+                    <input type="time" id="arrivaltime" name="arrivaltime"><br><br>
+
+                    <label for="departuredate">Departure Date:</label>
+                    <input type="date" id="departuredate" name="departuredate">
+                    <label for="departuretime">at</label>
+                    <input type="time" id="c" name="departuretime"><br><br>
+
+                    <label for="registration">Registration No.</label>
+                    <input type="number" id="registration" name="registration">
+                </div>
             </form>
-          </div>
-          <div className="righta">
-            <form>
-              <div className="form-group">
-                <label>Orginal Bill Date:</label>
-                <input type="Date" placeholder="" required />
-              </div>
-              <br/>
-              <div className="form-group">
-                <label>Room No:</label>
-                <input type="number" placeholder="" required />
-              </div>
-              <br/>
-              <div className="form-group">
-                <label>No of Rooms:</label>
-                <input type="number" placeholder="" required />
-              </div>
-              <br/>
-              <div className="form-group">
-                <label>Room Rate:</label>
-                <input type="number" placeholder="" required />
-              </div>
-              <br/>
-              <div className="form-group">
-                <label>No of Guest:</label>
-                <input type="number" placeholder="" required />
-              </div>
-              <br/>
-              <div className="form-group">
-                <label>Arrival Date:</label>
-                <input type="Date" placeholder="" required />
-                at
-                <input type="time" placeholder="" required />
-              </div>
-              <br/>
-              <div className="form-group">
-                <label>Departure Date:</label>
-                <input type="date" placeholder="" required />
-                at
-                <input type="time" placeholder="" required />
-              </div>
-              <br/>
-              <div className="form-group">
-                <label>Registration No:</label>
-                <input type="Number" placeholder="" required />
-              </div>
-              <br/>
-            </form>
-          </div>
         </div>
-        <br />
-        <div className="row2A">
-          <table className="tableA">
-            <tr bgcolor="#EDF8FD" align="center">
-              <th width="100">Date</th>
-              <th width="100">Description</th>
-              <th width="100">Reference</th>
-              <th width="100">Debit</th>
-              <th width="100">Credit</th>
-            </tr>
-            <tr bgcolor="white" align="center">
-              <th>Date</th>
-              <th>Accomodation ++</th>
-              <th>Room</th>
-              <th>Amount</th>
-              <th></th>
-            </tr>
-            <tr bgcolor="white" align="center">
-              <th>Date</th>
-              <th>Accomodations SGST @9%</th>
-              <th>Room</th>
-              <th>Amount</th>
-              <th></th>
-            </tr>
-            <tr bgcolor="white" align="center">
-              <th>Date</th>
-              <th>Accomodations CGST @9%</th>
-              <th>Room</th>
-              <th>Amount</th>
-              <th></th>
-            </tr>
-            <tr bgcolor="white" align="center">
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th>Amount</th>
-            </tr>
-            <tr bgcolor="#EDF8FD" align="center">
-              <th></th>
-              <th></th>
-              <th></th>
-              <th>Total</th>
-              <th>Amount</th>
-            </tr>
-          </table>
+
+
+        <table class="descA">
+            <div>
+                <tr>
+                    <hr style="border: 1.20468px solid #4763FD;
+        margin-left: 40px;
+        margin-right: 40px">
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Reference</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                </tr>
+            </div>
+
+        </table>
+        <hr style="border: 1.20468px solid #4763FD;
+        margin-left: 40px;
+        margin-right: 40px">
+
+        <table class="dataA">
+            <div>
+                <tr>
+                    <td>Date</td>
+                    <td>Accomodation++</td>
+                    <td>Room</td>
+                    <td>Amount</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>Date</td>
+                    <td>Accomodations SGST @9%</td>
+                    <td></td>
+                    <td>Amount</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>Date</td>
+                    <td>Accomodations CGST @9%</td>
+                    <td></td>
+                    <td>Amount</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Amount</td>
+                </tr>
+            </div>
+        </table>
+        <hr style="width:25%;text-align:right;margin-right:40px; border: 1.20468px solid #4763FD">
+        <div class="bg-columnA">
+            <p style="float: right; margin-right: 110px;">Amount</p>
+            <p style="float: right;  margin-right: 215px;">Total</p>
         </div>
-        <div className="row3A">
-          <div className="lefts">
-            <form>
-              <div className="form-group">
-                <label>Casher:</label>
-              </div>
-            </form>
-          </div>
-          <div className="rights">
-            <form>
-              <div className="form-group">
-                <label>Guest Signature:</label>
-              </div>
-            </form>
-          </div>
+        <div>
+            <div class="cash-signA">
+                <p style="float: left;">Cashier :</p>
+                <p style="float: right; margin-right: 350px">Guest's Signature :</p>
+
+            </div>
         </div>
-        <div className="row4A">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <label className="form-check-label" for="flexCheckDefault">
-              I agree that I am liable for the following statement.
-            </label>
-          </div>
+        <div class="agreeA">
+            <input type="checkbox" name="checkbox" id="checkbox">
+            <label for="checkbox">I agree that I am liable for the following statement .</label>
         </div>
-      </div>
     </div>
   );
 };
