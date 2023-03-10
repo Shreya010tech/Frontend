@@ -53,12 +53,12 @@ const CheckOut = () => {
             <NavLink className="text-primary" to="/Home3">
               <i className="bx bx-chevrons-left"></i>
             </NavLink>
-            <div class="nav">
-              <h2 class="checkA">Check Out</h2><br><br>
+          <div class="nav">
+            <h2 class="checkA">Check Out</h2><br><br>
             <div class="headingA">
               <h4>Copy Of Invoice</h4>
             </div>
-            </div>
+          </div>
           </div>
         </div>
       </nav>
