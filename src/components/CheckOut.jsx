@@ -102,38 +102,46 @@ const CheckOut = () => {
                 <label>Orginal Bill Date:</label>
                 <input type="Date" placeholder="" required />
               </div>
+              <br/>
               <div className="form-group">
                 <label>Room No:</label>
                 <input type="number" placeholder="" required />
               </div>
+              <br/>
               <div className="form-group">
                 <label>No of Rooms:</label>
                 <input type="number" placeholder="" required />
               </div>
+              <br/>
               <div className="form-group">
                 <label>Room Rate:</label>
                 <input type="number" placeholder="" required />
               </div>
+              <br/>
               <div className="form-group">
                 <label>No of Guest:</label>
                 <input type="number" placeholder="" required />
               </div>
+              <br/>
               <div className="form-group">
                 <label>Arrival Date:</label>
                 <input type="Date" placeholder="" required />
                 at
                 <input type="time" placeholder="" required />
               </div>
+              <br/>
               <div className="form-group">
                 <label>Departure Date:</label>
                 <input type="date" placeholder="" required />
                 at
                 <input type="time" placeholder="" required />
               </div>
+              <br/>
               <div className="form-group">
                 <label>Registration No:</label>
                 <input type="Number" placeholder="" required />
               </div>
+              <br/>
             </form>
           </div>
         </div>
