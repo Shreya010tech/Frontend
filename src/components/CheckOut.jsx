@@ -197,7 +197,7 @@ const CheckOut = () => {
             </div>
         </div>
         <div class="agreeA">
-            <input type="checkbox" name="checkbox" id="checkbox">
+            <input type="checkbox" name="checkbox" id="checkbox" required />
             <label for="checkbox">I agree that I am liable for the following statement .</label>
         </div>
     </div>
