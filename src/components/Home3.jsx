@@ -155,6 +155,11 @@ const Home3 = () => {
               </NavLink>
               <br />
               <br />
+              <NavLink to="/Home" className="NavLinks" onClick={LogoutAction}>
+                <i id="iconcolor" class="fa fa-sign-out" aria-hidden="true"></i>
+                &nbsp; Logout
+              </NavLink>
+              <br/><br/>
             </div>
           </div>
           <h1>
@@ -173,6 +178,8 @@ const Home3 = () => {
           style={{ minHeight: "80vh" }}
           className="imgfix"
         />
+        <br/>
+        <NavLink to="/Team" className="NavLinks">Our Team</NavLink>
       </div>
     </div>
   );

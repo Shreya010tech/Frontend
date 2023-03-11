@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Localbase from "localbase";
 let db = new Localbase("hmctdb");
 db.config.debug = false;
@@ -96,7 +96,7 @@ const RoomAvailability = ({initializeDatabase}) => {
   
   return (
     <>
-    <nav className="navbar sticky-top navbar navbar-expand-lg">
+      <nav className="navbar sticky-top navbar navbar-expand-lg">
         <div className="container-fluid">
           <div className="navbar-brand d-flex align-items-center">
             <NavLink className="text-primary" to="/Home3">
@@ -106,31 +106,31 @@ const RoomAvailability = ({initializeDatabase}) => {
           </div>
         </div>
       </nav>
-    <div className="container">
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <center>
-            <div className="navbar-nav">
-              <NavLink
-                className="nav-link active text-primary"
-                aria-current="page"
-                to="/RoomAvailability"
-              >
-                <u>Standard</u>
-              </NavLink>
-              <NavLink className="nav-link text-primary" to="/Duluxe">
-                Duluxe
-              </NavLink>
-              <NavLink className="nav-link text-primary" to="/Executive">
-                Executive
-              </NavLink>
-            </div>
-          </center>
-        </div>
-      </nav>
-      <div className="image-slider">
-        {/* Rooms icons */}
-        <div className="row">
+      <div className="container">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+          <div className="container-fluid">
+            <center>
+              <div className="navbar-nav">
+                <NavLink
+                  className="nav-link active text-primary"
+                  aria-current="page"
+                  to="/RoomAvailability"
+                >
+                  <u>Standard</u>
+                </NavLink>
+                <NavLink className="nav-link text-primary" to="/Duluxe">
+                  Duluxe
+                </NavLink>
+                <NavLink className="nav-link text-primary" to="/Executive">
+                  Executive
+                </NavLink>
+              </div>
+            </center>
+          </div>
+        </nav>
+        <div className="image-slider">
+          {/* Rooms icons */}
+          {/* <div className="row">
           {roomDataPart1 && Object.entries(roomDataPart1).map(([roomno, roomav]) => {
             return <div key={roomno} className="col-sm">
               <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
@@ -138,46 +138,138 @@ const RoomAvailability = ({initializeDatabase}) => {
               </div>
             </div>
           })}
-        </div>
+        </div> */}
+          <div className="row">
+            {roomDataPart1 &&
+              Object.entries(roomDataPart1).map(([roomno, roomav]) => {
+                const isRoomAvailable = roomav.av === "1";
+                return (
+                  <div key={roomno} className="col-sm">
+                    <div
+                      className={`${
+                        roomav.av == "0" ? "roomcircleyellow" : ""
+                      } ${roomav.av == "1" ? "roomcirclegreen" : ""} ${
+                        roomav.av == "2" ? "roomcirclered" : ""
+                      }`}
+                      onClick={() => {
+                        if (isRoomAvailable) {
+                          window.location.href = `/Reservation?roomtype=Standard&roomnumber=${roomno}`;
+                        }
+                      }}
+                    >
+                      {roomno}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
 
-        <div className="row">
-          {roomDataPart2 && Object.entries(roomDataPart2).map(([roomno, roomav]) => {
-            return <div key={roomno} className="col-sm">
-              <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
-                {roomno}
-              </div>
-            </div>
-          })}
-        </div>
+          {/* <div className="row">
+            {roomDataPart2 &&
+              Object.entries(roomDataPart2).map(([roomno, roomav]) => {
+                return (
+                  <div key={roomno} className="col-sm">
+                    <div
+                      className={`${
+                        roomav.av == "0" ? "roomcircleyellow" : ""
+                      } ${roomav.av == "1" ? "roomcirclegreen" : ""} ${
+                        roomav.av == "2" ? "roomcirclered" : ""
+                      }`}
+                    >
+                      {roomno}
+                    </div>
+                  </div>
+                );
+              })}
+          </div> */}
 
-        <div className="row">
-          {roomDataPart3 && Object.entries(roomDataPart3).map(([roomno, roomav]) => {
-            return <div key={roomno} className="col-sm">
-              <div className={`${roomav.av == '0' ? 'roomcircleyellow' : ''} ${roomav.av == '1' ? 'roomcirclegreen' : ''} ${roomav.av == '2' ? 'roomcirclered' : ''}`} >
-                {roomno}
-              </div>
-            </div>
-          })}
+          <div className="row">
+            {roomDataPart2 &&
+              Object.entries(roomDataPart2).map(([roomno, roomav]) => {
+                const isRoomAvailable = roomav.av === "1";
+                return (
+                  <div key={roomno} className="col-sm">
+                    <div
+                      className={`${
+                        roomav.av == "0" ? "roomcircleyellow" : ""
+                      } ${roomav.av == "1" ? "roomcirclegreen" : ""} ${
+                        roomav.av == "2" ? "roomcirclered" : ""
+                      }`}
+                      onClick={() => {
+                        if (isRoomAvailable) {
+                          window.location.href = `/Reservation?roomtype=Standard&roomnumber=${roomno}`;
+                        }
+                      }}
+                    >
+                      {roomno}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          {/* <div className="row">
+            {roomDataPart3 &&
+              Object.entries(roomDataPart3).map(([roomno, roomav]) => {
+                return (
+                  <div key={roomno} className="col-sm">
+                    <div
+                      className={`${
+                        roomav.av == "0" ? "roomcircleyellow" : ""
+                      } ${roomav.av == "1" ? "roomcirclegreen" : ""} ${
+                        roomav.av == "2" ? "roomcirclered" : ""
+                      }`}
+                    >
+                      {roomno}
+                    </div>
+                  </div>
+                );
+              })}
+          </div> */}
+
+          <div className="row">
+            {roomDataPart3 &&
+              Object.entries(roomDataPart3).map(([roomno, roomav]) => {
+                const isRoomAvailable = roomav.av === "1";
+                return (
+                  <div key={roomno} className="col-sm">
+                    <div
+                      className={`${
+                        roomav.av == "0" ? "roomcircleyellow" : ""
+                      } ${roomav.av == "1" ? "roomcirclegreen" : ""} ${
+                        roomav.av == "2" ? "roomcirclered" : ""
+                      }`}
+                      onClick={() => {
+                        if (isRoomAvailable) {
+                          window.location.href = `/Reservation?roomtype=Standard&roomnumber=${roomno}`;
+                        }
+                      }}
+                    >
+                      {roomno}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         </div>
+        <br />
+        <center>
+          <div className="row">
+            <div className="col-sm">
+              <div className="roomcirclered keyvar"></div>
+              <b>Dirty</b>
+            </div>
+            <div className="col-sm">
+              <div className="roomcircleyellow keyvar"></div>
+              <b>Occupied</b>
+            </div>
+            <div className="col-sm">
+              <div className="roomcirclegreen keyvar"></div>
+              <b>Available</b>
+            </div>
+          </div>
+        </center>
       </div>
-      <br />
-      <center>
-        <div className="row">
-          <div className="col-sm">
-            <div className="roomcirclered keyvar"></div>
-            <b>Dirty</b>
-          </div>
-          <div className="col-sm">
-            <div className="roomcircleyellow keyvar"></div>
-            <b>Occupied</b>
-          </div>
-          <div className="col-sm">
-            <div className="roomcirclegreen keyvar"></div>
-            <b>Available</b>
-          </div>
-        </div>
-      </center>
-    </div>
     </>
   );
 };
