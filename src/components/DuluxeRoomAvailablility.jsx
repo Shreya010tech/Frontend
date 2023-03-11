@@ -159,7 +159,7 @@ const DuluxeRoomAvailability = ({ initializeDatabase }) => {
                       }`}
                       onClick={() => {
                         if (isRoomAvailable) {
-                          window.location.href = `/Reservation?roomtype=Duluxe&roomnumber=${roomno}`;
+                          window.location.href = `/Reservation?roomtype=Delux&roomnumber=${roomno}`;
                         }
                       }}
                     >
@@ -203,7 +203,7 @@ const DuluxeRoomAvailability = ({ initializeDatabase }) => {
                       }`}
                       onClick={() => {
                         if (isRoomAvailable) {
-                          window.location.href = `/Reservation?roomtype=Duluxe&roomnumber=${roomno}`;
+                          window.location.href = `/Reservation?roomtype=Delux&roomnumber=${roomno}`;
                         }
                       }}
                     >
@@ -247,7 +247,7 @@ const DuluxeRoomAvailability = ({ initializeDatabase }) => {
                       }`}
                       onClick={() => {
                         if (isRoomAvailable) {
-                          window.location.href = `/Reservation?roomtype=Duluxe&roomnumber=${roomno}`;
+                          window.location.href = `/Reservation?roomtype=Delux&roomnumber=${roomno}`;
                         }
                       }}
                     >
