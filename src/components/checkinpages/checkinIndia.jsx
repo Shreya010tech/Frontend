@@ -32,7 +32,7 @@ const India = () => {
               </div>
       </div>
       <div className="col-md-6 d-flex align-items-center rev-margin-gap">
-        <label for="formFile" class="form-label col-sm-8 col-form-label">Guest photo upload</label>
+        <label for="formFile" class="form-label col-sm-8 col-form-label">Guest Aadhar photo upload</label>
         <input class="form-control height-30" type="file" id="formFile"/>
       </div>
       </div>

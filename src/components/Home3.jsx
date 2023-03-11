@@ -3,7 +3,28 @@ import homeimg from "../img/homeimg.png";
 import "../CustomCss/home3css.css";
 import { NavLink } from "react-router-dom";
 import menu_icon from "../img/menu_icon.png";
+import Cookies from "js-cookie";
+
 const Home3 = () => {
+
+  // Check :  Logout from App
+  // params : none
+  // return :   1.  {success:true} + Remove Cookie('isLoggedIn','name','username','role')     IF LOGOUT ACTION DONE
+  //            2.  {success:false, msg: 'Something Went Wrong!'}                             IF SERVER Error
+  const LogoutAction = () => {
+    try {
+      if (Cookies.get("isLoggedIn")) {  Cookies.remove("isLoggedIn"); }
+      if (Cookies.get("name")) {  Cookies.remove("name"); }
+      if (Cookies.get("username")) {  Cookies.remove("username"); }
+      if (Cookies.get("role")) {  Cookies.remove("role"); }
+      return { success: true };
+    } catch (e) {
+      console.log("DashboardError (logoutAction) : ", e);
+      return { success: false, msg: "Something Went Wrong" };
+    }
+  };
+
+
   return (
     <div className="containerhome3" id="fixheight">
       <div className="left">
