@@ -171,9 +171,9 @@ const CheckOut = () => {
                     <input type="number" id="registration" name="registration" required />
                 </div>
             </form>
-        </div>
+      </div>
 
-        <table class="descA">
+      <table class="descA">
             <div>
                 <tr>
                     <hr style="border: 1.20468px solid #4763FD;
@@ -186,12 +186,12 @@ const CheckOut = () => {
                     <th>Credit</th>
                 </tr>
             </div>
-        </table>
-        <hr style="border: 1.20468px solid #4763FD;
-            margin-left: 40px;
-            margin-right: 40px" />
+      </table>
+      <hr style="border: 1.20468px solid #4763FD;
+          margin-left: 40px;
+          margin-right: 40px" />
 
-        <table class="dataA">
+      <table class="dataA">
             <div>
                 <tr>
                     <td>Date</td>
@@ -225,24 +225,24 @@ const CheckOut = () => {
                     <td>Amount</td>
                 </tr>
             </div>
-        </table>
-        <hr style="width:25%;text-align:right;margin-right:40px; border: 1.20468px solid #4763FD" />
-        <div class="bg-columnA">
+      </table>
+      <hr style="width:25%;text-align:right;margin-right:40px; border: 1.20468px solid #4763FD" />
+      <div class="bg-columnA">
             <p style="float: right; margin-right: 110px;">Amount</p>
             <p style="float: right;  margin-right: 215px;">Total</p>
-        </div>
-        <div>
-            <div class="cash-signA">
-                <p style="float: left;">Cashier :</p>
-                <p style="float: right; margin-right: 350px">Guest's Signature :</p>
-            </div>
-        </div>
-        <div class="agreeA">
+      </div>
+      <div>
+          <div class="cash-signA">
+              <p style="float: left;">Cashier :</p>
+              <p style="float: right; margin-right: 350px">Guest's Signature :</p>
+          </div>
+      </div>
+      <div class="agreeA">
             <input type="checkbox" name="checkbox" id="checkbox" required />
             <label for="checkbox">
                 I agree that I am liable for the following statement .
             </label>
-        </div>
+      </div>
     </div>
   );
 };
